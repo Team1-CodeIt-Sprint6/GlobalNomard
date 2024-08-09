@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import MyReservationCard from '@/components/common/ActivityCard/MyReservationCard';
 import SortDropDown from '@/components/common/Dropdown/SortDropdown';
+import { Modal } from '@/components/common/Modal';
+import useModal from '@/hooks/useModal';
 import instance from '@/lib/apis/axios';
 import { MyReservation } from '@/types/get/reservationTypes';
 
@@ -12,6 +14,9 @@ const ReservationList = () => {
   const [error, setError] = useState<string | null>(null);
   const [isFirstFetch, setIsFirstFetch] = useState(true);
   const [status, setStatus] = useState<string | null>(null);
+
+  // const { isOpen, closeModal, openModal, message, modalType } = useModal();
+  const { modalProps, openModal } = useModal();
 
   const fetchReservations = async (reset: boolean = false) => {
     setLoading(true);
@@ -70,6 +75,17 @@ const ReservationList = () => {
     fetchReservations(true);
   };
 
+  const handleCancelReservation = (reservationId: number) => {
+    // 예약 취소 로직
+  };
+
+  const handleCancelClick = (reservationId: number) => {
+    openModal('confirm', '예약을 취소하시겠습니까?', {
+      onConfirm: () => handleCancelReservation(reservationId),
+      onCancel: () => {},
+    });
+  };
+
   useEffect(() => {
     fetchReservations();
   }, [status]);
@@ -103,11 +119,12 @@ const ReservationList = () => {
             key={reservation.id}
             reservation={reservation}
             onReviewClick={() => {}}
-            onCancelClick={() => {}}
+            onCancelClick={() => handleCancelClick(reservation.id)}
           />
         ))}
       </div>
       {loading && <div>Loading more...</div>}
+      <Modal {...modalProps} />
     </div>
   );
 };
