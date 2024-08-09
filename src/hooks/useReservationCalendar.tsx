@@ -9,7 +9,7 @@ import {
 } from '@/state/reservationDashboardAtom';
 
 export default function useReservationCalendar() {
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
   const [value, setValue] = useState<CalendarProps['value']>(new Date());
   const [, setQueryParamsState] = useAtom(reservationDashboardQueryParamsAtom);
   const [calendarChip] = useAtom(calendarChipAtom);
@@ -35,9 +35,10 @@ export default function useReservationCalendar() {
   // 이전달 다음달 현재달 클래스 전달하는 함수
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
-      if (date.getMonth() < currentMonth) {
+      const tileMonth = date.getMonth() + 1;
+      if (tileMonth < currentMonth) {
         return 'previous-month'; // 이전 달
-      } else if (date.getMonth() > currentMonth) {
+      } else if (tileMonth > currentMonth) {
         return 'next-month'; // 다음 달
       }
     }
