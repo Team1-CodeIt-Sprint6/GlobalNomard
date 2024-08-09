@@ -11,17 +11,23 @@ const ReservationList = () => {
   const [nextCursorId, setNextCursorId] = useState(null);
   const [error, setError] = useState<string | null>(null);
   const [isFirstFetch, setIsFirstFetch] = useState(true);
+  const [status, setStatus] = useState<string | null>(null);
 
-  const fetchReservations = async () => {
+  const fetchReservations = async (reset: boolean = false) => {
     setLoading(true);
     try {
-      const url = nextCursorId
-        ? `/my-reservations?cursorId=${nextCursorId}&size=10`
-        : `/my-reservations?size=10`;
+      let url = `/my-reservations?size=10`;
+      if (nextCursorId && !reset) {
+        url += `&cursorId=${nextCursorId}`;
+      }
+      if (status) {
+        url += `&status=${status}`;
+      }
+
       const { data } = await instance.get(url);
 
       setReservations((prevReservations) =>
-        isFirstFetch
+        isFirstFetch || reset
           ? data.reservations
           : [...prevReservations, ...data.reservations],
       );
@@ -49,11 +55,24 @@ const ReservationList = () => {
     fetchReservations();
   }, [loading, nextCursorId, fetchReservations]);
 
-  const handleFilterSelect = (option: string) => {};
+  const handleFilterSelect = (option: string) => {
+    const statusMapping: { [key: string]: string } = {
+      '예약 신청': 'pending',
+      '예약 취소': 'canceled',
+      '예약 승인': 'confirmed',
+      '예약 거절': 'declined',
+      '체험 완료': 'completed',
+    };
+    const selectedStatus = statusMapping[option] || null;
+    setStatus(selectedStatus);
+    setNextCursorId(null);
+    setIsFirstFetch(true);
+    fetchReservations(true);
+  };
 
   useEffect(() => {
     fetchReservations();
-  }, []);
+  }, [status]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -64,7 +83,7 @@ const ReservationList = () => {
 
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="mb-4 flex h-[53px] w-[344px] items-center justify-between pc:w-[792px] tablet:w-[429px]">
         <h1 className="font-kv-bold kv-text-3xl">예약 내역</h1>
         <SortDropDown
           label="필터"
