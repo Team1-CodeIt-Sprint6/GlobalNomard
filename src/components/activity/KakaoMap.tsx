@@ -1,23 +1,42 @@
+import { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
-export default function KakaoMap() {
+import { geocodeAddress } from '@/lib/apis/getApis';
+
+interface KakaoMapProps {
+  address: string;
+}
+
+// 기본 위치
+const defaultPosition = { lat: 33.5563, lng: 126.79581 };
+
+export default function KakaoMap({ address }: KakaoMapProps) {
+  const [position, setPosition] = useState(defaultPosition);
+
+  useEffect(() => {
+    async function updatePosition() {
+      const coordinates = await geocodeAddress(address);
+
+      if (coordinates) {
+        setPosition(coordinates);
+      }
+    }
+
+    updatePosition();
+  }, [address]);
+
   return (
-    <>
-      <Map
-        center={{ lat: 33.5563, lng: 126.79581 }}
-        style={{ width: '100%', height: '360px' }}
-      >
-        <MapMarker
-          position={{ lat: 33.55635, lng: 126.795841 }}
-          image={{
-            src: '/assets/icons/icon_symbol.svg',
-            size: {
-              width: 65,
-              height: 65,
-            },
-          }}
-        ></MapMarker>
-      </Map>
-    </>
+    <Map center={position} className="w-ful mb-2 h-[360px] rounded-2xl">
+      <MapMarker
+        position={position}
+        image={{
+          src: '/assets/icons/icon_symbol.svg',
+          size: {
+            width: 60,
+            height: 60,
+          },
+        }}
+      ></MapMarker>
+    </Map>
   );
 }

@@ -52,7 +52,8 @@ export default function ActivityPage() {
             <p>{activityData.description}</p>
           </div>
           <div className="top-line">
-            <KakaoMap />
+            <KakaoMap address={activityData.address} />
+            <Location activityData={activityData} />
           </div>
           <div className="top-line">
             <div className="h-96 bg-slate-50">{/* TODO 후기 컴포넌트 */}</div>
