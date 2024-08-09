@@ -1,9 +1,18 @@
+import { useAtom } from 'jotai';
 import { ReactNode, useEffect, useState } from 'react';
 import { CalendarProps, TileArgs } from 'react-calendar';
+
+import { formatDateToYMD } from '@/lib/utils/formatDate';
+import {
+  calendarChipAtom,
+  reservationDashboardQueryParamsAtom,
+} from '@/state/reservationDashboardAtom';
 
 export default function useReservationCalendar() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [value, setValue] = useState<CalendarProps['value']>(new Date());
+  const [, setCalendarState] = useAtom(reservationDashboardQueryParamsAtom);
+  const [calendarChip] = useAtom(calendarChipAtom);
 
   const onDateChange: CalendarProps['onChange'] = (nextValue) => {
     setValue(nextValue);
@@ -14,6 +23,11 @@ export default function useReservationCalendar() {
   }) => {
     if (activeStartDate instanceof Date) {
       setCurrentMonth(activeStartDate.getMonth());
+      setCalendarState((prev) => ({
+        ...prev,
+        month: activeStartDate?.getMonth().toString().padStart(2, '0'),
+        year: activeStartDate?.getFullYear().toString(),
+      }));
     }
   };
 
@@ -21,7 +35,7 @@ export default function useReservationCalendar() {
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
       if (date.getMonth() < currentMonth) {
-        return 'previus-month'; // 이전 달
+        return 'previous-month'; // 이전 달
       } else if (date.getMonth() > currentMonth) {
         return 'next-month'; // 다음 달
       }
@@ -37,20 +51,30 @@ export default function useReservationCalendar() {
   }, [value]);
 
   // 칩 랜더링
-  const tileContent = ({ view }: TileArgs): ReactNode => {
-    if (view === 'month') {
-      // 월별 보기일 때, 날짜의 숫자만 반환
-      // console.log(date.getDate()); // 모든 날짜를 순회함 조건부 리턴만 해주면 요소 추가 가능
-      return (
-        <div className="chip-container">
-          <div className="reservation-chip complete-chip">완료 {10}</div>
-          <div className="reservation-chip reserve-chip">예약 {5}</div>
-          <div className="reservation-chip approve-chip">승인 {8}</div>
-          <div className="color-dot bg-kv-primary-blue" />
-        </div>
-      );
-    }
-    return null;
+  const tileContent = ({ date, view }: TileArgs): ReactNode => {
+    if (view !== 'month') return null;
+
+    const formattedDate = formatDateToYMD(date);
+    const chipData = calendarChip.find((chip) => chip.date === formattedDate);
+
+    if (!chipData) return null;
+
+    const { completed, confirmed, pending } = chipData.reservations;
+
+    return (
+      <div className="chip-container">
+        {completed !== 0 && (
+          <div className="reservation-chip complete-chip">완료 {completed}</div>
+        )}
+        {confirmed !== 0 && (
+          <div className="reservation-chip reserve-chip">예약 {confirmed}</div>
+        )}
+        {pending !== 0 && (
+          <div className="reservation-chip approve-chip">승인 {pending}</div>
+        )}
+        <div className="color-dot bg-kv-primary-blue" />
+      </div>
+    );
   };
 
   return {

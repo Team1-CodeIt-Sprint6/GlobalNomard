@@ -7,9 +7,8 @@ import useReservationDashboardData from '@/hooks/useReservationDashboardData';
 
 export default function ReservationDashboard() {
   const dropdown = useDropdown('');
-  const { availableValues } = useReservationDashboardData();
-  const { value, tileContent, tileClassName, onDateChange, onMonthChange } =
-    useReservationCalendar();
+  const calendar = useReservationCalendar();
+  const { availableActivities } = useReservationDashboardData();
 
   return (
     <div className="flex min-w-[342px] flex-col">
@@ -20,7 +19,7 @@ export default function ReservationDashboard() {
         <ReservationDashboardDropdown
           label="체험명"
           value={dropdown.value}
-          availableValues={availableValues}
+          availableValues={availableActivities}
           placeholder="체험명을 선택해주세요"
           isOpen={dropdown.isOpen}
           onClickButton={dropdown.onClickButton}
@@ -31,12 +30,12 @@ export default function ReservationDashboard() {
       <div className="h-[872px]">
         <Calendar
           calendarType="gregory"
-          tileContent={tileContent}
-          tileClassName={tileClassName}
+          tileContent={calendar.tileContent}
+          tileClassName={calendar.tileClassName}
           formatDay={(_, date) => date.getDate().toString()}
-          onChange={onDateChange}
-          onActiveStartDateChange={onMonthChange}
-          value={value}
+          onChange={calendar.onDateChange}
+          onActiveStartDateChange={calendar.onMonthChange}
+          value={calendar.value}
           minDetail={'month'}
           className="custom-calendar"
         />
