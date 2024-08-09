@@ -11,7 +11,7 @@ import {
 export default function useReservationCalendar() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [value, setValue] = useState<CalendarProps['value']>(new Date());
-  const [, setCalendarState] = useAtom(reservationDashboardQueryParamsAtom);
+  const [, setQueryParamsState] = useAtom(reservationDashboardQueryParamsAtom);
   const [calendarChip] = useAtom(calendarChipAtom);
 
   const onDateChange: CalendarProps['onChange'] = (nextValue) => {
@@ -22,10 +22,11 @@ export default function useReservationCalendar() {
     activeStartDate,
   }) => {
     if (activeStartDate instanceof Date) {
-      setCurrentMonth(activeStartDate.getMonth());
-      setCalendarState((prev) => ({
+      setCurrentMonth(activeStartDate.getMonth() + 1);
+      const month = activeStartDate?.getMonth() + 1;
+      setQueryParamsState((prev) => ({
         ...prev,
-        month: activeStartDate?.getMonth().toString().padStart(2, '0'),
+        month: month.toString().padStart(2, '0'),
         year: activeStartDate?.getFullYear().toString(),
       }));
     }
@@ -42,13 +43,6 @@ export default function useReservationCalendar() {
     }
     return 'text-kv-gray-700'; // 현재 달
   };
-
-  // month 네비게이션으로 month 전환 시
-  useEffect(() => {
-    if (value instanceof Date) {
-      setCurrentMonth(value.getMonth());
-    }
-  }, [value]);
 
   // 칩 랜더링
   const tileContent = ({ date, view }: TileArgs): ReactNode => {
