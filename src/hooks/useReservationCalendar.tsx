@@ -55,7 +55,6 @@ export default function useReservationCalendar() {
     if (!chipData) return null;
 
     const { completed, confirmed, pending } = chipData.reservations;
-
     return (
       <div className="chip-container">
         {completed !== 0 && (
@@ -67,7 +66,9 @@ export default function useReservationCalendar() {
         {pending !== 0 && (
           <div className="reservation-chip approve-chip">승인 {pending}</div>
         )}
-        <div className="color-dot bg-kv-primary-blue" />
+        <div
+          className={`color-dot ${completed === 0 ? 'bg-kv-primary-blue' : 'bg-kv-gray-900'}`}
+        />
       </div>
     );
   };
