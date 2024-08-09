@@ -409,6 +409,41 @@
   .activity-h3 {
     @apply mb-5 text-kv-xl font-kv-bold;
   }
+
+  /* Swiper 슬라이드 */
+  .swiper-slide {
+    @apply absolute transition-all;
+  }
+
+  .swiper-container {
+    @apply relative -ml-4 -mr-4 h-[310px] bg-kv-black;
+  }
+
+  .swiper-container .swiper {
+    @apply absolute w-full;
+  }
+
+  .swiper-container .swiper-button-next,
+  .swiper-container .swiper-button-prev {
+    @apply absolute left-2 rounded bg-kv-black;
+  }
+
+  .swiper-container .swiper-button-next:after,
+  .swiper-container .swiper-button-prev:after {
+    @apply text-kv-md font-kv-bold text-white;
+  }
+
+  .swiper-container .swiper-button-next {
+    @apply left-auto right-2;
+  }
+
+  .sub-image-container.custom-grid {
+    @apply grid-cols-2 grid-rows-2;
+  }
+
+  .sub-image-container.custom-grid.custom-grid .sub-image-wrapper:nth-child(3) {
+    @apply col-span-2 row-span-2;
+  }
 }
 /* 체험 카드 */
 @layer components {
