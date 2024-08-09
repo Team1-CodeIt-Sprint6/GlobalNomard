@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 
 import CustomKebab from '@/components/activity/CustomKebab';
 import ImageGallery from '@/components/activity/ImageGallery';
+import KakaoMap from '@/components/activity/KakaoMap';
 import Location from '@/components/activity/Location';
 import { ReviewRating } from '@/components/activity/Review';
 import useFetchData from '@/hooks/useFetchData';
@@ -51,7 +52,7 @@ export default function ActivityPage() {
             <p>{activityData.description}</p>
           </div>
           <div className="top-line">
-            <div className="h-96 bg-slate-50">{/* TODO 지도 컴포넌트 */}</div>
+            <KakaoMap />
           </div>
           <div className="top-line">
             <div className="h-96 bg-slate-50">{/* TODO 후기 컴포넌트 */}</div>
