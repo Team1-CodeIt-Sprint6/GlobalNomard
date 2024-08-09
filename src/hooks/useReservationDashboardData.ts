@@ -46,16 +46,17 @@ const useReservationDashboardData = () => {
   }, [myActivitiesData]);
 
   // GET 칩 데이터
-  const { data: reservationDashboardData, refetch: refetchReservationData } =
-    useFetchData<ReservationDashboardResponse[]>(
-      ['reservationDashboard', activityId, year, month],
-      () => getReservationDashboard(activityId, year, month),
-      {
-        enabled: !!activityId,
-        staleTime: 0,
-        cacheTime: 0,
-      },
-    );
+  const { data: reservationDashboardData } = useFetchData<
+    ReservationDashboardResponse[]
+  >(
+    ['reservationDashboard', activityId, year, month],
+    () => getReservationDashboard(activityId, year, month),
+    {
+      enabled: !!activityId,
+      staleTime: 0,
+      cacheTime: 0,
+    },
+  );
 
   // 칩 데이터 업데이트
   useEffect(() => {
