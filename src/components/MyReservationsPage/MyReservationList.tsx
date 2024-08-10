@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import MyReservationCard from '@/components/common/ActivityCard/MyReservationCard';
@@ -71,6 +72,7 @@ const ReservationList = () => {
     setStatus(selectedStatus);
     setNextCursorId(null);
     setIsFirstFetch(true);
+
     fetchReservations(true);
   };
 
@@ -119,16 +121,29 @@ const ReservationList = () => {
           onSelect={handleFilterSelect}
         />
       </div>
-      <div>
-        {reservations.map((reservation) => (
-          <MyReservationCard
-            key={reservation.id}
-            reservation={reservation}
-            onReviewClick={() => {}}
-            onCancelClick={() => handleCancelClick(reservation.id)}
+      {reservations.length === 0 && !loading ? (
+        <div className="mt-20 flex flex-col items-center justify-center">
+          <Image
+            src="/assets/images/empty_img.png"
+            alt="빈 상태 이미지"
+            width={160}
+            height={160}
+            className="mb-4"
           />
-        ))}
-      </div>
+          <p className="text-gray-500">아직 체험이 없어요</p>
+        </div>
+      ) : (
+        <div>
+          {reservations.map((reservation) => (
+            <MyReservationCard
+              key={reservation.id}
+              reservation={reservation}
+              onReviewClick={() => {}}
+              onCancelClick={() => handleCancelClick(reservation.id)}
+            />
+          ))}
+        </div>
+      )}
       {loading && <div>Loading more...</div>}
       <Modal {...modalProps} />
     </div>
