@@ -15,7 +15,6 @@ const ReservationList = () => {
   const [isFirstFetch, setIsFirstFetch] = useState(true);
   const [status, setStatus] = useState<string | null>(null);
 
-  // const { isOpen, closeModal, openModal, message, modalType } = useModal();
   const { modalProps, openModal } = useModal();
 
   const fetchReservations = async (reset: boolean = false) => {
@@ -75,14 +74,21 @@ const ReservationList = () => {
     fetchReservations(true);
   };
 
-  const handleCancelReservation = (reservationId: number) => {
-    // 예약 취소 로직
+  const handleCancelReservation = async (reservationId: number) => {
+    try {
+      const url = `/my-reservations/${reservationId}`;
+      const response = await instance.patch(url, { status: 'canceled' });
+
+      await fetchReservations(true);
+    } catch (error) {
+      console.error(`예약 ${reservationId} 취소 중 오류 발생:`, error);
+      setError('예약 취소 중 오류가 발생했습니다.');
+    }
   };
 
   const handleCancelClick = (reservationId: number) => {
     openModal('confirm', '예약을 취소하시겠습니까?', {
       onConfirm: () => handleCancelReservation(reservationId),
-      onCancel: () => {},
     });
   };
 
