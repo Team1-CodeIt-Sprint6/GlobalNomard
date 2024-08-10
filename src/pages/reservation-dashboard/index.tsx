@@ -29,6 +29,7 @@ export default function ReservationDashboard() {
       </div>
       <div className="h-[872px]">
         <Calendar
+          locale="ko-KR"
           calendarType="gregory"
           tileContent={calendar.tileContent}
           tileClassName={calendar.tileClassName}
