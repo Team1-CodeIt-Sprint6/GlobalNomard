@@ -18,36 +18,37 @@ const ReservationList = () => {
 
   const { modalProps, openModal } = useModal();
 
-  const fetchReservations = async (reset: boolean = false) => {
-    setLoading(true);
-    try {
-      let url = `/my-reservations?size=10`;
-      if (nextCursorId && !reset) {
-        url += `&cursorId=${nextCursorId}`;
+  const fetchReservations = useCallback(
+    async (reset: boolean = false) => {
+      setLoading(true);
+      try {
+        let url = `/my-reservations?size=10`;
+        if (nextCursorId && !reset) {
+          url += `&cursorId=${nextCursorId}`;
+        }
+        if (status) {
+          url += `&status=${status}`;
+        }
+        const { data } = await instance.get(url);
+        setReservations((prevReservations) =>
+          isFirstFetch || reset
+            ? data.reservations
+            : [...prevReservations, ...data.reservations],
+        );
+        setNextCursorId(data.cursorId);
+        setIsFirstFetch(false);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError(String(err));
+        }
+      } finally {
+        setLoading(false);
       }
-      if (status) {
-        url += `&status=${status}`;
-      }
-
-      const { data } = await instance.get(url);
-
-      setReservations((prevReservations) =>
-        isFirstFetch || reset
-          ? data.reservations
-          : [...prevReservations, ...data.reservations],
-      );
-      setNextCursorId(data.cursorId);
-      setIsFirstFetch(false);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError(String(err));
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [nextCursorId, status],
+  );
 
   const handleScroll = useCallback(() => {
     const scrollPosition =
@@ -69,11 +70,9 @@ const ReservationList = () => {
       '체험 완료': 'completed',
     };
     const selectedStatus = statusMapping[option] || null;
-    setStatus(selectedStatus);
     setNextCursorId(null);
     setIsFirstFetch(true);
-
-    fetchReservations(true);
+    setStatus(selectedStatus);
   };
 
   const handleCancelReservation = async (reservationId: number) => {
