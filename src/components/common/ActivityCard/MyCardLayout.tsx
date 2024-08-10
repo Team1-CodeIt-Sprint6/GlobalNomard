@@ -14,12 +14,13 @@ function MyCardContainer({ imageSrc, imageAlt, children }: CardProps) {
         <Image
           src={imageSrc}
           alt={imageAlt}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-bl-[24px] rounded-tl-[24px]"
+          fill
+          sizes="(min-width: 1024px) 204px, (min-width: 768px) 156px, 128px"
+          priority
+          className="rounded-bl-[24px] rounded-tl-[24px] object-cover"
         />
       </div>
-      <div className="my-[9px] ml-2 mr-[15px] flex h-[111px] w-full flex-col justify-between pc:mx-6 pc:my-[21px] pc:h-[162px] tablet:m-3 tablet:mr-[18px] tablet:h-[132px]">
+      <div className="my-[9px] ml-2 mr-[15px] flex h-[111px] flex-1 flex-col justify-between pc:mx-6 pc:my-[21px] pc:h-[162px] tablet:m-3 tablet:mr-[18px] tablet:h-[132px]">
         {children}
       </div>
     </div>
