@@ -55,17 +55,19 @@ const ReservationList = () => {
     <div>
       <div className="mb-4 flex h-[53px] w-[344px] items-center justify-between pc:w-[792px] tablet:w-[429px]">
         <h1 className="font-kv-bold kv-text-3xl">예약 내역</h1>
-        <SortDropDown
-          label="필터"
-          options={[
-            '예약 신청',
-            '예약 취소',
-            '예약 승인',
-            '예약 거절',
-            '체험 완료',
-          ]}
-          onSelect={handleFilterSelect}
-        />
+        <div className="hidden pc:block">
+          <SortDropDown
+            label="필터"
+            options={[
+              '예약 신청',
+              '예약 취소',
+              '예약 승인',
+              '예약 거절',
+              '체험 완료',
+            ]}
+            onSelect={handleFilterSelect}
+          />
+        </div>
       </div>
       {reservations.length === 0 && !loading ? (
         <div className="mt-20 flex flex-col items-center justify-center">
