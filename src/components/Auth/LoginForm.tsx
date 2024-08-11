@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AxiosError } from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -36,31 +35,19 @@ export default function LoginForm() {
     formState: { errors, isValid },
   } = useForm<LogInForm>({ mode: 'onChange', resolver: yupResolver(schema) });
 
-  const mutation = useLogIn();
+  const { modalProps, openModal } = useModal();
 
-
-  const { openModal, closeModal, isOpen, modalType, message } = useModal();
+  const mutation = useLogIn(openModal);
 
   const onSubmit: SubmitHandler<LogInForm> = async (data) => {
-    try {
-      await mutation.mutateAsync(data);
-    } catch (error) {
-      if (error instanceof Error) {
-        openModal('alert', error.message);
-      }
-    }
+    await mutation.mutateAsync(data);
   };
 
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        onClose={closeModal}
-        type={modalType}
-        message={message}
-      />
+      <Modal {...modalProps} />
       <form
-        className={`${isOpen && 'z-[-1]'} flex w-[100%] flex-col gap-[32px]`}
+        className={`${modalProps.isOpen && 'z-[-1]'} flex w-[100%] flex-col gap-[32px]`}
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="grid gap-6">

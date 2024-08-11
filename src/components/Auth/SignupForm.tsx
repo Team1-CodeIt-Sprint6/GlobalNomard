@@ -42,33 +42,19 @@ export default function LoginForm() {
     formState: { errors, isValid },
   } = useForm<SignUpForm>({ mode: 'onChange', resolver: yupResolver(schema) });
 
-  const { openModal, closeModal, isOpen, modalType, message } = useModal();
+  const { modalProps, openModal } = useModal();
 
-  const mutation = useSignup();
-  const router = useRouter();
+  const mutation = useSignup(openModal);
 
   const onSubmit: SubmitHandler<SignUpForm> = async (data) => {
-    try {
-      await mutation.mutateAsync(data);
-      openModal('alert', '가입이 완료되었습니다!');
-      if (!isOpen) router.push('/login'); // 로그인 성공 시 리다이렉트
-    } catch (error) {
-      if (error instanceof Error) {
-        openModal('alert', error.message);
-      }
-    }
+    await mutation.mutateAsync(data);
   };
 
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        onClose={closeModal}
-        type={modalType}
-        message={message}
-      />
+      <Modal {...modalProps} />
       <form
-        className={`${isOpen && 'z-[-1]'} flex w-[100%] flex-col gap-[32px]`}
+        className={`${modalProps.isOpen && 'z-[-1]'} flex w-[100%] flex-col gap-[32px]`}
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="grid gap-6">

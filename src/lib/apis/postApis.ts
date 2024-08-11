@@ -1,9 +1,8 @@
+import { AxiosError } from 'axios';
 import { getCookie, setCookie } from 'cookies-next';
 
 import { UserProfile } from '@/components/userProfile/EditProfileForm';
 import instance from '@/lib/apis/axios';
-
-
 import { ActivityResponse, MyActivityForm } from '@/types/activityTypes';
 import {
   LogInForm,
@@ -11,7 +10,6 @@ import {
   SignUpForm,
   SignUpResponse,
 } from '@/types/AuthTypes';
-
 import {
   ReservationRequest,
   ReservationResponse,
