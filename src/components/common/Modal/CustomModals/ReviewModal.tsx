@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import CloseIcon from '@/assets/icons/iocn_x_lg.svg';
+import Button from '@/components/common/Button';
 import StarRating from '@/components/common/StarRating';
 import { CustomModalProps } from '@/types/modalTypes';
 
@@ -14,6 +15,18 @@ export default function ReviewModal({
   }
 
   const [rating, setRating] = useState(0);
+  const [reviewText, setReviewText] = useState('');
+
+  const handleReviewChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setReviewText(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    // 후기 전송 로직
+    onClose();
+  };
 
   return (
     <div className="modal-container h-[750px] w-[480px] rounded-[24px] align-center">
@@ -21,13 +34,13 @@ export default function ReviewModal({
         {/* 제목 바 */}
         <div className="flex h-10 w-full items-center justify-between">
           <h2 className="font-kv-bold kv-text-2xl">후기 작성</h2>
-          <div className="h-7 w-7">
+          <div className="h-7 w-7 cursor-pointer" onClick={() => onClose()}>
             <CloseIcon />
           </div>
         </div>
 
         {/* 나머지 컨텐츠 container */}
-        <div className="mt-[41px] h-[605px] flex-col justify-between">
+        <div className="mt-[41px] flex h-[605px] flex-col justify-between">
           {/* --- 체험정보 --- */}
           <div className="flex h-[126px] w-full items-center">
             <div className="relative h-[126px] w-[126px] rounded-[12px]">
@@ -39,12 +52,11 @@ export default function ReviewModal({
                 className="rounded-[12px]"
               />
             </div>
-
             <div className="ml-6 flex h-full w-[271px] flex-col justify-between">
               <h3 className="activity-card-title">
                 {reservation.activity.title}
               </h3>
-              <p className="font-kv-regular text-kv-gray-700 kv-text-xs pc:kv-text-2lg tablet:kv-text-md">
+              <p className="font-kv-regular text-kv-gray-700 kv-text-xs pc:kv-text-lg tablet:kv-text-md">
                 {reservation.date} ・ {reservation.startTime} -{' '}
                 {reservation.endTime}・ {reservation.headCount}명
               </p>
@@ -54,7 +66,26 @@ export default function ReviewModal({
               </p>
             </div>
           </div>
+
+          {/* 별점 입력 */}
           <StarRating rating={rating} onRatingChange={setRating} />
+
+          {/* 후기 작성 */}
+          <textarea
+            className="h-[240px] w-full rounded border border-kv-gray-79 p-4 focus:border-2 focus:border-kv-primary-blue focus:outline-none"
+            rows={4}
+            placeholder="후기를 작성해주세요"
+            value={reviewText}
+            onChange={handleReviewChange}
+          />
+
+          <Button
+            type="button"
+            className="btn-blue h-[56px] w-full"
+            onClick={handleSubmit}
+          >
+            작성하기
+          </Button>
         </div>
       </div>
     </div>
