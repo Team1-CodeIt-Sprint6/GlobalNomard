@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import CloseIcon from '@/assets/icons/iocn_x_lg.svg';
+import StarRating from '@/components/common/StarRating';
 import { CustomModalProps } from '@/types/modalTypes';
 
 export default function ReviewModal({
@@ -11,6 +12,8 @@ export default function ReviewModal({
   if (!reservation || !reservation.activity) {
     return null;
   }
+
+  const [rating, setRating] = useState(0);
 
   return (
     <div className="modal-container h-[750px] w-[480px] rounded-[24px] align-center">
@@ -51,6 +54,7 @@ export default function ReviewModal({
               </p>
             </div>
           </div>
+          <StarRating rating={rating} onRatingChange={setRating} />
         </div>
       </div>
     </div>
