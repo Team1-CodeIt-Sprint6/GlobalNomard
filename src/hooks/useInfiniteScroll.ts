@@ -11,37 +11,34 @@ const useInfiniteScrollReservations = (initialStatus: string | null) => {
   const [isFirstFetch, setIsFirstFetch] = useState(true);
   const [status, setStatus] = useState<string | null>(initialStatus);
 
-  const fetchReservations = useCallback(
-    async (reset: boolean = false) => {
-      setLoading(true);
-      try {
-        let url = `/my-reservations?size=10`;
-        if (nextCursorId && !reset) {
-          url += `&cursorId=${nextCursorId}`;
-        }
-        if (status) {
-          url += `&status=${status}`;
-        }
-        const { data } = await instance.get(url);
-        setReservations((prevReservations) =>
-          isFirstFetch || reset
-            ? data.reservations
-            : [...prevReservations, ...data.reservations],
-        );
-        setNextCursorId(data.cursorId);
-        setIsFirstFetch(false);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError(String(err));
-        }
-      } finally {
-        setLoading(false);
+  const fetchReservations = useCallback(async () => {
+    setLoading(true);
+    try {
+      let url = `/my-reservations?size=10`;
+      if (nextCursorId && !isFirstFetch) {
+        url += `&cursorId=${nextCursorId}`;
       }
-    },
-    [nextCursorId, status, isFirstFetch],
-  );
+      if (status) {
+        url += `&status=${status}`;
+      }
+      const { data } = await instance.get(url);
+      setReservations((prevReservations) =>
+        isFirstFetch
+          ? data.reservations
+          : [...prevReservations, ...data.reservations],
+      );
+      setNextCursorId(data.cursorId);
+      setIsFirstFetch(false);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError(String(err));
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [nextCursorId, status, isFirstFetch]);
 
   const handleScroll = useCallback(() => {
     const scrollPosition =
@@ -55,7 +52,8 @@ const useInfiniteScrollReservations = (initialStatus: string | null) => {
   }, [loading, nextCursorId, fetchReservations]);
 
   useEffect(() => {
-    fetchReservations(true);
+    setIsFirstFetch(true);
+    fetchReservations();
   }, [status]);
 
   useEffect(() => {

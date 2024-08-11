@@ -37,7 +37,7 @@ const ReservationList = () => {
       const url = `/my-reservations/${reservationId}`;
       const response = await instance.patch(url, { status: 'canceled' });
 
-      await fetchReservations(true);
+      await fetchReservations();
     } catch (error) {
       setError('예약 취소 중 오류가 발생했습니다.');
     }
