@@ -6,7 +6,7 @@ import SortDropDown from '@/components/common/Dropdown/SortDropdown';
 import { Modal } from '@/components/common/Modal';
 import useInfiniteScrollReservations from '@/hooks/useInfiniteScroll';
 import useModal from '@/hooks/useModal';
-import instance from '@/lib/apis/axios';
+import { cancelReservation } from '@/lib/apis/patchApis';
 
 const ReservationList = () => {
   const {
@@ -34,9 +34,7 @@ const ReservationList = () => {
 
   const handleCancelReservation = async (reservationId: number) => {
     try {
-      const url = `/my-reservations/${reservationId}`;
-      const response = await instance.patch(url, { status: 'canceled' });
-
+      await cancelReservation(reservationId);
       await fetchReservations();
     } catch (error) {
       setError('예약 취소 중 오류가 발생했습니다.');

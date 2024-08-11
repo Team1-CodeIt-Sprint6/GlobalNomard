@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import instance from '@/lib/apis/axios';
+import { getMyReservations } from '@/lib/apis/getApis';
 import { MyReservation } from '@/types/get/reservationTypes';
 
 const useInfiniteScrollReservations = (initialStatus: string | null) => {
@@ -14,14 +15,7 @@ const useInfiniteScrollReservations = (initialStatus: string | null) => {
   const fetchReservations = useCallback(async () => {
     setLoading(true);
     try {
-      let url = `/my-reservations?size=10`;
-      if (nextCursorId && !isFirstFetch) {
-        url += `&cursorId=${nextCursorId}`;
-      }
-      if (status) {
-        url += `&status=${status}`;
-      }
-      const { data } = await instance.get(url);
+      const data = await getMyReservations(nextCursorId, status, isFirstFetch);
       setReservations((prevReservations) =>
         isFirstFetch
           ? data.reservations
