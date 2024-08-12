@@ -6,6 +6,10 @@ interface ReviewProps {
   className?: string;
 }
 
+interface TotalCountProps {
+  totalCount: number;
+}
+
 export function ReviewRating({ reviewCount, rating }: ReviewProps) {
   return (
     <div className="flex items-center gap-1">
@@ -17,11 +21,11 @@ export function ReviewRating({ reviewCount, rating }: ReviewProps) {
   );
 }
 
-export function ReviewCount({ reviewCount }: ReviewProps) {
+export function ReviewCount({ totalCount }: TotalCountProps) {
   return (
     <div className="flex items-center gap-1">
       <StartIcon alt="별 아이콘" />
-      <p>{reviewCount.toLocaleString()}개</p>
+      <p>{totalCount.toLocaleString()}개 후기</p>
     </div>
   );
 }
