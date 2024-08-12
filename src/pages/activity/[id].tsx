@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import CustomKebab from '@/components/activity/CustomKebab';
 import ImageGallery from '@/components/activity/ImageGallery';
@@ -7,15 +8,19 @@ import Location from '@/components/activity/Location';
 import { ReviewRating } from '@/components/activity/Review';
 import ReviewList from '@/components/activity/ReviewList';
 import ReservationCard from '@/components/ActivityPage/ReservationCard';
+import Pagination from '@/components/common/Pagination';
 import useFetchData from '@/hooks/useFetchData';
 import { getActivity, getActivityReview } from '@/lib/apis/getApis';
 import { getUserData } from '@/lib/apis/userApis';
 import { ActivityReviewsResponse } from '@/types/activityReviewTypes';
 import { ActivityResponse } from '@/types/activityTypes';
 
+const PAGE_LIMIT = 3;
+
 export default function ActivityPage() {
   const router = useRouter();
   const activityId = Number(router.query.id);
+  const [page, setPage] = useState(1);
 
   // 체험 상세 데이터 가져오기
   const { data: activityData } = useFetchData<ActivityResponse>(
@@ -31,12 +36,21 @@ export default function ActivityPage() {
 
   // 후기 데이터 가져오기
   const { data: reviewData } = useFetchData<ActivityReviewsResponse>(
-    ['activityReview', activityId],
-    () => getActivityReview(activityId),
+    ['activityReview', activityId, page],
+    () => getActivityReview(activityId, page),
     {
       enabled: !!activityId,
     },
   );
+
+  // 후기 총 페이지 수 계산
+  const totalPages = reviewData
+    ? Math.ceil(reviewData.totalCount / PAGE_LIMIT)
+    : 1;
+
+  const handlePageChange = (nextPage: number) => {
+    setPage(nextPage);
+  };
 
   if (isLoading) return <div>로딩중</div>;
   if (!activityData) return <div>존재하지 않는 체험입니다.</div>;
@@ -80,15 +94,23 @@ export default function ActivityPage() {
           <div className="top-line">
             <h3 className="activity-h3">후기</h3>
             {reviewData && reviewData.totalCount > 0 ? (
-              <ReviewList
-                totalCount={reviewData.totalCount}
-                averageRating={reviewData.averageRating}
-                reviews={reviewData.reviews}
-                nickname={userData?.nickname || '익명 사용자'}
-                profileImageUrl={
-                  userData?.profileImageUrl || '/assets/icons/icon_profile.svg'
-                }
-              />
+              <>
+                <ReviewList
+                  totalCount={reviewData.totalCount}
+                  averageRating={reviewData.averageRating}
+                  reviews={reviewData.reviews}
+                  nickname={userData?.nickname || '익명 사용자'}
+                  profileImageUrl={
+                    userData?.profileImageUrl ||
+                    '/assets/icons/icon_profile.svg'
+                  }
+                />
+                <Pagination
+                  currentPage={page}
+                  totalPages={totalPages}
+                  handlePageChange={handlePageChange}
+                />
+              </>
             ) : (
               <p>작성된 후기가 없습니다.</p>
             )}

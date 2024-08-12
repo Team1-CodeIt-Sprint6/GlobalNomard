@@ -461,3 +461,19 @@
     @apply h-8 w-20 text-kv-md font-kv-medium align-center pc:h-[43.08px] pc:w-[144px] pc:text-kv-lg tablet:h-10 tablet:w-[112px] tablet:text-kv-lg !important;
   }
 }
+
+/* 페이지네이션 */
+@layer components {
+  .pagenation-btn {
+    @apply flex h-14 w-14 items-center justify-center rounded-2xl border border-kv-primary-blue-light bg-white text-kv-primary-blue mobile:h-10 mobile:w-10;
+  }
+  .pagenation-btn.active {
+    @apply border-kv-blue bg-kv-primary-blue text-white;
+  }
+  .arrow-size {
+    @apply h-3 w-3 mobile:h-2.5 mobile:w-2.5;
+  }
+  .pagenation-btn:disabled .arrow-size {
+    @apply text-kv-gray-600;
+  }
+}
