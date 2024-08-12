@@ -84,6 +84,10 @@ export default function ActivityPage() {
                 totalCount={reviewData.totalCount}
                 averageRating={reviewData.averageRating}
                 reviews={reviewData.reviews}
+                nickname={userData?.nickname || '익명 사용자'}
+                profileImageUrl={
+                  userData?.profileImageUrl || '/assets/icons/icon_profile.svg'
+                }
               />
             ) : (
               <p>작성된 후기가 없습니다.</p>
