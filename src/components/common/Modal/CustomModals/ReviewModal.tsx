@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import CloseIcon from '@/assets/icons/iocn_x_lg.svg';
 import Button from '@/components/common/Button';
-import StarRating from '@/components/common/StarRating';
+import StarRating from '@/components/MyReservationsPage/StarRating';
 import { CustomModalProps } from '@/types/modalTypes';
 
 export default function ReviewModal({
