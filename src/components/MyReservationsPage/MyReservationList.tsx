@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MyReservationCard from '@/components/common/ActivityCard/MyReservationCard';
 import SortDropDown from '@/components/common/Dropdown/SortDropdown';
@@ -61,8 +61,9 @@ const ReservationList = () => {
       'review',
       '',
       {
-        onConfirm: () => {},
-        onCancel: () => {},
+        onConfirm: async () => {
+          await fetchReservations();
+        },
       },
       reservation,
     );

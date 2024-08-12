@@ -30,4 +30,5 @@ export type ModalType = (typeof MODAL_TYPES)[keyof typeof MODAL_TYPES];
 export interface ModalCallbacks {
   onConfirm?: () => void;
   onCancel?: () => void;
+  onClose?: () => void;
 }

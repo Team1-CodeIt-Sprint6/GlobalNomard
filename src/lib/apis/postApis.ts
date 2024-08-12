@@ -8,6 +8,7 @@ import {
   ReservationRequest,
   ReservationResponse,
 } from '@/types/post/reservationTypes';
+import { ReviewData } from '@/types/post/reviewTypes';
 import {
   ActivityImageResponse,
   UploadImageForm,
@@ -74,6 +75,18 @@ export const createReservation = async (
   const response = await instance.post<ReservationResponse>(
     `/activities/${activityId}/reservations`,
     data,
+  );
+  return response.data;
+};
+
+// 후기 전송
+export const postReview = async (
+  reservationId: number,
+  reviewData: ReviewData,
+) => {
+  const response = await instance.post(
+    `/my-reservations/${reservationId}/reviews`,
+    reviewData,
   );
   return response.data;
 };

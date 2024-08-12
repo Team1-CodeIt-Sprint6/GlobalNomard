@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import CloseIcon from '@/assets/icons/iocn_x_lg.svg';
 import Button from '@/components/common/Button';
 import StarRating from '@/components/MyReservationsPage/StarRating';
+import { postReview } from '@/lib/apis/postApis';
 import { CustomModalProps } from '@/types/modalTypes';
 
 export default function ReviewModal({
@@ -16,6 +17,7 @@ export default function ReviewModal({
 
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleReviewChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -23,9 +25,16 @@ export default function ReviewModal({
     setReviewText(event.target.value);
   };
 
-  const handleSubmit = () => {
-    // 후기 전송 로직
-    onClose();
+  const handleSubmit = async () => {
+    try {
+      const response = await postReview(reservation.id, {
+        rating,
+        content: reviewText,
+      });
+      onClose('yes');
+    } catch (error) {
+      setError('후기 제출 중 문제가 발생했습니다. ');
+    }
   };
 
   return (
