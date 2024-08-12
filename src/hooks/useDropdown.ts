@@ -17,14 +17,14 @@ const useDropdown = <T>(initValue: T) => {
   // 드롭다운 메뉴 클릭 시 닫기
   const handleClickMenu = (value: T) => {
     const handleClick: MouseEventHandler<HTMLButtonElement> = ({
-      currentTarget: { id },
+      currentTarget,
     }) => {
       setValue(value);
       setIsOpen(false);
       // ReservationDashboardQueryParams 업데이트
       setCalendarState((prev) => ({
         ...prev,
-        activityId: Number(id),
+        activityId: Number(currentTarget.id),
       }));
     };
     return handleClick;

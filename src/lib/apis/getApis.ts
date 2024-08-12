@@ -1,6 +1,7 @@
 import instance from '@/lib/apis/axios';
 import { ActivityResponse as ActivityDetailResponse } from '@/types/activityDetailPageTypes';
 import { ActivityResponse } from '@/types/activityTypes';
+import { ReservationScheduleResponse } from '@/types/get/ReservationDashboardPageGetTypes';
 import {
   MyActivitiesResponse,
   ReservationDashboardResponse,
@@ -43,6 +44,20 @@ export const getActivity = async (
 ): Promise<{ data: ActivityResponse }> => {
   const response = await instance.get<ActivityResponse>(
     `/activities/${activityId}`,
+  );
+  return { data: response.data };
+};
+
+// 예약 신청 상태 조회
+export const getReservationSchedule = async (
+  activityId: number,
+  date: string,
+): Promise<{ data: ReservationScheduleResponse[] }> => {
+  const response = await instance.get<ReservationScheduleResponse[]>(
+    `/my-activities/${activityId}/reserved-schedule`,
+    {
+      params: { date },
+    },
   );
   return { data: response.data };
 };

@@ -390,7 +390,16 @@
   .custom-calendar .color-dot {
     @apply absolute bottom-[130px] left-[36px] h-[8px] w-[8px] rounded-full;
   }
-  /*  */
+}
+
+/* 예약 정보 모달 */
+@layer components {
+  .status-tap-base {
+    @apply h-[42px] w-[72px] align-center;
+  }
+  .status-active {
+    @apply border-b-[4px] border-kv-primary-blue text-kv-primary-blue;
+  }
 }
 
 /* 케밥 */
