@@ -108,3 +108,15 @@ export const postSignup = async (
   });
   return response.data;
 };
+
+// 후기 전송
+export const postReview = async (
+  reservationId: number,
+  reviewData: ReviewData,
+) => {
+  const response = await instance.post(
+    `/my-reservations/${reservationId}/reviews`,
+    reviewData,
+  );
+  return response.data;
+};
