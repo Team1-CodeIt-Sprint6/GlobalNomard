@@ -5,6 +5,7 @@ import ImageGallery from '@/components/activity/ImageGallery';
 import KakaoMap from '@/components/activity/KakaoMap';
 import Location from '@/components/activity/Location';
 import { ReviewRating } from '@/components/activity/Review';
+import ReservationCard from '@/components/ActivityPage/ReservationCard';
 import useFetchData from '@/hooks/useFetchData';
 import { getActivity } from '@/lib/apis/getApis';
 import { getUserData } from '@/lib/apis/userApis';
@@ -52,8 +53,8 @@ export default function ActivityPage() {
         bannerImageUrl={activityData.bannerImageUrl}
         subImages={activityData.subImages}
       />
-      <div className="flex justify-between gap-6">
-        <div className="w-4/5">
+      <div className="flex justify-between gap-6 mobile:gap-0">
+        <div className="w-4/5 mobile:w-full">
           <div className="top-line">
             <h3 className="activity-h3">체험 설명</h3>
             <p>{activityData.description}</p>
@@ -66,8 +67,8 @@ export default function ActivityPage() {
             <div className="h-96 bg-slate-50">{/* TODO 후기 컴포넌트 */}</div>
           </div>
         </div>
-        <div className="h-[746px] min-w-96 bg-slate-50">
-          {/* TODO 예약 카드 컴포넌트 */}
+        <div className="mt-10">
+          <ReservationCard />
         </div>
       </div>
     </>
