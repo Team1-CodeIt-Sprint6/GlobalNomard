@@ -18,11 +18,7 @@ const useSignup = (
   return useMutation<SignUpResponse, Error, SignUpForm, Error>({
     mutationFn: postSignup,
     onError: (error: Error) => {
-      if (error instanceof AxiosError) {
-        callback('alert', error.response?.data.message);
-      } else {
-        callback('alert', '알 수 없는 오류가 발생했습니다.');
-      }
+      callback('alert', error.message);
     },
     onSuccess: () => {
       callback('alert', '가입이 완료되었습니다!', {
