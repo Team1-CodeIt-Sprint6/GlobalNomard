@@ -12,8 +12,20 @@ export default function Pagination({
   totalPages,
   handlePageChange,
 }: PagenationProps) {
+  const PAGE_GROUP_SIZE = 5;
+
+  // 현재 페이지 그룹 계산
+  const currentGroup = Math.ceil(currentPage / PAGE_GROUP_SIZE);
+
+  // 페이지 그룹 시작과 끝 페이지 번호
+  const startPage = (currentGroup - 1) * PAGE_GROUP_SIZE + 1;
+  const endPage = Math.min(startPage + PAGE_GROUP_SIZE - 1, totalPages);
+
   // 페이지 번호 배열 생성
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i,
+  );
 
   return (
     <div className="flex justify-center gap-2">
@@ -22,7 +34,7 @@ export default function Pagination({
         className="pagenation-btn"
         onClick={() => handlePageChange(currentPage - 1)}
       >
-        <ArrowLeftIcon className="arrow-size" alt="왼쪽 화살표 아이콘" />
+        <ArrowLeftIcon className="arrow-size" alt="이전 페이지" />
       </button>
       {pages.map((page) => (
         <button
@@ -38,7 +50,7 @@ export default function Pagination({
         className="pagenation-btn"
         onClick={() => handlePageChange(currentPage + 1)}
       >
-        <ArrowRightIcon className="arrow-size" alt="오른쪽 화살표 아이콘" />
+        <ArrowRightIcon className="arrow-size" alt="다음 페이지" />
       </button>
     </div>
   );
