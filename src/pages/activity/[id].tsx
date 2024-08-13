@@ -1,10 +1,4 @@
-import {
-  keepPreviousData,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 
 import CustomKebab from '@/components/activity/CustomKebab';
 import ImageGallery from '@/components/activity/ImageGallery';
@@ -15,6 +9,7 @@ import ReviewList from '@/components/activity/ReviewList';
 import ReservationCard from '@/components/ActivityPage/ReservationCard';
 import Pagination from '@/components/common/Pagination';
 import useFetchData from '@/hooks/useFetchData';
+import { usePagination } from '@/hooks/usePagination';
 import { getActivity, getActivityReview } from '@/lib/apis/getApis';
 import { getUserData } from '@/lib/apis/userApis';
 import { ActivityResponse } from '@/types/activityTypes';
@@ -24,8 +19,6 @@ const PAGE_LIMIT = 3;
 export default function ActivityPage() {
   const router = useRouter();
   const activityId = Number(router.query.id);
-  const [page, setPage] = useState(1);
-  const queryClient = useQueryClient();
 
   // 체험 상세 데이터 가져오기
   const { data: activityData } = useFetchData<ActivityResponse>(
@@ -40,29 +33,17 @@ export default function ActivityPage() {
   const { data: userData, isLoading } = useFetchData(['user'], getUserData, {});
 
   // 후기 데이터 가져오기
-  const { data: reviewData, isPlaceholderData } = useQuery({
-    queryKey: ['activityReview', activityId, page],
-    queryFn: () => getActivityReview(activityId, page),
-    placeholderData: keepPreviousData,
+  const {
+    page,
+    setPage,
+    totalPages,
+    data: reviewData,
+  } = usePagination({
+    queryKey: ['activityReview', activityId],
+    queryFn: (page) => getActivityReview(activityId, page),
+    pageLimit: PAGE_LIMIT,
+    initialPage: 1,
   });
-
-  // 후기 총 페이지 수 계산
-  const totalPages = reviewData
-    ? Math.ceil(reviewData.totalCount / PAGE_LIMIT)
-    : 1;
-
-  const handlePageChange = (nextPage: number) => {
-    setPage(nextPage);
-  };
-
-  useEffect(() => {
-    if (!isPlaceholderData && page < totalPages) {
-      queryClient.prefetchQuery({
-        queryKey: ['activityReview', activityId, page + 1],
-        queryFn: () => getActivityReview(activityId, page + 1),
-      });
-    }
-  }, [isPlaceholderData, page, queryClient, activityId]);
 
   if (isLoading) return <div>로딩중</div>;
   if (!activityData) return <div>존재하지 않는 체험입니다.</div>;
@@ -120,7 +101,7 @@ export default function ActivityPage() {
                 <Pagination
                   currentPage={page}
                   totalPages={totalPages}
-                  handlePageChange={handlePageChange}
+                  handlePageChange={setPage}
                 />
               </>
             ) : (

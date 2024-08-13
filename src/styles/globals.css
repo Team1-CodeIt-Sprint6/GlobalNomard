@@ -464,16 +464,16 @@
 
 /* 페이지네이션 */
 @layer components {
-  .pagenation-btn {
+  .pagination-btn {
     @apply flex h-14 w-14 items-center justify-center rounded-2xl border border-kv-primary-blue-light bg-white text-kv-primary-blue mobile:h-10 mobile:w-10;
   }
-  .pagenation-btn.active {
+  .pagination-btn.active {
     @apply border-kv-blue bg-kv-primary-blue text-white;
   }
   .arrow-size {
     @apply h-3 w-3 mobile:h-2.5 mobile:w-2.5;
   }
-  .pagenation-btn:disabled .arrow-size {
+  .pagination-btn:disabled .arrow-size {
     @apply text-kv-gray-600;
   }
 }
