@@ -98,15 +98,12 @@ export const geocodeAddress = async (address: string) => {
 };
 
 // 체험 상세 리뷰 조회
-export const getActivityReview = async (
-  activityId: number,
-  page: number,
-): Promise<{ data: ActivityReviewsResponse }> => {
+export const getActivityReview = async (activityId: number, page: number) => {
   const response = await instance.get<ActivityReviewsResponse>(
     `/activities/${activityId}/reviews`,
     {
       params: { page },
     },
   );
-  return { data: response.data };
+  return response.data;
 };
