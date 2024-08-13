@@ -1,20 +1,22 @@
-// import { useAtomValue } from 'jotai';
-
 import DailyReservationDateDropdown from '@/components/ReservationDashboardPage/DailyReservationModal/DailyReservationDateDropdown';
-// import { dailyReservationModalAtom } from '@/state/reservationDashboardAtom';
 import DailyReservationModalHeader from '@/components/ReservationDashboardPage/DailyReservationModal/DailyReservationModalHeader';
 import DailyReservationTaps from '@/components/ReservationDashboardPage/DailyReservationModal/DailyReservationTaps';
 import useDailyReservationData from '@/hooks/useDailyReservationData';
 
-export default function DailyReservationModal() {
+interface DailyReservationModalProps {
+  onClose: () => void;
+}
+
+export default function DailyReservationModal({
+  onClose,
+}: DailyReservationModalProps) {
   const { reservationStatus, reservationDetails } = useDailyReservationData();
-  // const dailyModalState = useAtomValue(dailyReservationModalAtom);
 
   if (!reservationStatus) return null; /* 임시 타입가드 */
 
   return (
-    <div className="absolute left-[20px] top-[300px] z-10 h-[697px] w-[429px] rounded-3xl border border-kv-gray-400 bg-white shadow-lg">
-      <DailyReservationModalHeader />
+    <div className="fixed left-0 top-0 z-10 h-full w-full bg-white shadow-lg pc:h-[697px] pc:w-[429px] pc:rounded-3xl pc:border pc:border-kv-gray-400 tablet:h-[697px] tablet:w-[429px] tablet:rounded-3xl tablet:border tablet:border-kv-gray-400">
+      <DailyReservationModalHeader onClose={onClose} />
       <DailyReservationTaps reservationStatus={reservationStatus} />
       <DailyReservationDateDropdown reservationStatus={reservationStatus} />
       {/* <DailyReservationList /> */}
