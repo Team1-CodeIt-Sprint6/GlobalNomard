@@ -1,3 +1,11 @@
+import MainPageBody from '@/components/Main/MainPageBody';
+import MainPageHeader from '@/components/Main/MainPageHeader';
+
 export default function Home() {
-  return <h1>메인 페이지</h1>;
+  return (
+    <>
+      <MainPageHeader />
+      <MainPageBody />
+    </>
+  );
 }
