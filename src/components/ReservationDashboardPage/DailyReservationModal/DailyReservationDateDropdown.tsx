@@ -39,7 +39,7 @@ export default function DailyReservationDateDropdown({
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="mx-auto mt-[27px] h-[130px] w-[381px]">
+    <div className="mx-auto mt-[27px] h-[130px] w-[332px]">
       <p className="sub-title mb-[16px]">예약 날짜</p>
       <p className="text-kv-xl font-kv-regular">{dailyModalState.date}</p>
       <button
