@@ -4,7 +4,9 @@ import 'swiper/css/navigation';
 
 import Image from 'next/image';
 import { EffectFade, Navigation } from 'swiper/modules';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import RatingStar from '../../../public/assets/icons/icon_star.svg';
 
 const mockData = [
   {
@@ -86,57 +88,69 @@ const mockData = [
 ];
 
 export default function BestExperienceList() {
-  const swiper = useSwiper();
   return (
-    <>
+    <ul className="relative flex max-h-[454px] max-w-[696px] justify-center rounded-xl">
       <Swiper
         loop={true}
         spaceBetween={50}
         effect={'fade'}
         slidesPerView={1}
         modules={[EffectFade, Navigation]}
-        className="relative"
+        navigation={{
+          nextEl: '.review-swiper-button-next',
+          prevEl: '.review-swiper-button-prev',
+        }}
       >
         {mockData.map((v) => {
           return (
             <SwiperSlide>
-              <div className="relative mx-[50px] flex min-h-[410px] min-w-[640px] flex-col">
-                <Image
-                  fill
-                  src={v.bannerImageUrl}
-                  alt={v.title}
-                  className="rounded-xl"
-                />
-                <div className="absolute bottom-0 flex flex-col px-[20px] py-[20px]">
-                  <h2 className="kv-text-bold max-w-[300px] text-white kv-text-3xl">
+              <li
+                key={v.id}
+                className="relative flex h-[219px] max-h-[454px] w-[335px] max-w-[696px] flex-col items-center px-0 pc:mx-[50px] pc:h-[410px] pc:w-[640px] tablet:h-[454px] tablet:w-[696px]"
+              >
+                <div className="absolute flex h-[219px] w-[335px] pc:h-[410px] pc:w-[640px] tablet:h-[454px] tablet:w-[696px]">
+                  <Image
+                    fill
+                    src={v.bannerImageUrl}
+                    alt={v.title}
+                    className="rounded-xl"
+                  />
+                </div>
+                <div className="absolute bottom-0 flex w-[100%] flex-col items-start gap-y-2 px-[20px] py-[20px] pc:gap-y-5 tablet:gap-y-5">
+                  <span className="flex items-center gap-x-2">
+                    <span className="flex gap-1 text-kv-yellow kv-text-md pc:kv-text-xl tablet:kv-text-xl">
+                      <RatingStar />
+                    </span>
+                    {v.rating > 0 && v.reviewCount > 0 && (
+                      <h3 className="flex gap-1 text-white kv-text-md pc:kv-text-xl tablet:kv-text-xl">
+                        {v.rating} ({v.reviewCount})
+                      </h3>
+                    )}
+                    <h3 className="flex text-white kv-text-xl"></h3>
+                  </span>
+                  <h2 className="kv-text-bold w-[185px] max-w-[300px] break-all text-white kv-text-xl pc:w-[300px] pc:kv-text-3xl tablet:w-[300px] tablet:kv-text-3xl">
                     {v.title}
                   </h2>
-                  <span className="flex gap-1 text-white kv-text-xl">
+                  <span className="flex gap-x-1 text-white kv-text-md pc:kv-text-xl tablet:kv-text-xl">
                     <h3 className="kv-text-bold">
-                      ￦{v.price.toLocaleString()}{' '}
+                      ￦{v.price.toLocaleString()}
                     </h3>
                     <h3 className="kv-text-regular">/ 인</h3>
                   </span>
                 </div>
-              </div>
+              </li>
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <div className="z-999 flex h-[50px] w-[100px] gap-x-2 bg-kv-red">
-        <button
-          className="z-2 absolute bg-white text-black kv-text-xl"
-          onClick={() => swiper.slidePrev()}
-        >
+      <div className="absolute z-10 hidden gap-x-2 pc:bottom-[1px] pc:right-[20px] pc:flex tablet:bottom-[-10px] tablet:right-[40%] tablet:flex">
+        <span className="review-swiper-button-prev flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white text-kv-primary-blue">
           &lt;
-        </button>
-        <button
-          className="z-2 absolute bg-white text-black kv-text-xl"
-          onClick={() => swiper.slideNext()}
-        >
+        </span>
+        <span className="review-swiper-button-next flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white text-kv-primary-blue">
           &gt;
-        </button>
+        </span>
       </div>
-    </>
+    </ul>
   );
 }
