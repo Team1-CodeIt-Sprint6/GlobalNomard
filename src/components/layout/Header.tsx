@@ -4,11 +4,13 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import HeaderUserProfile from '@/components/common/HeaderUserProfile';
+import NotificationModal from '@/components/myNotificatons/NotificationModal';
 import useFetchData from '@/hooks/useFetchData';
 import { getUserData } from '@/lib/apis/userApis';
 import { User } from '@/types/userTypes';
 
 function Header() {
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
   const accessToken = getCookie('accessToken');
   const {
     data: user,
@@ -40,7 +42,11 @@ function Header() {
   }
 
   const handleNotificationClick = () => {
-    //알림 컴포넌트 나오는 로직
+    setIsNotificationModalOpen((prev) => !prev);
+  };
+
+  const handleNotificationModalClose = () => {
+    setIsNotificationModalOpen(false);
   };
 
   return (
@@ -58,7 +64,10 @@ function Header() {
         </Link>
         {isLoggedIn ? (
           <div className="flex h-full items-center">
-            <button className="" onClick={handleNotificationClick}>
+            <button
+              onClick={handleNotificationClick}
+              onBlur={handleNotificationModalClose}
+            >
               <Image
                 src="/assets/icons/icon_notification.svg"
                 alt="알림"
@@ -87,6 +96,11 @@ function Header() {
           </div>
         )}
       </div>
+      {isNotificationModalOpen && (
+        <NotificationModal
+          closeNotificationModal={handleNotificationModalClose}
+        />
+      )}
     </header>
   );
 }
