@@ -26,6 +26,11 @@ export default function ReviewModal({
   };
 
   const handleSubmit = async () => {
+    if (rating === 0 || reviewText.trim() === '') {
+      setError('별점과 후기를 모두 작성해주세요.');
+      return;
+    }
+
     try {
       const response = await postReview(reservation.id, {
         rating,
@@ -76,12 +81,14 @@ export default function ReviewModal({
           <StarRating rating={rating} onRatingChange={setRating} />
 
           <textarea
-            className="h-[240px] w-full rounded border border-kv-gray-79 p-4 focus:border-2 focus:border-kv-primary-blue focus:outline-none"
+            className="h-[240px] w-full resize-none rounded border border-kv-gray-79 p-4 focus:border-2 focus:border-kv-primary-blue focus:outline-none"
             rows={4}
             placeholder="후기를 작성해주세요"
             value={reviewText}
             onChange={handleReviewChange}
           />
+
+          {error && <p className="mt-2 text-kv-red kv-text-xs">{error}</p>}
 
           <Button
             type="button"

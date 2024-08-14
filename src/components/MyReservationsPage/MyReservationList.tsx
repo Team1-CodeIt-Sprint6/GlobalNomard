@@ -9,7 +9,7 @@ import useModal from '@/hooks/useModal';
 import { cancelReservation } from '@/lib/apis/patchApis';
 import { MyReservation } from '@/types/get/reservationTypes';
 
-const ReservationList = () => {
+export default function ReservationList() {
   const {
     reservations,
     loading,
@@ -117,6 +117,4 @@ const ReservationList = () => {
       <Modal {...reviewModalProps} reservation={selectedReservation} />
     </div>
   );
-};
-
-export default ReservationList;
+}
