@@ -72,6 +72,14 @@
   .size-my-act-date .input-my-act {
     @apply flex h-11 items-center rounded border border-kv-gray-79 bg-white px-2.5 text-kv-md pc:h-14 pc:px-4 pc:text-kv-lg tablet:h-14 tablet:px-4 tablet:text-kv-lg;
   }
+
+  .category .pos-value-dropdown-menus {
+    @apply bg-white p-2;
+  }
+
+  .category .pos-value-dropdown-menus .dropdown-menu {
+    @apply rounded-md border-none pl-2 before:pr-1 before:text-kv-xl before:text-white before:content-['_✓'] hover:bg-kv-primary-blue hover:text-white;
+  }
 }
 
 /* date picker custom styles */

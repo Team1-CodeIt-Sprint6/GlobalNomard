@@ -169,11 +169,13 @@ export default function MyActivityForm() {
         {errors.title?.message && <ErrorText>{errors.title.message}</ErrorText>}
       </div>
 
-      <ValueDropdown
-        placeholder={'*카테고리'}
-        availableValues={Object.values(CATEGORIES)}
-        {...category}
-      />
+      <div className="category">
+        <ValueDropdown
+          placeholder={'*카테고리'}
+          availableValues={Object.values(CATEGORIES)}
+          {...category}
+        />
+      </div>
 
       <div className="flex flex-col gap-2">
         <textarea
