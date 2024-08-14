@@ -82,7 +82,7 @@ export default function useReservationCalendar({
           <div className="reservation-chip reserve-chip">예약 {pending}</div>
         )}
         <div
-          className={`color-dot ${completed === 0 ? 'bg-kv-primary-blue' : 'bg-kv-gray-900'}`}
+          className={`color-dot ${completed === 0 ? 'bg-kv-primary-blue' : 'completeStatus'}`}
         />
       </div>
     );

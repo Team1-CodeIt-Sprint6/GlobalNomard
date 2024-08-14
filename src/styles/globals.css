@@ -390,6 +390,9 @@
   .custom-calendar .color-dot {
     @apply absolute bottom-[130px] left-[36px] h-[8px] w-[8px] rounded-full;
   }
+  .custom-calendar .completeStatus {
+    @apply bg-kv-gray-900;
+  }
 }
 
 /* 예약 정보 모달 */
