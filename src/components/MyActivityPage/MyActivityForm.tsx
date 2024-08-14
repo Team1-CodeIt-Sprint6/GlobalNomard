@@ -189,12 +189,12 @@ export default function MyActivityForm() {
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-col">
-          <h2 className="h2-my-act">*가격</h2>
+          <h2 className="h2-my-act">가격</h2>
           <input
             className="input-my-act"
             id="price"
             type="number"
-            placeholder="가격"
+            placeholder="*가격"
             {...register('price')}
           />
         </div>
@@ -203,14 +203,14 @@ export default function MyActivityForm() {
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-col">
-          <h2 className="h2-my-act">*주소</h2>
+          <h2 className="h2-my-act">주소</h2>
           <input
             className="input-my-act cursor-pointer"
             id="address"
             type="string"
             value={address}
             readOnly
-            placeholder="주소를 입력해주세요."
+            placeholder="*주소"
             onClick={handleClickAddress}
             {...register('address')}
           />
@@ -230,7 +230,7 @@ export default function MyActivityForm() {
       </div>
 
       <div>
-        <h2 className="h2-my-act">*배너 이미지</h2>
+        <h2 className="h2-my-act">배너 이미지</h2>
         {banner.renderImageManager()}
       </div>
 
