@@ -139,7 +139,7 @@
   }
 
   .layout-header-wrapper {
-    @apply fixed left-0 right-0 top-0 z-10;
+    @apply fixed left-0 right-0 top-0 z-30;
   }
 
   .layout-header-spacer {
