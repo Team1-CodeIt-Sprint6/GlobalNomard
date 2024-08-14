@@ -3,6 +3,8 @@ import DailyReservationModalHeader from '@/components/ReservationDashboardPage/D
 import DailyReservationTaps from '@/components/ReservationDashboardPage/DailyReservationModal/DailyReservationTaps';
 import useDailyReservationData from '@/hooks/useDailyReservationData';
 
+import DailyReservationList from './DailyReservationList';
+
 interface DailyReservationModalProps {
   onClose: () => void;
 }
@@ -12,7 +14,9 @@ export default function DailyReservationModal({
 }: DailyReservationModalProps) {
   const { reservationStatus, reservationDetails } = useDailyReservationData();
   const isEmptyData =
-    reservationStatus === undefined || reservationStatus.length === 0;
+    reservationStatus === undefined ||
+    reservationStatus.length === 0 ||
+    reservationDetails === undefined;
 
   if (isEmptyData) return null;
 
@@ -25,20 +29,7 @@ export default function DailyReservationModal({
           <DailyReservationDateDropdown reservationStatus={reservationStatus} />
         </>
       )}
-      {/* <DailyReservationList /> */}
-      <div className="mx-auto mt-[27px] h-[294px] w-[343px]">
-        <p className="sub-title mb-[16px]">예약 내역</p>
-        {reservationDetails?.reservations.map(
-          ({ nickname, headCount }, index) => {
-            return (
-              <div key={index}>
-                <div>닉네임: {nickname}</div>
-                <div>인원: {headCount}</div>
-              </div>
-            );
-          },
-        )}
-      </div>
+      <DailyReservationList reservationDetails={reservationDetails} />
     </div>
   );
 }

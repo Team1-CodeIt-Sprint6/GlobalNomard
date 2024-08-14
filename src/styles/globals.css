@@ -394,14 +394,23 @@
 
 /* 예약 정보 모달 */
 @layer components {
-  .status-tap-base {
+  .daily-modal-status-tap-base {
     @apply h-[42px] w-[72px] align-center;
   }
-  .status-active {
+  .daily-modal-status-active {
     @apply border-b-[4px] border-kv-primary-blue text-kv-primary-blue;
   }
-  .sub-title {
+  .daily-modal-sub-title {
     @apply text-kv-xl font-kv-semibold;
+  }
+  .daily-modal-list-sub-title {
+    @apply mr-[10px] text-kv-lg font-kv-semibold text-kv-gray-600;
+  }
+  .daily-modal-list-content {
+    @apply h-[19px] font-kv-medium;
+  }
+  .daily-modal-button-base {
+    @apply h-[38px] w-[82px] rounded-md border text-kv-md font-kv-bold align-center;
   }
 }
 

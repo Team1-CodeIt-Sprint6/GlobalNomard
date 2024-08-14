@@ -76,10 +76,10 @@ export default function useReservationCalendar({
           <div className="reservation-chip complete-chip">완료 {completed}</div>
         )}
         {confirmed !== 0 && (
-          <div className="reservation-chip reserve-chip">예약 {confirmed}</div>
+          <div className="reservation-chip approve-chip">승인 {confirmed}</div>
         )}
         {pending !== 0 && (
-          <div className="reservation-chip approve-chip">승인 {pending}</div>
+          <div className="reservation-chip reserve-chip">예약 {pending}</div>
         )}
         <div
           className={`color-dot ${completed === 0 ? 'bg-kv-primary-blue' : 'bg-kv-gray-900'}`}
