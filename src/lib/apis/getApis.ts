@@ -52,17 +52,16 @@ export const getActivity = async (
 export const getMyReservations = async (
   nextCursorId: string | null,
   status: string | null,
-  isFirstFetch: boolean,
+  isResetFetch: boolean,
 ): Promise<{ reservations: MyReservation[]; cursorId: string | null }> => {
   let url = `/my-reservations?size=10`;
 
-  if (nextCursorId && !isFirstFetch) {
+  if (nextCursorId && !isResetFetch) {
     url += `&cursorId=${nextCursorId}`;
   }
   if (status) {
     url += `&status=${status}`;
   }
-
   const { data } = await instance.get(url);
   return data;
 };

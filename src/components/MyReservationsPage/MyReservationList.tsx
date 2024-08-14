@@ -43,7 +43,7 @@ export default function ReservationList() {
   const handleCancelReservation = async (reservationId: number) => {
     try {
       await cancelReservation(reservationId);
-      await fetchReservations();
+      await fetchReservations(true);
     } catch (error) {
       setError('예약 취소 중 오류가 발생했습니다.');
     }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import instance from '@/lib/apis/axios';
 import { getMyReservations } from '@/lib/apis/getApis';
@@ -6,48 +6,61 @@ import { MyReservation } from '@/types/get/reservationTypes';
 
 const useInfiniteScrollReservations = (initialStatus: string | null) => {
   const [reservations, setReservations] = useState<MyReservation[]>([]);
-  const [loading, setLoading] = useState(false);
   const [nextCursorId, setNextCursorId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isFirstFetch, setIsFirstFetch] = useState(true);
   const [status, setStatus] = useState<string | null>(initialStatus);
+  const loadingRef = useRef(false);
 
-  const fetchReservations = useCallback(async () => {
-    setLoading(true);
-    try {
-      const data = await getMyReservations(nextCursorId, status, isFirstFetch);
-      setReservations((prevReservations) =>
-        isFirstFetch
-          ? data.reservations
-          : [...prevReservations, ...data.reservations],
-      );
-      setNextCursorId(data.cursorId);
-      setIsFirstFetch(false);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError(String(err));
+  //isResetFetch true: 상태 변경(필터 변경)으로 인한 데이터 패칭 초기화
+  //isResetFetch false: 무한 스크롤 상황(스크롤 다운 시 추가 데이터를 가져오는 상황)
+  const fetchReservations = useCallback(
+    async (isResetFetch: boolean = false) => {
+      if (loadingRef.current) {
+        return;
       }
-    } finally {
-      setLoading(false);
-    }
-  }, [nextCursorId, status, isFirstFetch]);
+      loadingRef.current = true;
+      try {
+        const data = await getMyReservations(
+          nextCursorId,
+          status,
+          isResetFetch,
+        );
+        setReservations((prevReservations) =>
+          isResetFetch
+            ? data.reservations
+            : [...prevReservations, ...data.reservations],
+        );
+        setNextCursorId(data.cursorId);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError(String(err));
+        }
+      } finally {
+        loadingRef.current = false;
+      }
+    },
+    [nextCursorId, status],
+  );
 
   const handleScroll = useCallback(() => {
     const scrollPosition =
       window.innerHeight + document.documentElement.scrollTop;
     const threshold = document.documentElement.offsetHeight - 100;
 
-    if (scrollPosition < threshold || loading || nextCursorId === null) {
+    if (
+      scrollPosition < threshold ||
+      loadingRef.current ||
+      nextCursorId === null
+    ) {
       return;
     }
     fetchReservations();
-  }, [loading, nextCursorId, fetchReservations]);
+  }, [loadingRef.current, nextCursorId, fetchReservations]);
 
   useEffect(() => {
-    setIsFirstFetch(true);
-    fetchReservations();
+    fetchReservations(true);
   }, [status]);
 
   useEffect(() => {
@@ -57,13 +70,12 @@ const useInfiniteScrollReservations = (initialStatus: string | null) => {
 
   const updateStatus = (newStatus: string | null) => {
     setNextCursorId(null);
-    setIsFirstFetch(true);
     setStatus(newStatus);
   };
 
   return {
     reservations,
-    loading,
+    loading: loadingRef.current,
     error,
     setError,
     fetchReservations,
