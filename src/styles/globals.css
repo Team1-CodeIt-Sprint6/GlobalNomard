@@ -404,7 +404,7 @@
     @apply text-kv-xl font-kv-semibold;
   }
   .daily-modal-list-sub-title {
-    @apply mr-[10px] text-kv-lg font-kv-semibold text-kv-gray-600;
+    @apply mx-[10px] text-kv-lg font-kv-semibold text-kv-gray-600;
   }
   .daily-modal-list-content {
     @apply h-[19px] font-kv-medium;

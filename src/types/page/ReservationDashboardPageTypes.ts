@@ -50,3 +50,10 @@ export interface DailyReservationModalType {
   status: 'pending' | 'confirmed' | 'declined';
   scheduleId: number;
 }
+
+// 승인하기, 거절하기 버튼으로 patch 요청 시 필요한 params type
+export interface PatchReservationStatusParamsType {
+  activityId: number;
+  reservationId: string;
+  status: 'confirmed' | 'declined';
+}
