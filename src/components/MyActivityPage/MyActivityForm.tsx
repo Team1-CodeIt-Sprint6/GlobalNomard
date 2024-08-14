@@ -125,10 +125,11 @@ export default function MyActivityForm() {
     const postActivityAndMove = async () => {
       try {
         const formData = await formActivityData();
-        setActivityId(await postActivity(formData));
+        const newActivityId = await postActivity(formData);
+        setActivityId(newActivityId);
         setIsSuccess(true);
         openModal('alert', '체험 생성이 완료되었습니다.', {
-          onConfirm: () => router.push(`/activity/${activityId}`),
+          onConfirm: () => router.push(`/activity/${newActivityId}`),
         });
       } catch (e) {
         const error = e as AxiosErrorWithMessage;
