@@ -38,8 +38,12 @@
   .size-my-act-img {
     @apply size-[167px] pc:size-[180px] tablet:size-[206px];
   }
-  .size-my-act-date {
-    @apply w-[130px] pc:w-[380px] tablet:w-[150px];
+  .size-my-act-date,
+  .size-my-act-date input {
+    @apply w-full min-w-[377px] tablet:min-w-[149px] mobile:min-w-[130px];
+  }
+  .size-my-act-date .react-datepicker-wrapper {
+    @apply w-full;
   }
   .size-my-act-time {
     @apply w-[80px] pc:w-[140px] tablet:w-[104px];
@@ -54,11 +58,11 @@
   }
 
   .schedule-my-act {
-    @apply flex gap-1 pc:gap-5 tablet:gap-2;
+    @apply flex gap-5 mobile:gap-1;
   }
 
   .times-my-act {
-    @apply flex h-full gap-1 pc:gap-3 tablet:gap-[5px];
+    @apply flex h-full gap-5 mobile:gap-1;
   }
 
   .label-my-act-schedule {

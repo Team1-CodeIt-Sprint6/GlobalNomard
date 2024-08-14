@@ -220,7 +220,7 @@ export default function MyActivityForm() {
         )}
       </div>
 
-      <div className="w-fit">
+      <div>
         <h2 className="h2-my-act">예약 가능한 시간대</h2>
         <ScheduleList
           schedules={schedules}
