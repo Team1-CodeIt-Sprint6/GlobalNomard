@@ -54,25 +54,6 @@ export const getActivity = async (
   return { data: response.data };
 };
 
-// 내 예약 리스트 조회
-// export const getMyReservations = async (
-//   nextCursorId: string | null,
-//   status: string | null,
-//   isFirstFetch: boolean,
-// ): Promise<{ reservations: MyReservation[]; cursorId: string | null }> => {
-//   let url = `/my-reservations?size=10`;
-
-//   if (nextCursorId && !isFirstFetch) {
-//     url += `&cursorId=${nextCursorId}`;
-//   }
-//   if (status) {
-//     url += `&status=${status}`;
-//   }
-
-//   const { data } = await instance.get(url);
-//   return data;
-// };
-
 /**
  * 주소를 좌표로 변환하는 함수
  * @param address - 변환할 주소

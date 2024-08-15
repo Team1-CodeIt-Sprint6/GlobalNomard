@@ -3,6 +3,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { getMyReservations } from '@/lib/apis/getApis';
 import { MyReservation } from '@/types/get/reservationTypes';
 
+import { useInfiniteScrollHandler } from './useInfiniteScrollHandler';
+
 const useInfiniteScrollReservation = (initialStatus: string | null) => {
   const [reservations, setReservations] = useState<MyReservation[]>([]);
   const [nextCursorId, setNextCursorId] = useState<string | null>(null);
@@ -13,7 +15,6 @@ const useInfiniteScrollReservation = (initialStatus: string | null) => {
   const fetchReservations = useCallback(
     async (isResetFetch: boolean = false) => {
       if (loadingRef.current) return;
-
       loadingRef.current = true;
       try {
         const data = await getMyReservations(
@@ -39,29 +40,15 @@ const useInfiniteScrollReservation = (initialStatus: string | null) => {
     [nextCursorId, status],
   );
 
-  const handleScroll = useCallback(() => {
-    const scrollPosition =
-      window.innerHeight + document.documentElement.scrollTop;
-    const threshold = document.documentElement.offsetHeight - 100;
-
-    if (
-      scrollPosition < threshold ||
-      loadingRef.current ||
-      nextCursorId === null
-    ) {
-      return;
-    }
-    fetchReservations();
-  }, [loadingRef.current, nextCursorId, fetchReservations]);
+  useInfiniteScrollHandler(
+    fetchReservations,
+    !!nextCursorId,
+    loadingRef.current,
+  );
 
   useEffect(() => {
     fetchReservations(true);
   }, [status]);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
 
   const updateStatus = (newStatus: string | null) => {
     setNextCursorId(null);
