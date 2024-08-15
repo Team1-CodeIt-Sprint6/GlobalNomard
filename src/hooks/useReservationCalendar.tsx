@@ -13,6 +13,52 @@ interface useReservationCalendarProps {
   onOpen: () => void;
 }
 
+// calendar chip을 구성하는 컴포넌트들
+const CompletedChip = () => (
+  <div className="reservation-chip complete-chip" data-status="completed">
+    완료
+  </div>
+);
+
+const ConfirmedChip = ({ count }: { count: number }) => (
+  <div className="reservation-chip approve-chip" data-status="confirmed">
+    승인 {count}
+  </div>
+);
+
+const PendingChip = ({ count }: { count: number }) => (
+  <div className="reservation-chip reserve-chip" data-status="pending">
+    예약 {count}
+  </div>
+);
+
+const ColorDot = ({ completed }: { completed: number }) => (
+  <div
+    className={`color-dot ${completed === 0 ? 'bg-kv-primary-blue' : 'completeStatus'}`}
+  />
+);
+
+const ReservationChips = ({
+  completed,
+  confirmed,
+  pending,
+}: {
+  completed: number;
+  confirmed: number;
+  pending: number;
+}) => {
+  if (completed !== 0) {
+    return <CompletedChip />;
+  }
+
+  return (
+    <>
+      {confirmed !== 0 && <ConfirmedChip count={confirmed} />}
+      {pending !== 0 && <PendingChip count={pending} />}
+    </>
+  );
+};
+
 export default function useReservationCalendar({
   onOpen,
 }: useReservationCalendarProps) {
@@ -77,30 +123,12 @@ export default function useReservationCalendar({
     const { completed, confirmed, pending } = chipData.reservations;
     return (
       <div className="chip-container">
-        {completed !== 0 && (
-          <div
-            className="reservation-chip complete-chip"
-            data-status="completed"
-          >
-            완료 {completed}
-          </div>
-        )}
-        {confirmed !== 0 && (
-          <div
-            className="reservation-chip approve-chip"
-            data-status="confirmed"
-          >
-            승인 {confirmed}
-          </div>
-        )}
-        {pending !== 0 && (
-          <div className="reservation-chip reserve-chip" data-status="pending">
-            예약 {pending}
-          </div>
-        )}
-        <div
-          className={`color-dot ${completed === 0 ? 'bg-kv-primary-blue' : 'completeStatus'}`}
+        <ReservationChips
+          completed={completed}
+          confirmed={confirmed}
+          pending={pending}
         />
+        <ColorDot completed={completed} />
       </div>
     );
   };
