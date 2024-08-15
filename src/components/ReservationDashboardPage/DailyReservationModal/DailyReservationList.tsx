@@ -38,11 +38,13 @@ export default function DailyReservationList({
     patchReservationStatus.mutate(params);
   };
 
+  if (reservationDetails.reservations.length === 0) return null;
+
   return (
     <div className="mx-auto mt-[27px] h-[294px] w-[343px]">
       <p className="daily-modal-sub-title mb-[16px]">예약 내역</p>
       <div className="h-[248px] overflow-auto scrollbar-none-custom">
-        {reservationDetails?.reservations.map(
+        {reservationDetails.reservations.map(
           ({ nickname, headCount, id }, index) => {
             return (
               <div
