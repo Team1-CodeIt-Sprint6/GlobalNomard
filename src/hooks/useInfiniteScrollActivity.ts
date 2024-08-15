@@ -1,17 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import instance from '@/lib/apis/axios';
+import { getActivities } from '@/lib/apis/getApis';
 import { MyActivity } from '@/types/get/activityTypes';
-
-const fetchActivities = async (cursorId: string | null = null) => {
-  const response = await instance.get('/my-activities', {
-    params: {
-      size: 10,
-      cursorId,
-    },
-  });
-  return response.data;
-};
 
 const useInfiniteScrollActivity = () => {
   const [activities, setActivities] = useState<MyActivity[]>([]);
@@ -25,7 +15,7 @@ const useInfiniteScrollActivity = () => {
 
       loadingRef.current = true;
       try {
-        const data = await fetchActivities(isReset ? null : nextCursorId);
+        const data = await getActivities(isReset ? null : nextCursorId);
         setActivities((prev) =>
           isReset ? data.activities : [...prev, ...data.activities],
         );

@@ -5,7 +5,6 @@ import Button from '@/components/common/Button';
 import { Modal } from '@/components/common/Modal';
 import useInfiniteScrollActivity from '@/hooks/useInfiniteScrollActivity';
 import useModal from '@/hooks/useModal';
-import instance from '@/lib/apis/axios';
 import { deleteActivity } from '@/lib/apis/deleteApis';
 import { ErrorResponse } from '@/types/errorTypes';
 

@@ -107,3 +107,13 @@ export const getActivityReview = async (activityId: number, page: number) => {
   );
   return response.data;
 };
+
+export const getActivities = async (cursorId: string | null = null) => {
+  const response = await instance.get('/my-activities', {
+    params: {
+      size: 10,
+      cursorId,
+    },
+  });
+  return response.data;
+};
