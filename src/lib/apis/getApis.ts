@@ -2,11 +2,16 @@ import instance from '@/lib/apis/axios';
 import { ActivityResponse as ActivityDetailResponse } from '@/types/activityDetailPageTypes';
 import { ActivityReviewsResponse } from '@/types/activityReviewTypes';
 import { ActivityResponse } from '@/types/activityTypes';
-import { MyReservation } from '@/types/get/reservationTypes';
+import {
+  MyReservation,
+  MyReservationsResponse,
+} from '@/types/get/reservationTypes';
+import { MyActivityListResponse } from '@/types/myActivitiesTypes';
 import {
   MyActivitiesResponse,
   ReservationDashboardResponse,
 } from '@/types/page/ReservationDashboardPageTypes';
+import { ReservationResponse } from '@/types/post/reservationTypes';
 
 export const getMyActivities = async (): Promise<{
   data: MyActivitiesResponse;
@@ -50,23 +55,23 @@ export const getActivity = async (
 };
 
 // 내 예약 리스트 조회
-export const getMyReservations = async (
-  nextCursorId: string | null,
-  status: string | null,
-  isFirstFetch: boolean,
-): Promise<{ reservations: MyReservation[]; cursorId: string | null }> => {
-  let url = `/my-reservations?size=10`;
+// export const getMyReservations = async (
+//   nextCursorId: string | null,
+//   status: string | null,
+//   isFirstFetch: boolean,
+// ): Promise<{ reservations: MyReservation[]; cursorId: string | null }> => {
+//   let url = `/my-reservations?size=10`;
 
-  if (nextCursorId && !isFirstFetch) {
-    url += `&cursorId=${nextCursorId}`;
-  }
-  if (status) {
-    url += `&status=${status}`;
-  }
+//   if (nextCursorId && !isFirstFetch) {
+//     url += `&cursorId=${nextCursorId}`;
+//   }
+//   if (status) {
+//     url += `&status=${status}`;
+//   }
 
-  const { data } = await instance.get(url);
-  return data;
-};
+//   const { data } = await instance.get(url);
+//   return data;
+// };
 
 /**
  * 주소를 좌표로 변환하는 함수
@@ -108,10 +113,26 @@ export const getActivityReview = async (activityId: number, page: number) => {
   return response.data;
 };
 
-export const getActivities = async (cursorId: string | null = null) => {
+export const getActivities = async (
+  cursorId: string | null = null,
+): Promise<MyActivityListResponse> => {
   const response = await instance.get('/my-activities', {
     params: {
       size: 10,
+      cursorId,
+    },
+  });
+  return response.data;
+};
+
+export const getMyReservations = async (
+  cursorId: string | null = null,
+  status: string | null = null,
+): Promise<MyReservationsResponse> => {
+  const response = await instance.get('/my-reservations', {
+    params: {
+      size: 10,
+      status,
       cursorId,
     },
   });
