@@ -12,9 +12,8 @@ interface DailyReservationDateDropdownProps {
 export default function DailyReservationDateDropdown({
   reservationStatus,
 }: DailyReservationDateDropdownProps) {
-  const [isLoading, setIsLoading] = useState(true);
   const [selected, setSelected] = useState({
-    value: `${reservationStatus[0]?.startTime} ~ ${reservationStatus[0]?.endTime}`,
+    value: '',
     id: '',
   });
   const [isOpen, setIsOpen] = useState(false);
@@ -33,10 +32,22 @@ export default function DailyReservationDateDropdown({
   };
 
   useEffect(() => {
-    setIsLoading(false);
-  }, [reservationStatus]);
+    const validReservation = reservationStatus.find(
+      ({ count }) => count[dailyModalState.status] > 0,
+    );
+    if (validReservation) {
+      setSelected({
+        value: `${validReservation.startTime} ~ ${validReservation.endTime}`,
+        id: validReservation.scheduleId.toString(),
+      });
+      setDailyModalState((prev) => ({
+        ...prev,
+        scheduleId: Number(validReservation.scheduleId),
+      }));
+    }
+  }, [reservationStatus, dailyModalState.status]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (reservationStatus.length === 0) return null;
 
   return (
     <div className="mx-auto mt-[27px] h-[130px] w-[332px]">
@@ -55,21 +66,23 @@ export default function DailyReservationDateDropdown({
       </button>
       <ul className="relative z-10 mt-1 max-h-[220px] overflow-auto rounded shadow-md scrollbar-custom">
         {isOpen &&
-          reservationStatus.map(({ startTime, endTime, scheduleId }, idx) => {
-            const id = scheduleId.toString();
-            const isFirst = idx === 0;
-            const isLast = idx === reservationStatus.length - 1;
-            return (
-              <li
-                className={`${isFirst ? 'rounded-t-md' : ''} ${isLast ? 'rounded-b-md' : 'border-b'} flex h-[56px] w-full cursor-pointer items-center border border-kv-gray-300 bg-white px-[16px]`}
-                key={id}
-                id={id}
-                onMouseDown={handleMenuClick}
-              >
-                {startTime} ~ {endTime}
-              </li>
-            );
-          })}
+          reservationStatus
+            .filter(({ count }) => count[dailyModalState.status] > 0)
+            .map(({ startTime, endTime, scheduleId }, idx) => {
+              const id = scheduleId.toString();
+              const isFirst = idx === 0;
+              const isLast = idx === reservationStatus.length - 1;
+              return (
+                <li
+                  className={`${isFirst ? 'rounded-t-md' : ''} ${isLast ? 'rounded-b-md' : 'border-b'} flex h-[56px] w-full cursor-pointer items-center border border-kv-gray-300 bg-white px-[16px]`}
+                  key={id}
+                  id={id}
+                  onMouseDown={handleMenuClick}
+                >
+                  {startTime} ~ {endTime}
+                </li>
+              );
+            })}
       </ul>
     </div>
   );
