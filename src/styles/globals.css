@@ -350,7 +350,7 @@
   }
   /* 1일, 2일...숫자 컨테이너 */
   .custom-calendar .react-calendar__tile {
-    @apply flex h-[154px] max-w-[114px] flex-col justify-between border border-kv-gray-300 bg-white hover:border-kv-primary-blue;
+    @apply flex h-[154px] max-w-[114px] cursor-auto flex-col justify-between border border-kv-gray-300 bg-white;
   }
   .custom-calendar .react-calendar__tile:nth-last-child(7) {
     @apply rounded-bl-lg;
@@ -369,14 +369,14 @@
   }
   /* 예약 현황 칩 */
   .custom-calendar .reservation-chip {
-    @apply z-[1] mt-[2px] flex h-[23px] w-full rounded-md pl-[4px] text-kv-xs pc:text-kv-md tablet:text-kv-md;
+    @apply z-[1] mt-[2px] flex h-[23px] w-full cursor-pointer items-center rounded-md pl-[4px] text-kv-xs pc:text-kv-md tablet:text-kv-md;
   }
   .custom-calendar .chip-container {
     @apply relative w-full px-[2px] py-[2px];
   }
   /* 완료 칩 */
   .custom-calendar .complete-chip {
-    @apply bg-kv-gray-300 text-kv-black;
+    @apply cursor-auto bg-kv-gray-300 text-kv-black;
   }
   /* 예약 칩 */
   .custom-calendar .reserve-chip {

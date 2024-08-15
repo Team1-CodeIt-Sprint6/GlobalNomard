@@ -22,13 +22,18 @@ export default function useReservationCalendar({
   const setDailyModalState = useSetAtom(dailyReservationModalAtom);
   const [calendarChip] = useAtom(calendarChipAtom);
 
-  const onDateChange: CalendarProps['onChange'] = (nextValue) => {
-    if (nextValue instanceof Date) {
+  const onDateChange: CalendarProps['onChange'] = (nextValue, { target }) => {
+    if (nextValue instanceof Date && target instanceof HTMLDivElement) {
+      if (target.dataset.status === 'completed') return;
+
       setValue(nextValue);
       setDailyModalState((prev) => ({
         ...prev,
         date: formatDateToYMD(new Date(nextValue.toString())),
+        status:
+          (target.dataset.status as 'pending' | 'confirmed') || prev.status,
       }));
+
       onOpen();
     }
   };
@@ -73,13 +78,25 @@ export default function useReservationCalendar({
     return (
       <div className="chip-container">
         {completed !== 0 && (
-          <div className="reservation-chip complete-chip">완료 {completed}</div>
+          <div
+            className="reservation-chip complete-chip"
+            data-status="completed"
+          >
+            완료 {completed}
+          </div>
         )}
         {confirmed !== 0 && (
-          <div className="reservation-chip approve-chip">승인 {confirmed}</div>
+          <div
+            className="reservation-chip approve-chip"
+            data-status="confirmed"
+          >
+            승인 {confirmed}
+          </div>
         )}
         {pending !== 0 && (
-          <div className="reservation-chip reserve-chip">예약 {pending}</div>
+          <div className="reservation-chip reserve-chip" data-status="pending">
+            예약 {pending}
+          </div>
         )}
         <div
           className={`color-dot ${completed === 0 ? 'bg-kv-primary-blue' : 'completeStatus'}`}
