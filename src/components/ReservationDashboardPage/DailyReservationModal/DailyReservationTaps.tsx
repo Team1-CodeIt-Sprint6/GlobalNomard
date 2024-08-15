@@ -33,21 +33,21 @@ export default function DailyReservationTaps({
           data-status="pending"
           onClick={handleTapClick}
         >
-          신청{reservationStatus[0]?.count.pending}
+          신청 {reservationStatus[0]?.count.pending}
         </div>
         <div
           className={`daily-modal-status-tap-base ${status === 'confirmed' && 'daily-modal-status-active'}`}
           data-status="confirmed"
           onClick={handleTapClick}
         >
-          승인{reservationStatus[0]?.count.confirmed}
+          승인 {reservationStatus[0]?.count.confirmed}
         </div>
         <div
           className={`daily-modal-status-tap-base ${status === 'declined' && 'daily-modal-status-active'}`}
           data-status="declined"
           onClick={handleTapClick}
         >
-          거절{reservationStatus[0]?.count.declined}
+          거절 {reservationStatus[0]?.count.declined}
         </div>
       </div>
     </div>
