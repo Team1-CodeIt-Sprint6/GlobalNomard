@@ -45,6 +45,7 @@ export default function DailyReservationTaps({
         {taps.map((tap) => (
           <div
             className={`daily-modal-status-tap-base ${status === tap.status && 'daily-modal-status-active'} ${tap.count === 0 && 'cursor-default'}`}
+            key={tap.status}
             data-status={tap.status}
             onClick={tap.count !== 0 ? handleTapClick : undefined}
           >
