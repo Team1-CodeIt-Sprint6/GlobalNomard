@@ -86,11 +86,11 @@ export default function ExperienceList() {
   return (
     <div>
       <div className="flex flex-col gap-y-1">
-        <div className="flex gap-x-2">
+        <div className="flex gap-x-2 pb-6">
           <h2 className="font-kv-bold kv-text-2xl">모든 체험</h2>
           <KVentureSymbol />
         </div>
-        <ul className="grid grid-cols-4 grid-rows-2 gap-4">
+        <ul className="tablet:grid-row-3 grid grid-cols-2 grid-rows-2 gap-4 pc:grid-cols-4 pc:grid-rows-2 tablet:grid-cols-3">
           {mockData.map((v) => {
             return <ExperienceCard data={v} />;
           })}
