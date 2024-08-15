@@ -13,7 +13,9 @@ interface DailyReservationListProps {
 export default function DailyReservationList({
   reservationDetails,
 }: DailyReservationListProps) {
-  const { activityId } = useAtomValue(dailyReservationModalAtom);
+  const { activityId, status: modalStatus } = useAtomValue(
+    dailyReservationModalAtom,
+  );
   const patchReservationStatus = usePatchReservationStatus();
 
   const handleReservationActionClick = ({
@@ -48,7 +50,7 @@ export default function DailyReservationList({
           ({ nickname, headCount, id }, index) => {
             return (
               <div
-                className="mb-[16px] flex h-[116px] w-[343px] flex-col gap-[6px] rounded-xl border px-[16px] pt-[16px]"
+                className="mb-[16px] flex h-[116px] w-[343px] flex-col gap-[6px] rounded border px-[16px] pt-[16px]"
                 key={index}
               >
                 <div className="daily-modal-list-content">
@@ -60,24 +62,42 @@ export default function DailyReservationList({
                   {headCount}명
                 </div>
                 <div className="flex h-[38px] items-center justify-end gap-[6px]">
-                  <Button
-                    type="button"
-                    data-status="confirmed"
-                    data-id={id}
-                    onClick={handleReservationActionClick}
-                    className="daily-modal-button-base bg-kv-primary-blue text-white"
-                  >
-                    승인하기
-                  </Button>
-                  <Button
-                    type="button"
-                    data-status="declined"
-                    data-id={id}
-                    onClick={handleReservationActionClick}
-                    className="daily-modal-button-base border-kv-primary-blue text-kv-primary-blue"
-                  >
-                    거절하기
-                  </Button>
+                  {modalStatus === 'pending' && (
+                    <>
+                      <Button
+                        type="button"
+                        data-status="confirmed"
+                        data-id={id}
+                        onClick={handleReservationActionClick}
+                        className="daily-modal-button-base bg-kv-primary-blue text-white"
+                      >
+                        승인하기
+                      </Button>
+                      <Button
+                        type="button"
+                        data-status="declined"
+                        data-id={id}
+                        onClick={handleReservationActionClick}
+                        className="daily-modal-button-base border-kv-primary-blue text-kv-primary-blue"
+                      >
+                        거절하기
+                      </Button>
+                    </>
+                  )}
+                  {modalStatus === 'confirmed' && (
+                    <span
+                      className={`reservation-list-badge-base bg-kv-orange-light`}
+                    >
+                      예약 승인
+                    </span>
+                  )}
+                  {modalStatus === 'declined' && (
+                    <span
+                      className={`reservation-list-badge-base bg-kv-red-light`}
+                    >
+                      예약 거절
+                    </span>
+                  )}
                 </div>
               </div>
             );

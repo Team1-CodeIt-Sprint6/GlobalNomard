@@ -415,6 +415,10 @@
   .daily-modal-button-base {
     @apply h-[38px] w-[82px] rounded-md border text-kv-md font-kv-bold align-center;
   }
+  /* 예약 내역 뱃지 */
+  .reservation-list-badge-base {
+    @apply h-[44px] w-[82px] rounded-[26.5px] text-kv-md font-kv-bold text-kv-red align-center;
+  }
 }
 
 /* 케밥 */

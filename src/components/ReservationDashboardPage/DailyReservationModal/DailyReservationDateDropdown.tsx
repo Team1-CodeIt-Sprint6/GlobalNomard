@@ -57,7 +57,7 @@ export default function DailyReservationDateDropdown({
         onClick={() => setIsOpen(!isOpen)}
         onBlur={() => setIsOpen(false)}
         type="button"
-        className="flex h-[56px] w-full items-center justify-between rounded-lg border border-kv-black px-[16px]"
+        className="flex h-[56px] w-full items-center justify-between rounded border border-kv-black px-[16px]"
       >
         <p>{selected.value}</p>
         <ArrowIcon
