@@ -62,7 +62,7 @@ export default function ReservationList() {
       '',
       {
         onConfirm: async () => {
-          await fetchReservations();
+          await fetchReservations(true);
         },
       },
       reservation,

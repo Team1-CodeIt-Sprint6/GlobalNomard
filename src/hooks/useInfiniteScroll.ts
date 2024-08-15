@@ -11,8 +11,6 @@ const useInfiniteScrollReservations = (initialStatus: string | null) => {
   const [status, setStatus] = useState<string | null>(initialStatus);
   const loadingRef = useRef(false);
 
-  //isResetFetch true: 상태 변경(필터 변경)으로 인한 데이터 패칭 초기화
-  //isResetFetch false: 무한 스크롤 상황(스크롤 다운 시 추가 데이터를 가져오는 상황)
   const fetchReservations = useCallback(
     async (isResetFetch: boolean = false) => {
       if (loadingRef.current) {
