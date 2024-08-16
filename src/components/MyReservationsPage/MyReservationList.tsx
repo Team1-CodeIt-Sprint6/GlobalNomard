@@ -21,7 +21,6 @@ export default function ReservationList() {
 
   const { modalProps: cancelModalProps, openModal: openCancelModal } =
     useModal();
-
   const { modalProps: reviewModalProps, openModal: openReviewModal } =
     useModal();
 
