@@ -13,7 +13,7 @@ export default function DailyReservationDateDropdown({
   reservationStatus,
 }: DailyReservationDateDropdownProps) {
   const [selected, setSelected] = useState({
-    value: '',
+    value: '시간을 선택해주세요.',
     id: '',
   });
   const [isOpen, setIsOpen] = useState(false);
@@ -32,20 +32,22 @@ export default function DailyReservationDateDropdown({
   };
 
   useEffect(() => {
-    const validReservation = reservationStatus.find(
+    const validReservations = reservationStatus.filter(
       ({ count }) => count[dailyModalState.status] > 0,
     );
-    if (validReservation) {
+
+    if (validReservations.length > 0) {
+      const initialReservation = validReservations[0];
       setSelected({
-        value: `${validReservation.startTime} ~ ${validReservation.endTime}`,
-        id: validReservation.scheduleId.toString(),
+        value: `${initialReservation.startTime} ~ ${initialReservation.endTime}`,
+        id: `${initialReservation.scheduleId}`,
       });
       setDailyModalState((prev) => ({
         ...prev,
-        scheduleId: Number(validReservation.scheduleId),
+        scheduleId: initialReservation.scheduleId,
       }));
     }
-  }, [reservationStatus, dailyModalState.status]);
+  }, [dailyModalState.date, dailyModalState.status]);
 
   if (reservationStatus.length === 0) return null;
 

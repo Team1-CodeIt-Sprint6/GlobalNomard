@@ -57,3 +57,10 @@ export interface PatchReservationStatusParamsType {
   reservationId: string;
   status: 'confirmed' | 'declined';
 }
+
+export interface DailyReservationModalType {
+  activityId: number;
+  date: string;
+  status: 'pending' | 'confirmed' | 'declined';
+  scheduleId: number;
+}
