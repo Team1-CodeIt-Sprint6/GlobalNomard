@@ -43,14 +43,6 @@ export interface ReservationDashboardQueryParamsType {
   month: string;
 }
 
-// 예약 정보 모달 정보 요청 params를 전역 상태로 종합
-export interface DailyReservationModalType {
-  activityId: number;
-  date: string;
-  status: 'pending' | 'confirmed' | 'declined';
-  scheduleId: number;
-}
-
 // 승인하기, 거절하기 버튼으로 patch 요청 시 필요한 params type
 export interface PatchReservationStatusParamsType {
   activityId: number;
@@ -63,4 +55,5 @@ export interface DailyReservationModalType {
   date: string;
   status: 'pending' | 'confirmed' | 'declined';
   scheduleId: number;
+  cursorId?: number;
 }

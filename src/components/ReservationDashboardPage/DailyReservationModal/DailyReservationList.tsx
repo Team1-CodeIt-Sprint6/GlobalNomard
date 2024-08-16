@@ -1,4 +1,5 @@
 import { useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 
 import Button from '@/components/common/Button';
 import { usePatchReservationStatus } from '@/hooks/useUpdateReservationStatus';
