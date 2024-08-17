@@ -1,4 +1,4 @@
-import CloseIcon from '@/assets/icons/iocn_x_lg.svg';
+import CloseIcon from '@/assets/icons/icon_x_lg.svg';
 
 interface DailyReservationModalHeaderProps {
   onClose: () => void;
