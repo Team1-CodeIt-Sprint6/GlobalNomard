@@ -10,12 +10,12 @@ export interface ReservationStatusResponse {
 }
 
 export interface ReservationDetailsResponse {
-  reservations: ReservationsList[];
+  reservations: ReservationsListType[];
   totalCount: number;
   cursorId: number | null;
 }
 
-export interface ReservationsList {
+export interface ReservationsListType {
   id: number;
   status: string;
   totalPrice: number;

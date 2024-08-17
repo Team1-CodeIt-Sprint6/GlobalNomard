@@ -73,7 +73,7 @@ export const getReservationDetails = async ({
   scheduleId,
   status,
   cursorId,
-  size = 10,
+  size,
 }: {
   activityId: number;
   scheduleId: number;
@@ -85,8 +85,8 @@ export const getReservationDetails = async ({
     `/my-activities/${activityId}/reservations`,
     {
       params: {
-        cursorId: cursorId,
-        size: size,
+        cursorId,
+        size,
         scheduleId,
         status,
       },
