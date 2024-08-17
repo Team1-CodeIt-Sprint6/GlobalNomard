@@ -41,7 +41,7 @@ export default function ReservationDashboard() {
           onClickMenu={onClickMenu}
         />
       </div>
-      <div className="h-[872px]">
+      <div className="relative h-[872px]">
         <Calendar
           locale="ko-KR"
           calendarType="gregory"
@@ -54,8 +54,8 @@ export default function ReservationDashboard() {
           minDetail={'month'}
           className="custom-calendar"
         />
+        {isOpenInfo && <DailyReservationModal onClose={handleCloseClick} />}
       </div>
-      {isOpenInfo && <DailyReservationModal onClose={handleCloseClick} />}
     </div>
   );
 }
