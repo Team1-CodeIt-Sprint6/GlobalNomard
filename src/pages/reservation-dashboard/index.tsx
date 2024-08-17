@@ -9,6 +9,7 @@ import useReservationDashboardData from '@/hooks/useReservationDashboardData';
 export default function ReservationDashboard() {
   const { availableActivities, isOpenInfo, handleCloseClick, handleOpenClick } =
     useReservationDashboardData();
+
   const {
     value: dropdownValue,
     isOpen,
@@ -16,12 +17,14 @@ export default function ReservationDashboard() {
     onBlurButton,
     onClickMenu,
   } = useDropdown('');
+
   const {
     tileContent,
     tileClassName,
     onDateChange,
     onMonthChange,
     value: calendarValue,
+    reservationStatus,
   } = useReservationCalendar({ onOpen: handleOpenClick });
 
   return (
@@ -54,7 +57,12 @@ export default function ReservationDashboard() {
           minDetail={'month'}
           className="custom-calendar"
         />
-        {isOpenInfo && <DailyReservationModal onClose={handleCloseClick} />}
+        {isOpenInfo && (
+          <DailyReservationModal
+            onClose={handleCloseClick}
+            reservationStatus={reservationStatus}
+          />
+        )}
       </div>
     </div>
   );

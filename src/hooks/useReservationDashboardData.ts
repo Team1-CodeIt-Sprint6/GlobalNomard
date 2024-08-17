@@ -75,7 +75,12 @@ const useReservationDashboardData = () => {
 
   const handleCloseClick = () => {
     setIsOpenInfo(false);
-    setDailyModalState(INITIAL_DAILY_RESERVATION_MODAL_STATE);
+    setDailyModalState((prev) => ({
+      ...prev,
+      date: INITIAL_DAILY_RESERVATION_MODAL_STATE.date,
+      scheduleId: INITIAL_DAILY_RESERVATION_MODAL_STATE.scheduleId,
+      status: INITIAL_DAILY_RESERVATION_MODAL_STATE.status,
+    }));
   };
 
   const handleOpenClick = () => {
