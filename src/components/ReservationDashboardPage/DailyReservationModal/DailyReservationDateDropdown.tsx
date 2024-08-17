@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
-import ArrowIcon from '@/assets/icons/icon-arrow-down.svg';
+import ArrowIcon from '@/assets/icons/icon_arrow_down.svg';
 import { dailyReservationModalAtom } from '@/state/reservationDashboardAtom';
 import { ReservationStatusResponse } from '@/types/get/ReservationDashboardPageGetTypes';
 

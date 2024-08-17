@@ -1,10 +1,7 @@
 import { useAtom, useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 
-import {
-  getReservationDetails,
-  getReservationStatus,
-} from '@/lib/apis/getApis';
+import { getReservationStatus } from '@/lib/apis/getApis';
 import {
   dailyReservationModalAtom,
   reservationDashboardQueryParamsAtom,
@@ -12,7 +9,7 @@ import {
 
 import useFetchData from './useFetchData';
 
-export default function useDailyReservationData() {
+export default function useDailyReservationModal() {
   const { activityId: id } = useAtomValue(reservationDashboardQueryParamsAtom);
   const [dailyModalState, setDailyModalState] = useAtom(
     dailyReservationModalAtom,
@@ -48,23 +45,7 @@ export default function useDailyReservationData() {
     }
   }, [reservationStatus]);
 
-  // scheduleId 값이 추가된 것을 감지하여 getReservationDetails 실행
-  // 반환 값은 예약 내역 리스트
-  const { data: reservationDetails } = useFetchData(
-    ['reservationDetails', dailyModalState.scheduleId, dailyModalState.status],
-    () =>
-      getReservationDetails({
-        activityId: dailyModalState.activityId,
-        scheduleId: dailyModalState.scheduleId,
-        status: dailyModalState.status,
-      }),
-    {
-      enabled: !!dailyModalState.scheduleId,
-    },
-  );
-
   return {
     reservationStatus, // 신청 현황 탭과 예약 날짜 드롭다운
-    reservationDetails, // 예약 내역 리스트
   };
 }

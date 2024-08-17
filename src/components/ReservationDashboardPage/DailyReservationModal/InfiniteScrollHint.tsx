@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import ChevronDown from '@/assets/icons/icon-arrow-down.svg';
+import ChevronDown from '@/assets/icons/icon_arrow_down.svg';
 
 interface InfiniteScrollHintProps {
   hasNextPage: boolean;
