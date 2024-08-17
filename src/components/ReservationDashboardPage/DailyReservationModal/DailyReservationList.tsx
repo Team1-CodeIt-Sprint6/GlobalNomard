@@ -2,7 +2,7 @@ import { useAtomValue } from 'jotai';
 import React from 'react';
 
 import Button from '@/components/common/Button';
-import InfiniteScrollHint from '@/components/ReservationDashboardPage/DailyReservationModal/InfiniteScrollHint';
+import InfiniteScrollHint from '@/components/common/InfiniteScrollHint';
 import useDailyReservationListInfinite from '@/hooks/useDailyReservationListInfinite';
 import { usePatchReservationStatus } from '@/hooks/useUpdateReservationStatus';
 import { dailyReservationModalAtom } from '@/state/reservationDashboardAtom';
@@ -39,8 +39,8 @@ export default function DailyReservationList() {
   };
 
   return (
-    <div className="mx-auto mt-[27px] h-[294px] w-[343px]">
-      <p className="daily-modal-sub-title mb-[16px]">예약 내역</p>
+    <div className="mx-auto mt-[27px] h-[294px] w-[332px]">
+      <p className="daily-modal-sub-title">예약 내역</p>
       <div className="h-[248px] overflow-auto scrollbar-none-custom">
         {reservationList?.pages.map((page, pageIndex) => (
           <React.Fragment key={pageIndex}>
@@ -108,8 +108,12 @@ export default function DailyReservationList() {
           </React.Fragment>
         ))}
       </div>
-      {hasNextPage && <InfiniteScrollHint hasNextPage={hasNextPage} />}
-      {isFetchingNextPage && <div className="align-center">Loading...</div>}
+
+      {isFetchingNextPage ? (
+        <div className="align-center">Loading...</div>
+      ) : (
+        hasNextPage && <InfiniteScrollHint hasNextPage={hasNextPage} />
+      )}
     </div>
   );
 }
