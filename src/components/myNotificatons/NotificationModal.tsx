@@ -30,7 +30,7 @@ export default function NotificationModal({
   const { data: user } = useFetchData(['user'], getUserData, {});
 
   // 알림 데이터 가져오기
-  const { data: notificationData } = useFetchData(
+  const { data: notificationData, refetch } = useFetchData(
     ['userNotification'],
     getMyNotifications,
     {},
@@ -68,6 +68,8 @@ export default function NotificationModal({
                   key={notification.id}
                   content={notification.content}
                   updatedAt={notification.updatedAt}
+                  notificationId={notification.id}
+                  refetchNotifications={refetch}
                 />
               </li>
             ))
