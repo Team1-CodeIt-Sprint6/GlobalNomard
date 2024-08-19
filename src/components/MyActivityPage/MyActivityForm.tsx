@@ -110,10 +110,26 @@ export default function MyActivityForm() {
         sub.imageFiles.map((file) => postActivityImage({ image: file })),
       );
 
+      const schedulesToAdd = schedules
+        .filter((s) => !s.id)
+        .map((schedule) => {
+          const dateParts = schedule.date.split('/');
+          const year = '20' + dateParts[0];
+          const month = dateParts[1].padStart(2, '0');
+          const day = dateParts[2].padStart(2, '0');
+          const formattedDate = `${year}-${month}-${day}`;
+
+          return {
+            date: formattedDate,
+            startTime: schedule.startTime,
+            endTime: schedule.endTime,
+          };
+        });
+
       const formData = {
         ...data,
         category: category.value,
-        schedules: [] as Schedule[],
+        schedules: schedulesToAdd,
         bannerImageUrl,
         subImageUrls,
       };
