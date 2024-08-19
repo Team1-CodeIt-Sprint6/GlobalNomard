@@ -33,9 +33,16 @@ export default function Notification({
     refetchNotifications();
   };
 
+  const isApproved = content.includes('승인');
+  const isRejected = content.includes('거절');
+
   return (
     <div className="relative mb-2 rounded-[5px] border border-kv-gray-400 bg-white px-3 py-4">
-      <span className="block h-[5px] w-[5px] rounded bg-kv-blue" />
+      <span
+        className={`block h-[5px] w-[5px] rounded ${
+          isApproved ? 'bg-kv-blue' : isRejected ? 'bg-kv-red' : ''
+        }`}
+      />
       <p className={`mt-4 break-keep text-kv-md`}>{highlightedContent}</p>
       <span className="text-kv-xs text-kv-gray-600">{timeAgo}</span>
       <button

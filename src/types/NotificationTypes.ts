@@ -1,6 +1,7 @@
 export interface NotificationResponse {
   totalCount: number;
   notifications: NotificationsType[];
+  cursorId: number | null;
 }
 
 export interface NotificationsType {
