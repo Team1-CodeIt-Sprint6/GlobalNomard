@@ -3,20 +3,15 @@ import { ActivityResponse as ActivityDetailResponse } from '@/types/activityDeta
 import { ActivityReviewsResponse } from '@/types/activityReviewTypes';
 import { ActivityResponse } from '@/types/activityTypes';
 import {
-  MyReservation,
-  MyReservationsResponse,
-} from '@/types/get/reservationTypes';
-import { MyActivityListResponse } from '@/types/myActivitiesTypes';
-import {
   ReservationDetailsResponse,
   ReservationStatusResponse,
 } from '@/types/get/ReservationDashboardPageGetTypes';
-import { MyReservation } from '@/types/get/reservationTypes';
+import { MyReservationsResponse } from '@/types/get/reservationTypes';
+import { MyActivityListResponse } from '@/types/myActivitiesTypes';
 import {
   MyActivitiesResponse,
   ReservationDashboardResponse,
 } from '@/types/page/ReservationDashboardPageTypes';
-import { ReservationResponse } from '@/types/post/reservationTypes';
 
 export const getMyActivities = async (): Promise<{
   data: MyActivitiesResponse;
@@ -59,7 +54,6 @@ export const getActivity = async (
   return { data: response.data };
 };
 
-
 // 특정 날짜에 등록된 예약 상태를 조회한다. 신청, 승인, 거절...
 export const getReservationStatus = async (
   activityId: number,
@@ -95,26 +89,6 @@ export const getReservationDetails = async (
   );
   return { data: response.data };
 };
-
-// 내 예약 리스트 조회
-export const getMyReservations = async (
-  nextCursorId: string | null,
-  status: string | null,
-  isFirstFetch: boolean,
-): Promise<{ reservations: MyReservation[]; cursorId: string | null }> => {
-  let url = `/my-reservations?size=10`;
-
-  if (nextCursorId && !isFirstFetch) {
-    url += `&cursorId=${nextCursorId}`;
-  }
-  if (status) {
-    url += `&status=${status}`;
-  }
-
-  const { data } = await instance.get(url);
-  return data;
-};
-
 
 /**
  * 주소를 좌표로 변환하는 함수
