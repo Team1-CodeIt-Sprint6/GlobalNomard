@@ -79,10 +79,15 @@ export default function MyActivityEditForm({
     handleSubmit,
     setValue,
     formState: { errors, isValid },
+    trigger,
   } = useForm<InputForm>({
     resolver: yupResolver(schema),
-    mode: 'onBlur',
+    mode: 'onChange',
   });
+
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
 
   useEffect(() => {
     const createFileFromUrl = async (url: string, filename: string) => {
