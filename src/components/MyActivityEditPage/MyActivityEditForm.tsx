@@ -102,7 +102,18 @@ export default function MyActivityEditForm({
         // 상태 값 초기화
         setAddress(initialData.address);
         category.setValue(initialData.category);
-        setSchedules(initialData.schedules);
+
+        const formattedSchedules = initialData.schedules.map((schedule) => {
+          const dateParts = schedule.date.split('-');
+          const formattedDate = `${dateParts[0].slice(2)}/${dateParts[1]}/${dateParts[2]}`;
+
+          return {
+            ...schedule,
+            date: formattedDate,
+          };
+        });
+
+        setSchedules(formattedSchedules);
 
         // 이미지 초기화
         if (initialData.bannerImageUrl) {
