@@ -8,6 +8,7 @@ import {
 } from '@/types/get/ReservationDashboardPageGetTypes';
 import { MyReservationsResponse } from '@/types/get/reservationTypes';
 import { MyActivityListResponse } from '@/types/myActivitiesTypes';
+import { NotificationResponse } from '@/types/NotificationTypes';
 import {
   MyActivitiesResponse,
   ReservationDashboardResponse,
@@ -160,4 +161,12 @@ export const getMyReservations = async (
     },
   });
   return response.data;
+};
+
+export const getMyNotifications = async (): Promise<{
+  data: NotificationResponse;
+}> => {
+  const response =
+    await instance.get<NotificationResponse>(`/my-notifications`);
+  return { data: response.data };
 };

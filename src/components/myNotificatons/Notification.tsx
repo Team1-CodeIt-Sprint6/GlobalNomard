@@ -1,5 +1,5 @@
-import CloseIcon from '@/assets/icons/iocn_x_lg.svg';
-import instance from '@/lib/apis/axios';
+import CloseIcon from '@/assets/icons/icon_x_lg.svg';
+import { deleteNotification } from '@/lib/apis/deleteApis';
 import { formatTimeAgo } from '@/lib/utils/formatTimeAge';
 
 interface NotificationProps {
@@ -8,10 +8,6 @@ interface NotificationProps {
   notificationId: number;
   refetchNotifications: () => void;
 }
-
-export const deleteNotification = async (notificationId: number) => {
-  await instance.delete(`/my-notifications/${notificationId}`);
-};
 
 export default function Notification({
   content,

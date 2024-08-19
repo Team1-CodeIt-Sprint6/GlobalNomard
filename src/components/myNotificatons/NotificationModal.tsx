@@ -1,9 +1,8 @@
-import CloseIcon from '@/assets/icons/iocn_x_lg.svg';
+import CloseIcon from '@/assets/icons/icon_x_lg.svg';
 import useFetchData from '@/hooks/useFetchData';
 import useResponsive from '@/hooks/useResponsive';
-import instance from '@/lib/apis/axios';
+import { getMyNotifications } from '@/lib/apis/getApis';
 import { getUserData } from '@/lib/apis/userApis';
-import { NotificationResponse } from '@/types/NotificationTypes';
 
 import Notification from './Notification';
 
@@ -12,14 +11,6 @@ interface NotificationProps {
 }
 
 const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => e.preventDefault();
-
-export const getMyNotifications = async (): Promise<{
-  data: NotificationResponse;
-}> => {
-  const response =
-    await instance.get<NotificationResponse>(`/my-notifications`);
-  return { data: response.data };
-};
 
 export default function NotificationModal({
   closeNotificationModal,
