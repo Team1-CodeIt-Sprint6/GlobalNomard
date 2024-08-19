@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 import { PatchReservationStatusParamsType } from '@/types/page/ReservationDashboardPageTypes';
 
 import instance from './axios';
@@ -33,4 +35,43 @@ export const patchReservationStatus = async ({
     `my-activities/${activityId}/reservations/${reservationId}`,
     { status },
   );
+};
+
+interface UpdateActivityParams {
+  title: string;
+  category: string;
+  description: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  subImageIdsToRemove?: number[];
+  subImageUrlsToAdd?: string[];
+  scheduleIdsToRemove?: number[];
+  schedulesToAdd?: {
+    date: string;
+    startTime: string;
+    endTime: string;
+  }[];
+}
+
+//체험 데이터 업데이트
+export const updateActivity = async (
+  activityId: number,
+  updateData: UpdateActivityParams,
+): Promise<AxiosResponse> => {
+  try {
+    const response = await instance.patch(
+      `/my-activities/${activityId}`,
+      updateData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    console.error('Failed to update activity:', error);
+    throw error;
+  }
 };
