@@ -6,11 +6,14 @@ import { useEffect, useState } from 'react';
 import HeaderUserProfile from '@/components/common/HeaderUserProfile';
 import NotificationModal from '@/components/myNotificatons/NotificationModal';
 import useFetchData from '@/hooks/useFetchData';
+import useScrollLock from '@/hooks/useScrollLock';
 import { getUserData } from '@/lib/apis/userApis';
 import { User } from '@/types/userTypes';
 
 function Header() {
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+  useScrollLock({ isOpen: isNotificationModalOpen });
+
   const accessToken = getCookie('accessToken');
   const {
     data: user,

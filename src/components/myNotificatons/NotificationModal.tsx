@@ -51,7 +51,7 @@ export default function NotificationModal({
             <CloseIcon className="icon-size" />
           </button>
         </div>
-        <ul className="overflow-y-scroll sm:max-h-[408px]">
+        <ul className="overflow-y-scroll-custom scrollbar-none-custom sm:max-h-[408px]">
           {isNotifications ? (
             userNotifications.map((notification) => (
               <li className="list-none">

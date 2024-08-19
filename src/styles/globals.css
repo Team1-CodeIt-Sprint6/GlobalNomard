@@ -560,4 +560,7 @@
   .notification-modal-mobile {
     @apply h-full max-h-full w-full rounded-none;
   }
+  .overflow-y-scroll-custom {
+    @apply overflow-y-scroll;
+  }
 }
