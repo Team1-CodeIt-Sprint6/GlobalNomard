@@ -17,6 +17,7 @@ import { updateActivity } from '@/lib/apis/patchApis';
 import { postActivityImage } from '@/lib/apis/postApis';
 import { checkDuplication } from '@/lib/utils/myActivityPage';
 import { CATEGORIES, Schedule } from '@/types/activityTypes';
+import { ActivityDetailResponse } from '@/types/page/myActivityEditPageTypes';
 import { IMAGE_TYPES } from '@/types/page/myActivityPageTypes';
 
 interface ErrorResponse {
@@ -43,18 +44,6 @@ const schema = yup.object().shape({
     .required('가격을 입력해주세요.'),
   address: yup.string().required('주소를 입력해주세요.'),
 });
-
-interface ActivityDetailResponse {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
-  subImages: { id: number; imageUrl: string }[];
-  schedules: { id: number; date: string; startTime: string; endTime: string }[];
-}
 
 export default function MyActivityEditForm({
   initialData,

@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 
+import { UpdateActivityParams } from '@/types/page/myActivityEditPageTypes';
 import { PatchReservationStatusParamsType } from '@/types/page/ReservationDashboardPageTypes';
 
 import instance from './axios';
@@ -36,23 +37,6 @@ export const patchReservationStatus = async ({
     { status },
   );
 };
-
-interface UpdateActivityParams {
-  title: string;
-  category: string;
-  description: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
-  subImageIdsToRemove?: number[];
-  subImageUrlsToAdd?: string[];
-  scheduleIdsToRemove?: number[];
-  schedulesToAdd?: {
-    date: string;
-    startTime: string;
-    endTime: string;
-  }[];
-}
 
 //체험 데이터 업데이트
 export const updateActivity = async (
