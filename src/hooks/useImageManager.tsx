@@ -22,7 +22,11 @@ const useImageManager = (maxLength: number) => {
         onChange={handleAddImage}
       />
       {imageFiles.map((file, index) => (
-        <ImageCard key={index} image={file} onClickDelete={handleDeleteImage} />
+        <ImageCard
+          key={`${file.name}_${file.lastModified}_${index}`}
+          image={file}
+          onClickDelete={handleDeleteImage}
+        />
       ))}
     </ul>
   );

@@ -8,6 +8,10 @@ interface MyActivityProps {
   initialData: ActivityDetailResponse;
 }
 
+export default function MyActivityEdit({ initialData }: MyActivityProps) {
+  return <MyActivityEditForm initialData={initialData} />;
+}
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
   if (!id) {
@@ -29,7 +33,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-
-export default function MyActivityEdit({ initialData }: MyActivityProps) {
-  return <MyActivityEditForm initialData={initialData} />;
-}

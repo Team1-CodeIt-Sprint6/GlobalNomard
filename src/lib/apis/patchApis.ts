@@ -47,11 +47,6 @@ export const updateActivity = async (
     const response = await instance.patch(
       `/my-activities/${activityId}`,
       updateData,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
     );
     return response;
   } catch (error) {

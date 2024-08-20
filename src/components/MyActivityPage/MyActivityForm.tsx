@@ -14,6 +14,7 @@ import { MAX_IMG_LENGTH } from '@/constants/myActivityPage';
 import useDropdown from '@/hooks/useDropdown';
 import useImageManager from '@/hooks/useImageManager';
 import { postActivity, postActivityImage } from '@/lib/apis/postApis';
+import { convertYYMMDDtoYMD } from '@/lib/utils/formatDate';
 import { checkDuplication } from '@/lib/utils/myActivityPage';
 import { CATEGORIES, Schedule } from '@/types/activityTypes';
 import { IMAGE_TYPES } from '@/types/page/myActivityPageTypes';
@@ -113,11 +114,7 @@ export default function MyActivityForm() {
       const schedulesToAdd = schedules
         .filter((s) => !s.id)
         .map((schedule) => {
-          const dateParts = schedule.date.split('/');
-          const year = '20' + dateParts[0];
-          const month = dateParts[1].padStart(2, '0');
-          const day = dateParts[2].padStart(2, '0');
-          const formattedDate = `${year}-${month}-${day}`;
+          const formattedDate = convertYYMMDDtoYMD(schedule.date);
 
           return {
             date: formattedDate,

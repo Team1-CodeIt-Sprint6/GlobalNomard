@@ -15,6 +15,10 @@ import useDropdown from '@/hooks/useDropdown';
 import useImageManager from '@/hooks/useImageManager';
 import { updateActivity } from '@/lib/apis/patchApis';
 import { postActivityImage } from '@/lib/apis/postApis';
+import {
+  convertAPItoSelected,
+  convertYYMMDDtoYMD,
+} from '@/lib/utils/formatDate';
 import { checkDuplication } from '@/lib/utils/myActivityPage';
 import { CATEGORIES, Schedule } from '@/types/activityTypes';
 import { ActivityDetailResponse } from '@/types/page/myActivityEditPageTypes';
@@ -98,8 +102,7 @@ export default function MyActivityEditForm({
         category.setValue(initialData.category);
 
         const formattedSchedules = initialData.schedules.map((schedule) => {
-          const dateParts = schedule.date.split('-');
-          const formattedDate = `${dateParts[0].slice(2)}/${dateParts[1]}/${dateParts[2]}`;
+          const formattedDate = convertAPItoSelected(schedule.date);
 
           return {
             ...schedule,
@@ -195,11 +198,7 @@ export default function MyActivityEditForm({
       const schedulesToAdd = schedules
         .filter((s) => !s.id)
         .map((schedule) => {
-          const dateParts = schedule.date.split('/');
-          const year = '20' + dateParts[0];
-          const month = dateParts[1].padStart(2, '0');
-          const day = dateParts[2].padStart(2, '0');
-          const formattedDate = `${year}-${month}-${day}`;
+          const formattedDate = convertYYMMDDtoYMD(schedule.date);
 
           return {
             date: formattedDate,
