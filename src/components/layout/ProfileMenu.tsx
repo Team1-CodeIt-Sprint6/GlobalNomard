@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { onMouseDown } from '@/components/myNotificatons/NotificationModal';
+import useResponsive from '@/hooks/useResponsive';
 import { useLogout } from '@/lib/utils/logout';
 
 interface ProfileMenuProps {
@@ -8,7 +9,10 @@ interface ProfileMenuProps {
 }
 
 export function ProfileMenu({ closeProfileMenu }: ProfileMenuProps) {
+  const { isMobile } = useResponsive();
   const logout = useLogout();
+
+  const profileLink = isMobile ? '/profile-menu' : '/profile';
 
   const handleLogout = () => {
     logout();
@@ -25,7 +29,7 @@ export function ProfileMenu({ closeProfileMenu }: ProfileMenuProps) {
       onMouseDown={onMouseDown}
     >
       <div className="absolute right-0 flex flex-col rounded-lg border border-kv-gray-400 bg-white">
-        <Link href="/profile" className="gnb-link" onClick={handleLinkClick}>
+        <Link href={profileLink} className="gnb-link" onClick={handleLinkClick}>
           내 정보
         </Link>
         <Link
