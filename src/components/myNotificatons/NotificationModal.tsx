@@ -1,5 +1,4 @@
 import CloseIcon from '@/assets/icons/icon_x_lg.svg';
-import InfiniteScrollHint from '@/components/common/InfiniteScrollHint';
 import useNotificationsInfinite from '@/hooks/useNotificationsInfinite';
 import useResponsive from '@/hooks/useResponsive';
 
@@ -16,14 +15,8 @@ export default function NotificationModal({
 }: NotificationProps) {
   const { isMobile } = useResponsive();
 
-  const {
-    notifications,
-    totalCount,
-    ref,
-    hasNextPage,
-    isFetchingNextPage,
-    refetch,
-  } = useNotificationsInfinite();
+  const { notifications, totalCount, ref, isFetchingNextPage, refetch } =
+    useNotificationsInfinite();
 
   return (
     <div
@@ -56,11 +49,7 @@ export default function NotificationModal({
           ) : (
             <p>알림이 없습니다.</p>
           )}
-          {isFetchingNextPage ? (
-            <div className="align-center">Loading...</div>
-          ) : (
-            hasNextPage && <InfiniteScrollHint hasNextPage={hasNextPage} />
-          )}
+          {isFetchingNextPage && <div className="align-center">Loading...</div>}
         </ul>
       </div>
     </div>

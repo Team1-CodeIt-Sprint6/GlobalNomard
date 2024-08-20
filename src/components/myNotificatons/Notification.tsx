@@ -1,6 +1,8 @@
+import { formatDistanceToNow } from 'date-fns';
+import { ko } from 'date-fns/locale/ko';
+
 import CloseIcon from '@/assets/icons/icon_x_lg.svg';
 import { deleteNotification } from '@/lib/apis/deleteApis';
-import { formatTimeAgo } from '@/lib/utils/formatTimeAge';
 
 interface NotificationProps {
   content: string;
@@ -15,18 +17,25 @@ export default function Notification({
   notificationId,
   refetchNotifications,
 }: NotificationProps) {
-  const timeAgo = formatTimeAgo(updatedAt);
-
-  const highlightedContent = content.split(/(승인|거절)/).map((part, index) => {
-    const textColor =
-      part === '승인' ? 'text-kv-blue' : part === '거절' ? 'text-kv-red' : '';
-
-    return (
-      <span key={index} className={textColor}>
-        {part}
-      </span>
-    );
+  const timeAgo = formatDistanceToNow(new Date(updatedAt), {
+    addSuffix: true,
+    locale: ko,
   });
+
+  const highlightContent = (content: string): React.ReactNode => {
+    return content.split(/(승인|거절)/).map((text, index) => {
+      const textColor =
+        text === '승인' ? 'text-kv-blue' : text === '거절' ? 'text-kv-red' : '';
+
+      return (
+        <span key={index} className={textColor}>
+          {text}
+        </span>
+      );
+    });
+  };
+
+  const highlightedContent = highlightContent(content);
 
   const handleDelete = async () => {
     await deleteNotification(notificationId);

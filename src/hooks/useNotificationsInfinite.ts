@@ -10,8 +10,8 @@ const useNotificationsInfinite = () => {
     delay: 100,
   });
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
-    useInfiniteQuery({
+  const { data, fetchNextPage, isFetchingNextPage, refetch } = useInfiniteQuery(
+    {
       queryKey: ['notifications'],
       queryFn: ({ pageParam = undefined }) =>
         getMyNotifications({
@@ -22,13 +22,14 @@ const useNotificationsInfinite = () => {
       gcTime: 0,
       getNextPageParam: (lastPage) => lastPage.cursorId || undefined,
       initialPageParam: undefined as number | undefined,
-    });
+    },
+  );
 
   useEffect(() => {
-    if (inView && hasNextPage) {
+    if (inView) {
       fetchNextPage();
     }
-  }, [inView, fetchNextPage, hasNextPage]);
+  }, [inView, fetchNextPage]);
 
   const notifications = data?.pages.flatMap((page) => page.notifications) || [];
 
@@ -38,7 +39,6 @@ const useNotificationsInfinite = () => {
     notifications,
     totalCount,
     ref,
-    hasNextPage,
     isFetchingNextPage,
     refetch,
   };
