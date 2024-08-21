@@ -17,8 +17,8 @@ export interface UrlProps {
 }
 
 export interface ProfileFormTypes {
+  email?: string;
   nickname: string;
-  email: string;
-  password?: string;
-  newPassword?: string;
+  password: string;
+  newPassword: string;
 }

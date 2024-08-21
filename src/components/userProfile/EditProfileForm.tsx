@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import ErrorText from '@/components/common/ErrorText';
 import Input from '@/components/common/Input';
@@ -33,12 +33,6 @@ export default function EditProfileForm() {
     formState: { errors, isSubmitting },
   } = useForm<ProfileFormTypes>({
     mode: 'onChange',
-    defaultValues: {
-      nickname: '',
-      email: '',
-      password: '',
-      newPassword: '',
-    },
   });
 
   useEffect(() => {
@@ -46,13 +40,10 @@ export default function EditProfileForm() {
       reset({
         nickname: userData.nickname,
         email: userData.email,
-        password: '',
-        newPassword: '',
       });
     }
   }, [userData, reset]);
 
-  // 유저 데이터 업데이트 뮤테이션
   const mutation = useMutation<void, Error, Partial<ProfileFormTypes>>({
     mutationFn: async (updateData) => {
       return updateUserData(updateData);
@@ -62,20 +53,18 @@ export default function EditProfileForm() {
       openModal('alert', '프로필 정보를 성공적으로 수정했습니다.');
     },
     onError: (error) => {
+      openModal('alert', '프로필 업데이트에 실패했습니다.');
       console.error('프로필 업데이트 실패:', error);
     },
   });
 
-  // 프로필 정보 수정 요청
-  const onSubmit = async (formData: ProfileFormTypes) => {
+  const onSubmit: SubmitHandler<ProfileFormTypes> = async (formData) => {
     const updateData: Partial<ProfileFormTypes> = {};
 
-    // 닉네임 변경 여부
     if (formData.nickname !== userData?.nickname) {
       updateData.nickname = formData.nickname;
     }
 
-    // 비밀변호 변경 여부
     if (formData.newPassword) {
       updateData.newPassword = formData.newPassword;
     }
@@ -108,12 +97,16 @@ export default function EditProfileForm() {
           <Input
             id="nickname"
             {...register('nickname', {
+              required: '닉네임을 입력해주세요',
               maxLength: {
                 value: 10,
-                message: '닉네임은 10자 이하로 작성해주세요.',
+                message: '10자 이하로 입력해주세요',
+              },
+              pattern: {
+                value: /^\S+$/,
+                message: '닉네임에 공백을 포함할 수 없습니다',
               },
             })}
-            autoComplete="off"
             className={`profile-input ${errors.nickname && 'profile-input-error'}`}
           />
           {errors.nickname && <ErrorText>{errors.nickname?.message}</ErrorText>}
@@ -126,8 +119,8 @@ export default function EditProfileForm() {
             id="email"
             type="email"
             {...register('email')}
-            className="profile-input profile-input-readonly"
-            readOnly
+            className="profile-input"
+            disabled
           />
         </div>
         <div className="profile-input-group">
@@ -143,10 +136,10 @@ export default function EditProfileForm() {
             {...register('password', {
               minLength: {
                 value: 8,
-                message: '8자 이상 입력해 주세요',
+                message: '8자 이상 입력해주세요',
               },
             })}
-            placeholder="8자 이상 입력해 주세요"
+            placeholder="새로운 비밀번호를 입력해주세요"
             onBlur={() => trigger('password')}
             className={`profile-input ${errors.password && 'profile-input-error'}`}
           />
@@ -164,9 +157,9 @@ export default function EditProfileForm() {
             type="password"
             {...register('newPassword', {
               validate: (value) =>
-                value === watch('password') || '비밀번호가 일치하지 않습니다.',
+                value === watch('password') || '비밀번호가 일치하지 않습니다',
             })}
-            placeholder="비밀번호를 한 번 더 입력해 주세요"
+            placeholder="비밀번호를 한 번 더 입력해주세요"
             onBlur={() => trigger('newPassword')}
             className={`profile-input ${errors.newPassword && 'profile-input-error'}`}
           />
