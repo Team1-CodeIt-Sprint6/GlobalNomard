@@ -94,7 +94,7 @@ export default function ReviewModal({
 
   return (
     <div className="review-modal-container">
-      <div className="h-[686px] w-[432px]">
+      <div className="mt-[70px] h-full w-full pc:mt-0 pc:h-[616px] pc:w-[432px] tablet:mt-0 tablet:h-[616px] tablet:w-[432px]">
         <div className="flex h-10 w-full items-center justify-between">
           <h2 className="font-kv-bold kv-text-2xl">후기 작성</h2>
           <div className="h-7 w-7 cursor-pointer" onClick={() => onClose()}>
@@ -102,7 +102,7 @@ export default function ReviewModal({
           </div>
         </div>
 
-        <div className="mt-[41px] flex h-[605px] flex-col justify-between">
+        <div className="mt-[35px] flex h-[535px] flex-col justify-between">
           <div className="flex h-[126px] w-full items-center">
             <div className="relative h-[126px] w-[126px] rounded-[12px]">
               <Image
@@ -114,7 +114,7 @@ export default function ReviewModal({
               />
             </div>
             <div className="ml-6 flex h-full w-[271px] flex-col justify-between">
-              <h3 className="activity-card-title">
+              <h3 className="activity-card-title w-[271px]">
                 {reservation.activity.title}
               </h3>
               <p className="font-kv-regular text-kv-gray-700 kv-text-xs pc:kv-text-lg tablet:kv-text-md">
@@ -131,7 +131,7 @@ export default function ReviewModal({
           <StarRating rating={rating} onRatingChange={setRating} />
 
           <textarea
-            className="h-[240px] w-full resize-none rounded border border-kv-gray-79 p-4 focus:border-2 focus:border-kv-primary-blue focus:outline-none"
+            className="h-[200px] w-full resize-none rounded border border-kv-gray-79 p-4 focus:border-2 focus:border-kv-primary-blue focus:outline-none"
             rows={4}
             placeholder="후기를 작성해주세요"
             value={reviewText}

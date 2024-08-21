@@ -551,7 +551,7 @@
 /* 후기 모달 */
 @layer components {
   .review-modal-container {
-    @apply modal-container h-[750px] w-[480px] rounded-[24px] align-center;
+    @apply modal-container h-full w-full rounded-none pc:h-[680px] pc:w-[480px] pc:rounded-[24px] tablet:h-[680px] tablet:w-[480px] tablet:rounded-[24px] align-center;
   }
 }
 
