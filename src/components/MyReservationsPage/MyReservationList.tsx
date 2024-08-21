@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import MyReservationCard from '@/components/common/ActivityCard/MyReservationCard';
 import SortDropDown from '@/components/common/Dropdown/SortDropdown';
+import EmptyState from '@/components/common/EmptyState';
 import { Modal } from '@/components/common/Modal';
 import useInfiniteScrollReservation from '@/hooks/useInfiniteScrollReservation';
 import useModal from '@/hooks/useModal';
@@ -89,16 +90,7 @@ export default function ReservationList() {
         </div>
       </div>
       {reservations.length === 0 && !loading ? (
-        <div className="mt-20 flex flex-col items-center justify-center">
-          <Image
-            src="/assets/images/empty_img.png"
-            alt="빈 상태 이미지"
-            width={160}
-            height={160}
-            className="mb-4"
-          />
-          <p className="text-kv-gray-500 kv-text-xl">아직 체험이 없어요</p>
-        </div>
+        <EmptyState message="아직 예약한 체험이 없어요" />
       ) : (
         <div>
           {reservations.map((reservation) => (
