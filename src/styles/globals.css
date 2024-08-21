@@ -522,7 +522,7 @@
 /* 체험 카드 */
 @layer components {
   .activity-card-title {
-    @apply truncate font-kv-bold text-kv-black kv-text-md pc:kv-text-xl tablet:kv-text-2lg;
+    @apply truncate font-kv-bold text-kv-black kv-text-md pc:kv-text-xl tablet:kv-text-2lg w-[171px] tablet:w-[219px] pc:w-[491px];
   }
   .activity-card-price {
     @apply font-kv-medium kv-text-lg pc:kv-text-2xl tablet:kv-text-xl;
