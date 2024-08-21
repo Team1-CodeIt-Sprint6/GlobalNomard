@@ -16,13 +16,11 @@ export default function EditProfileForm() {
   const queryClient = useQueryClient();
   const { modalProps, openModal } = useModal();
 
-  // 사용자 프로필 조회
-  const {
-    data: userData,
-    isLoading,
-    isError,
-    error,
-  } = useFetchData(['userProfile'], getUserData, {});
+  const { data: userData, isError } = useFetchData(
+    ['userProfile'],
+    getUserData,
+    {},
+  );
 
   const {
     register,
@@ -80,9 +78,7 @@ export default function EditProfileForm() {
     }
   };
 
-  if (isLoading) return <p>로딩중입니다.</p>;
-  if (isError)
-    return <p>프로필 정보를 불러오는 데 실패했습니다: {error.message}</p>;
+  if (isError) return <p>프로필 정보를 불러오는 데 실패했습니다</p>;
 
   return (
     <>
