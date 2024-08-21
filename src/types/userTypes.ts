@@ -15,3 +15,10 @@ export interface UpdateUser extends User {
 export interface UrlProps {
   profileImageUrl: string;
 }
+
+export interface ProfileFormTypes {
+  nickname: string;
+  email: string;
+  password?: string;
+  newPassword?: string;
+}

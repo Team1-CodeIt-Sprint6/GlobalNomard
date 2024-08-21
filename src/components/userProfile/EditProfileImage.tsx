@@ -1,12 +1,13 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import PenIcon from '@/assets/icons/icon_pen.svg';
 import DefaultProfile from '@/assets/images/profile_default_img.png';
+import useFetchData from '@/hooks/useFetchData';
 import { updateUserData } from '@/lib/apis/patchApis';
 import { postProfileImage } from '@/lib/apis/postApis';
-import { getUserProfile } from '@/lib/apis/userApis';
+import { getUserData } from '@/lib/apis/userApis';
 
 /**
  * NOTE: 프로필 이미지 입력받는 컴포넌트
@@ -18,10 +19,11 @@ export default function EditProfileImage() {
   const [profileImage, setProfileImage] = useState<string>(DefaultProfile.src);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { data, isLoading: isQueryLoading } = useQuery({
-    queryKey: ['userProfile'],
-    queryFn: getUserProfile,
-  });
+  const { data, isLoading: isQueryLoading } = useFetchData(
+    ['userProfile'],
+    getUserData,
+    {},
+  );
 
   // 프로필 이미지 업데이트 뮤테이션
   const mutation = useMutation({

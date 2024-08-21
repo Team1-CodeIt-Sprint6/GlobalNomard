@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -7,16 +7,10 @@ import Input from '@/components/common/Input';
 import Label from '@/components/common/Label';
 import { useModal } from '@/components/common/Modal';
 import Modal from '@/components/common/Modal/Modal';
+import useFetchData from '@/hooks/useFetchData';
 import { updateUserData } from '@/lib/apis/patchApis';
-import { getUserProfile } from '@/lib/apis/userApis';
-
-export interface UserProfile {
-  nickname: string;
-  email: string;
-  password?: string;
-  newPassword?: string;
-  profileImageUrl?: string;
-}
+import { getUserData } from '@/lib/apis/userApis';
+import { ProfileFormTypes } from '@/types/userTypes';
 
 export default function EditProfileForm() {
   const queryClient = useQueryClient();
@@ -28,10 +22,7 @@ export default function EditProfileForm() {
     isLoading,
     isError,
     error,
-  } = useQuery<UserProfile>({
-    queryKey: ['userProfile'],
-    queryFn: getUserProfile,
-  });
+  } = useFetchData(['userProfile'], getUserData, {});
 
   const {
     register,
@@ -40,7 +31,7 @@ export default function EditProfileForm() {
     trigger,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<UserProfile>({
+  } = useForm<ProfileFormTypes>({
     mode: 'onChange',
     defaultValues: {
       nickname: '',
@@ -62,7 +53,7 @@ export default function EditProfileForm() {
   }, [userData, reset]);
 
   // 유저 데이터 업데이트 뮤테이션
-  const mutation = useMutation<void, Error, Partial<UserProfile>>({
+  const mutation = useMutation<void, Error, Partial<ProfileFormTypes>>({
     mutationFn: async (updateData) => {
       return updateUserData(updateData);
     },
@@ -76,11 +67,11 @@ export default function EditProfileForm() {
   });
 
   // 프로필 정보 수정 요청
-  const onSubmit = async (formData: UserProfile) => {
-    const updateData: Partial<UserProfile> = {};
+  const onSubmit = async (formData: ProfileFormTypes) => {
+    const updateData: Partial<ProfileFormTypes> = {};
 
     // 닉네임 변경 여부
-    if (formData.nickname && formData.nickname !== userData?.nickname) {
+    if (formData.nickname !== userData?.nickname) {
       updateData.nickname = formData.nickname;
     }
 
@@ -92,7 +83,7 @@ export default function EditProfileForm() {
     if (Object.keys(updateData).length > 0) {
       try {
         await mutation.mutateAsync(updateData);
-      } catch (error) {
+      } catch {
         openModal('alert', '프로필 수정에 실패했습니다.');
       }
     } else {

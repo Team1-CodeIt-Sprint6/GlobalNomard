@@ -1,7 +1,5 @@
-import { AxiosError } from 'axios';
 import { getCookie, setCookie } from 'cookies-next';
 
-import { UserProfile } from '@/components/userProfile/EditProfileForm';
 import instance from '@/lib/apis/axios';
 import { ActivityResponse, MyActivityForm } from '@/types/activityTypes';
 import {
@@ -19,6 +17,7 @@ import {
   ActivityImageResponse,
   UploadImageForm,
 } from '@/types/post/uploadImageTypes';
+import { UrlProps } from '@/types/userTypes';
 
 // access token을 업데이트 하기 위한 요청
 export const updateAccessToken = async () => {
@@ -46,7 +45,7 @@ export const postProfileImage = async (file: File) => {
   const formData = new FormData();
   formData.append('image', file);
 
-  const res = await instance.post<UserProfile>('/users/me/image', formData, {
+  const res = await instance.post<UrlProps>('/users/me/image', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
