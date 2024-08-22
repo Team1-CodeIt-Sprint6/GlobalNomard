@@ -4,6 +4,10 @@ import { ReactNode, useEffect } from 'react';
 
 import LeftNaviBar from '@/components/common/LeftNavBar';
 import { Modal, useModal } from '@/components/common/Modal';
+import {
+  ACTIVITY_EDIT_PAGE_PATTERN,
+  STATIC_PROTECTED_ROUTES,
+} from '@/constants/routeConstants';
 
 import Footer from './Footer';
 import Header from './Header';
@@ -11,17 +15,15 @@ import Header from './Header';
 export default function PageWithLnb({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { openModal, modalProps } = useModal();
-  const protectedRoutes = [
-    '/profile',
-    '/my-activities',
-    '/my-reservations',
-    '/reservation-dashboard',
-  ];
 
   useEffect(() => {
     const accessToken = getCookie('accessToken');
 
-    if (!accessToken && protectedRoutes.includes(router.pathname)) {
+    if (
+      !accessToken &&
+      (STATIC_PROTECTED_ROUTES.includes(router.pathname) ||
+        ACTIVITY_EDIT_PAGE_PATTERN.test(router.pathname))
+    ) {
       openModal(
         'confirm',
         '로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?',
