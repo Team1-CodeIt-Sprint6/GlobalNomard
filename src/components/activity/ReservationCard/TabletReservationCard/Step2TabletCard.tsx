@@ -30,6 +30,7 @@ export default function Step2TabletCard({
           }}
           variant="inline"
           noneToggle={true}
+          reservationState={reservationState}
           className="text-kv-md font-kv-semibold"
         />
       </div>

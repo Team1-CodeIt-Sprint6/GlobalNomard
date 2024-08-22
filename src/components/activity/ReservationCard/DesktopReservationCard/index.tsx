@@ -47,6 +47,7 @@ export default function DesktopReservationCard({
           <ContentTitle />
           <div className="mb-[16px] align-center">
             <DatePicker
+              reservationState={reservationState}
               onClick={onClick.handleCalendarClick}
               variant="inline"
               noneToggle={true}

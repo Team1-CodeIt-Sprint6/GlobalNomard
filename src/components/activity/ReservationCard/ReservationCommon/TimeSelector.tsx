@@ -47,10 +47,10 @@ function TimeSelector({ onClick, reservationState }: TimeSelectorProps) {
           {filteredSchedules.map(({ startTime, endTime, id }) => (
             <Button
               key={id}
-              className={`h-[46px] w-[117px] ${
+              className={`h-[46px] w-[117px] font-kv-medium ${
                 selectedId === id
                   ? 'bg-kv-primary-blue text-white'
-                  : 'border-[2px] border-kv-primary-blue text-kv-primary-blue'
+                  : 'border border-kv-primary-blue text-kv-primary-blue'
               }`}
               onClick={() => {
                 handleTimeClick(startTime, endTime, id);

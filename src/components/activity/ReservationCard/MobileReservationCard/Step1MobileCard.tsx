@@ -25,6 +25,7 @@ export default function Step1MobileCard({
           }}
           variant="inline"
           noneToggle={true}
+          reservationState={reservationState}
           className="text-kv-md font-kv-semibold"
         />
       </div>
