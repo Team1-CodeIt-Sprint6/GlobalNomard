@@ -1,6 +1,6 @@
-import ReservationButton from '@/components/ActivityPage/ReservationCard/ReservationCommon/ReservationButton';
-import ReservationHeader from '@/components/ActivityPage/ReservationCard/ReservationCommon/ReservationHeader';
-import TimeSelector from '@/components/ActivityPage/ReservationCard/ReservationCommon/TimeSelector';
+import ReservationButton from '@/components/activity/ReservationCard/ReservationCommon/ReservationButton';
+import ReservationHeader from '@/components/activity/ReservationCard/ReservationCommon/ReservationHeader';
+import TimeSelector from '@/components/activity/ReservationCard/ReservationCommon/TimeSelector';
 import DatePicker from '@/components/common/DatePicker/DatePicker';
 import {
   CardEventHandlerType,

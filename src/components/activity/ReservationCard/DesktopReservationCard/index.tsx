@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 
-import ContentTitle from '@/components/ActivityPage/ReservationCard/ReservationCommon/ContentTitle';
-import ParticipantCounter from '@/components/ActivityPage/ReservationCard/ReservationCommon/ParticipantCounter';
-import PriceDisplay from '@/components/ActivityPage/ReservationCard/ReservationCommon/PriceDisplay';
-import ReservationButton from '@/components/ActivityPage/ReservationCard/ReservationCommon/ReservationButton';
-import TimeSelector from '@/components/ActivityPage/ReservationCard/ReservationCommon/TimeSelector';
-import TotalSummary from '@/components/ActivityPage/ReservationCard/ReservationCommon/TotalSummary';
+import ContentTitle from '@/components/activity/ReservationCard/ReservationCommon/ContentTitle';
+import ParticipantCounter from '@/components/activity/ReservationCard/ReservationCommon/ParticipantCounter';
+import PriceDisplay from '@/components/activity/ReservationCard/ReservationCommon/PriceDisplay';
+import ReservationButton from '@/components/activity/ReservationCard/ReservationCommon/ReservationButton';
+import TimeSelector from '@/components/activity/ReservationCard/ReservationCommon/TimeSelector';
+import TotalSummary from '@/components/activity/ReservationCard/ReservationCommon/TotalSummary';
 import DatePicker from '@/components/common/DatePicker/DatePicker';
 import { Modal, useModal } from '@/components/common/Modal';
 import { useReservation } from '@/hooks/useReservation';
@@ -24,25 +24,12 @@ export default function DesktopReservationCard({
   onClick,
   reservationState,
 }: DesktopReservationCardProps) {
-  const { submitReservation, isSuccess, isError } = useReservation();
-  const { modalProps, openModal } = useModal();
+  const { submitReservation, modalProps } = useReservation();
   const isValidate = isReservationValid(reservationState);
 
   const handleSubmit = () => {
     submitReservation(reservationState);
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      openModal('alert', `예약이 성공적으로 완료되었습니다.`);
-    }
-    if (isError) {
-      openModal(
-        'alert',
-        `요청하신 날짜에는 예약이 불가능합니다. 다른 날짜를 선택해 주세요.`,
-      );
-    }
-  }, [isSuccess, isError, openModal]);
 
   return (
     <>

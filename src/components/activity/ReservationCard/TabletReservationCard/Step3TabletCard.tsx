@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
-import ContentTitle from '@/components/ActivityPage/ReservationCard/ReservationCommon/ContentTitle';
-import DateTimeSummary from '@/components/ActivityPage/ReservationCard/ReservationCommon/DateTimeSummary';
-import ParticipantCounter from '@/components/ActivityPage/ReservationCard/ReservationCommon/ParticipantCounter';
-import PriceDisplay from '@/components/ActivityPage/ReservationCard/ReservationCommon/PriceDisplay';
-import ReservationButton from '@/components/ActivityPage/ReservationCard/ReservationCommon/ReservationButton';
-import TotalSummary from '@/components/ActivityPage/ReservationCard/ReservationCommon/TotalSummary';
+import ContentTitle from '@/components/activity/ReservationCard/ReservationCommon/ContentTitle';
+import DateTimeSummary from '@/components/activity/ReservationCard/ReservationCommon/DateTimeSummary';
+import ParticipantCounter from '@/components/activity/ReservationCard/ReservationCommon/ParticipantCounter';
+import PriceDisplay from '@/components/activity/ReservationCard/ReservationCommon/PriceDisplay';
+import ReservationButton from '@/components/activity/ReservationCard/ReservationCommon/ReservationButton';
+import TotalSummary from '@/components/activity/ReservationCard/ReservationCommon/TotalSummary';
 import { Modal, useModal } from '@/components/common/Modal';
 import { useReservation } from '@/hooks/useReservation';
 import { isReservationValid } from '@/lib/utils/isReservationValid';

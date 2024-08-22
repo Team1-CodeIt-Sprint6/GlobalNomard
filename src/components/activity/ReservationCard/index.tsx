@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import DesktopReservationCard from '@/components/ActivityPage/ReservationCard/DesktopReservationCard';
-import MobileReservationCard from '@/components/ActivityPage/ReservationCard/MobileReservationCard';
-import TabletReservationCard from '@/components/ActivityPage/ReservationCard/TabletReservationCard';
+import DesktopReservationCard from '@/components/activity/ReservationCard/DesktopReservationCard';
+import MobileReservationCard from '@/components/activity/ReservationCard/MobileReservationCard';
+import TabletReservationCard from '@/components/activity/ReservationCard/TabletReservationCard';
 import { Modal, useModal } from '@/components/common/Modal';
 import { INITIAL_RESERVATION_STATE } from '@/constants/reservationCardConstants';
 import { useActivityDetail } from '@/hooks/useActivityDetail';
@@ -30,7 +30,9 @@ export default function ReservationCard() {
     data: activityData,
     isLoading,
     error,
-  } = useActivityDetail(activityId, { enabled: !!activityId });
+  } = useActivityDetail(activityId, {
+    enabled: !!activityId,
+  });
 
   useEffect(() => {
     if (activityData) {
@@ -39,10 +41,6 @@ export default function ReservationCard() {
         price: activityData.price,
         schedules: activityData.schedules,
       }));
-    }
-    if (error) {
-      openModal('alert', `${error.message}`);
-      throw new Error(`Error fetching activity data: ${error.message}`);
     }
   }, [activityData]);
 
