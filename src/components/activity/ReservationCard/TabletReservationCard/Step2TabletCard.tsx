@@ -17,7 +17,7 @@ export default function Step2TabletCard({
   reservationState,
 }: TabletStep2CardProps) {
   return (
-    <div className="w-[480px] rounded-xl border-[1px] shadow-md">
+    <div className="absolute right-6 z-10 w-[480px] rounded-xl border-[1px] bg-white shadow-md">
       <ReservationHeader
         title="date"
         onCloseClick={onClick.handleCloseClick}

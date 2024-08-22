@@ -34,7 +34,7 @@ function TimeSelector({ onClick, reservationState }: TimeSelectorProps) {
   }, [reservationState.date]);
 
   return (
-    <div className="w-[327px]">
+    <>
       <p className="text-kv-2lg font-kv-bold">
         {RESERVATION_TIMESELECTOR_PLACEHOLDER.title}
       </p>
@@ -62,7 +62,7 @@ function TimeSelector({ onClick, reservationState }: TimeSelectorProps) {
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 }
 
