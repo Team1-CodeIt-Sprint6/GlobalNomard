@@ -5,14 +5,12 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 import PenIcon from '@/assets/icons/icon_pen.svg';
 import { Modal, useModal } from '@/components/common/Modal';
+import { DEFAULT_PROFILE_IMAGE } from '@/constants/defaultAssets';
 import useFetchData from '@/hooks/useFetchData';
 import { updateUserData } from '@/lib/apis/patchApis';
 import { postProfileImage } from '@/lib/apis/postApis';
 import { getUserData } from '@/lib/apis/userApis';
-import {
-  DEFAULT_PROFILE_IMAGE,
-  profileImageAtom,
-} from '@/state/profileImageAtom';
+import { profileImageAtom } from '@/state/profileImageAtom';
 
 export default function EditProfileImage() {
   const queryClient = useQueryClient();
