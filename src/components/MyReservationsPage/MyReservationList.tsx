@@ -73,9 +73,9 @@ export default function ReservationList() {
 
   return (
     <div>
-      <div className="mb-4 flex h-[53px] w-[344px] items-center justify-between pc:w-[792px] tablet:w-[429px]">
+      <div className="mb-4 flex h-[53px] w-full items-center justify-between">
         <h1 className="font-kv-bold kv-text-3xl">예약 내역</h1>
-        <div className="hidden pc:block">
+        <div className="block">
           <SortDropDown
             label="필터"
             options={[
