@@ -21,6 +21,11 @@ export default function ReviewModal({
   const [error, setError] = useState<string | null>(null);
   const [activityExists, setActivityExists] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
+  const [src, setSrc] = useState(reservation.activity.bannerImageUrl);
+
+  const handleError = () => {
+    setSrc('/assets/images/default_img.png');
+  };
 
   useEffect(() => {
     const fetchActivity = async () => {
@@ -106,11 +111,12 @@ export default function ReviewModal({
           <div className="flex h-[100px] w-full items-center pc:h-[126px] tablet:h-[126px]">
             <div className="relative h-[100px] w-[100px] flex-shrink-0 rounded-[12px] pc:h-[126px] pc:w-[126px] tablet:h-[126px] tablet:w-[126px]">
               <Image
-                src={reservation.activity.bannerImageUrl}
+                src={src}
                 alt={reservation.activity.title}
                 layout="fill"
                 objectFit="cover"
                 className="rounded-[12px]"
+                onError={handleError}
               />
             </div>
 
