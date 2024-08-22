@@ -1,18 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
 import Image from 'next/image';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import PenIcon from '@/assets/icons/icon_pen.svg';
-import DefaultProfile from '@/assets/images/profile_default_img.png';
 import { Modal, useModal } from '@/components/common/Modal';
 import useFetchData from '@/hooks/useFetchData';
 import { updateUserData } from '@/lib/apis/patchApis';
 import { postProfileImage } from '@/lib/apis/postApis';
 import { getUserData } from '@/lib/apis/userApis';
+import {
+  DEFAULT_PROFILE_IMAGE,
+  profileImageAtom,
+} from '@/state/profileImageAtom';
 
 export default function EditProfileImage() {
   const queryClient = useQueryClient();
-  const [profileImage, setProfileImage] = useState<string>(DefaultProfile.src);
+  const [profileImage, setProfileImage] = useAtom(profileImageAtom);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { openModal, modalProps } = useModal();
 
@@ -32,7 +36,7 @@ export default function EditProfileImage() {
     if (file) {
       setIsLoading(true);
       try {
-        const presignedUrl = await postProfileImage(file);
+        const presignedUrl = await postProfileImage({ image: file });
 
         if (presignedUrl) {
           const profileUrl = presignedUrl.split('?')[0];
@@ -43,7 +47,7 @@ export default function EditProfileImage() {
               mutation.mutate(profileUrl);
             },
             onCancel: () => {
-              setProfileImage(data?.profileImageUrl || DefaultProfile.src);
+              setProfileImage(data?.profileImageUrl || DEFAULT_PROFILE_IMAGE);
             },
           });
         }
