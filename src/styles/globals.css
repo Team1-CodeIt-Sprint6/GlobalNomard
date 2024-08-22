@@ -140,7 +140,7 @@
     @apply mx-4 flex w-full pc:w-[1200px] tablet:mx-6 tablet:w-full;
   }
   .footer-link-styles {
-    @apply font-sans text-base font-normal;
+    @apply font-sans kv-text-lg font-normal;
   }
   .header-link-styles {
     @apply cursor-pointer font-kv-medium text-kv-black kv-text-md hover:text-kv-gray-600 active:text-kv-gray-800;
