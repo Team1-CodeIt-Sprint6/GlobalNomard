@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 
-import LeftNavBar from '@/components/common/LeftNavBar';
+import LeftNaviBar from '@/components/common/LeftNavBar';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 
@@ -85,7 +85,7 @@ function MainLayout({ children }: MainLayoutProps) {
         <div className="bg-kv-gray-100 align-center">
           <div className="layout-content-container">
             <div className="mr-6 hidden pc:block tablet:block">
-              <LeftNavBar />
+              <LeftNaviBar />
             </div>
             <main className="min-h-[1060px] flex-1 bg-kv-gray-100">
               {children}
