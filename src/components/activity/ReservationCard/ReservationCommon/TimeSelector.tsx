@@ -39,7 +39,7 @@ function TimeSelector({ onClick, reservationState }: TimeSelectorProps) {
         {RESERVATION_TIMESELECTOR_PLACEHOLDER.title}
       </p>
       {date === '' ? (
-        <p className="mt-[24px] text-center text-kv-lg font-kv-medium">
+        <p className="mt-[24px] text-center text-kv-lg font-kv-medium text-kv-black">
           {RESERVATION_TIMESELECTOR_PLACEHOLDER.noDate}
         </p>
       ) : (

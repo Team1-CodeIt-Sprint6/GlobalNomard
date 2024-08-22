@@ -17,8 +17,12 @@ export default function Step1MobileCard({
 }: Step1MobileCardProps) {
   return (
     <>
-      <ReservationHeader title="date" onCloseClick={onClick.handleCloseClick} />
-      <div className="mb-[24px]">
+      <ReservationHeader
+        containerClassName="w-full max-w-[432px] px-[24px]"
+        title="date"
+        onCloseClick={onClick.handleCloseClick}
+      />
+      <div className="mb-[24px] w-full align-center">
         <DatePicker
           onClick={(date) => {
             onClick.handleCalendarClick(date);
@@ -26,10 +30,12 @@ export default function Step1MobileCard({
           variant="inline"
           noneToggle={true}
           reservationState={reservationState}
-          className="text-kv-md font-kv-semibold"
+          //className="text-kv-md font-kv-semibold"
         />
       </div>
-      <TimeSelector onClick={onClick} reservationState={reservationState} />
+      <div className="w-full max-w-[432px] px-[24px] text-kv-primary-blue">
+        <TimeSelector onClick={onClick} reservationState={reservationState} />
+      </div>
     </>
   );
 }

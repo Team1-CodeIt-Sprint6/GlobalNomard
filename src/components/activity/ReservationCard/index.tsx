@@ -18,7 +18,7 @@ export default function ReservationCard() {
   const cardEventHandler = useCardEventHandler(setReservationState);
   const router = useRouter();
   const activityId = Number(router.query.id);
-  const { modalProps, openModal } = useModal();
+  const { modalProps } = useModal();
 
   const { isMobile, isTablet, isDesktop } = useResponsive();
 
@@ -26,11 +26,7 @@ export default function ReservationCard() {
     setIsClient(true);
   }, []);
 
-  const {
-    data: activityData,
-    isLoading,
-    error,
-  } = useActivityDetail(activityId, {
+  const { data: activityData, isLoading } = useActivityDetail(activityId, {
     enabled: !!activityId,
   });
 
