@@ -1,30 +1,45 @@
-import SortDropDown from '@/components/common/Dropdown/SortDropdown';
+import { useAtom, useAtomValue } from 'jotai';
 
-const category = ['문화·예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
-const sortList = ['낮은 순', '높은 순'];
+import SortDropDown from '@/components/common/Dropdown/SortDropdown';
+import { activityListOptions, listTotalCount } from '@/state/activityListAtom';
+
+import ListNavTagList from './ListNavTagList';
+
+const sortObjects: { [key: string]: 'price_asc' | 'price_desc' } = {
+  '낮은 순': 'price_asc',
+  '높은 순': 'price_desc',
+};
 
 export default function ListNavBar() {
-  const sortByPrice = () => {};
+  const [options, setOptions] = useAtom(activityListOptions);
+  const totalCount = useAtomValue(listTotalCount);
+
   return (
-    <div className="flex justify-between">
-      <ul className="flex gap-x-2 pb-6">
-        {category.map((v) => {
-          return (
-            <li
-              key={v}
-              className="flex w-[127px] cursor-pointer items-center justify-center rounded-xl border-[1px] border-kv-primary-blue-light bg-white px-4 py-3 kv-text-lg"
-            >
-              {v}
-            </li>
-          );
-        })}
-      </ul>
-      <SortDropDown
-        label="가격"
-        options={sortList}
-        onSelect={sortByPrice}
-        className="absolute"
-      ></SortDropDown>
+    <div className="flex w-[100%] justify-between">
+      {!options.keyword ? (
+        <>
+          <ListNavTagList />
+          <span className="z-10">
+            <SortDropDown
+              label="가격"
+              options={['낮은 순', '높은 순']}
+              onSelect={(selectedValue) =>
+                setOptions({ ...options, sort: sortObjects[selectedValue] })
+              }
+            />
+          </span>
+        </>
+      ) : (
+        <div className="flex flex-col">
+          <h2 className="font-kv-regular kv-text-3xl">
+            <span className="font-kv-bold">{options.keyword}</span>로 검색한
+            결과입니다.
+          </h2>
+          <h2 className="font-kv-regular kv-text-md">
+            총 {totalCount}개의 결과
+          </h2>
+        </div>
+      )}
     </div>
   );
 }

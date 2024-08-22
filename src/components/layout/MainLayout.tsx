@@ -23,7 +23,7 @@ function MainLayout({ children }: MainLayoutProps) {
   if (isMainPage) {
     return (
       <div className="layout-container">
-        <div className="layout-header-wrapper">
+        <div className="layout-header-wrapper" style={{ zIndex: '11' }}>
           <Header />
         </div>
         <div className="layout-header-spacer" />

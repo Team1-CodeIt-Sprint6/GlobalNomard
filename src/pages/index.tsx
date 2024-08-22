@@ -1,11 +1,9 @@
-import MainPageBody from '@/components/Main/MainPageBody';
-import MainPageHeader from '@/components/Main/MainPageHeader';
+import MainPageLayout from '@/components/Main/MainPageLayout';
 
 export default function Home() {
   return (
     <>
-      <MainPageHeader />
-      <MainPageBody />
+      <MainPageLayout />
     </>
   );
 }
