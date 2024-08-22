@@ -5,6 +5,7 @@ import { ActivityResponse } from '@/types/activityTypes';
 import {
   getActivityListParams,
   getActivityListResponse,
+  MainPageOptionTypes,
 } from '@/types/get/activityTypes';
 import {
   ReservationDetailsResponse,
@@ -70,7 +71,7 @@ export const getActivityList = async ({
   sort,
   page,
   size,
-}: getActivityListParams): Promise<{ data: getActivityListResponse }> => {
+}: MainPageOptionTypes): Promise<{ data: getActivityListResponse }> => {
   const response = await instance.get<getActivityListResponse>(`/activities`, {
     params: { method, cursorId, category, keyword, sort, page, size },
   });

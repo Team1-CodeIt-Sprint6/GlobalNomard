@@ -7,19 +7,8 @@ import { EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { activityListOptions } from '@/state/activityListAtom';
-
-const categories: {
-  [key: string]:
-    | ''
-    | '전체'
-    | '문화 · 예술'
-    | '식음료'
-    | '스포츠'
-    | '투어'
-    | '관광'
-    | '웰빙'
-    | undefined;
-} = {
+import { MainPageOptionTypes } from '@/types/get/activityTypes';
+const categories: MainPageOptionTypes = {
   all: '전체',
   culture: '문화 · 예술',
   food: '식음료',

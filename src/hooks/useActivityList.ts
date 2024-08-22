@@ -4,6 +4,7 @@ import { getActivityList } from '@/lib/apis/getApis';
 import {
   getActivityListParams,
   getActivityListResponse,
+  MainPageOptionTypes,
   MyActivityList,
 } from '@/types/get/activityTypes';
 
@@ -12,7 +13,7 @@ const useActivityList = () => {
   return useMutation<
     { data: getActivityListResponse },
     Error,
-    getActivityListParams,
+    MainPageOptionTypes,
     Error
   >({
     mutationFn: getActivityList,

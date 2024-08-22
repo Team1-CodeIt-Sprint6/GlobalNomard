@@ -27,7 +27,7 @@ function MainPagination({
   groupSize,
 }: IPaginationProps) {
   const [pageGroup, setPageGroup] = useState(
-    Math.ceil(currentPage / groupSize),
+    Math.ceil(Number(currentPage) / groupSize),
   );
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
   const totalPage =
@@ -51,18 +51,18 @@ function MainPagination({
     if (currentPage === firstNum) {
       setPageGroup(pageGroup - 1);
     }
-    onClick(currentPage - 1);
+    onClick(Number(currentPage) - 1);
   };
 
   const onClickNextBtn = () => {
     if (currentPage === lastNum) {
       setPageGroup(pageGroup + 1);
     }
-    onClick(currentPage + 1);
+    onClick(Number(currentPage) + 1);
   };
 
   useEffect(() => {
-    setPageGroup(Math.ceil(currentPage / groupSize));
+    setPageGroup(Math.ceil(Number(currentPage) / groupSize));
   }, [currentPage, groupSize]);
 
   useEffect(() => {
