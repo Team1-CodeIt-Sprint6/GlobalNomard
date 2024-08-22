@@ -206,7 +206,7 @@ export default function MyActivityForm() {
         <div className="flex flex-col">
           <h2 className="h2-my-act">가격</h2>
           <input
-            className="input-my-act"
+            className="input-my-act no-spinner"
             id="price"
             type="number"
             placeholder="*가격"
