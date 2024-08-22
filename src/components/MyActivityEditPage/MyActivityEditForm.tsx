@@ -19,7 +19,10 @@ import {
   convertAPItoSelected,
   convertYYMMDDtoYMD,
 } from '@/lib/utils/formatDate';
-import { checkDuplication } from '@/lib/utils/myActivityPage';
+import {
+  activityFormSchema,
+  checkDuplication,
+} from '@/lib/utils/myActivityPage';
 import { CATEGORIES, Schedule } from '@/types/activityTypes';
 import { ActivityDetailResponse } from '@/types/page/myActivityEditPageTypes';
 import { IMAGE_TYPES } from '@/types/page/myActivityPageTypes';
@@ -37,17 +40,6 @@ interface InputForm {
   price: number;
   address: string;
 }
-
-const schema = yup.object().shape({
-  title: yup.string().required('제목을 입력해주세요.'),
-  description: yup.string().required('설명을 입력해주세요.'),
-  price: yup
-    .number()
-    .positive('가격은 양수여야 합니다.')
-    .integer('가격은 정수여야 합니다.')
-    .required('가격을 입력해주세요.'),
-  address: yup.string().required('주소를 입력해주세요.'),
-});
 
 export default function MyActivityEditForm({
   initialData,
@@ -74,7 +66,7 @@ export default function MyActivityEditForm({
     formState: { errors, isValid },
     trigger,
   } = useForm<InputForm>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(activityFormSchema),
     mode: 'onChange',
   });
 
