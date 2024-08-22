@@ -67,7 +67,7 @@ function MainLayout({ children }: MainLayoutProps) {
         <Header />
       </div>
       <div className="layout-header-spacer" />
-      <main className="min-h-[1060px] flex-1 bg-kv-gray-100">{children}</main>
+      <main className="flex-1 bg-kv-gray-100">{children}</main>
       <div className="layout-content-margin-bottom" />
       <Footer />
     </div>
