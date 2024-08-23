@@ -30,7 +30,10 @@ export default function ActivityPage() {
       () => getActivity(activityId),
       {
         enabled: !!activityId,
+        staleTime: 5 * 60 * 1000,
+        cacheTime: 10 * 60 * 1000,
         refetchOnWindowFocus: false,
+        retry: 1,
       },
     );
 
@@ -38,7 +41,12 @@ export default function ActivityPage() {
   const { data: userData, isLoading: isUserLoading } = useFetchData(
     ['user'],
     getUserData,
-    {},
+    {
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 10 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    },
   );
 
   // 후기 데이터 가져오기
@@ -58,7 +66,7 @@ export default function ActivityPage() {
 
   if (isLoading) return <ActivityPageSkeleton />;
 
-  if (!activityData)
+  if (!activityData) {
     return (
       <div>
         <EmptyState message="존재하지 않는 체험입니다." />
@@ -70,7 +78,7 @@ export default function ActivityPage() {
         </Link>
       </div>
     );
-
+  }
   return (
     <>
       <div className="flex items-center justify-between">

@@ -6,6 +6,8 @@ interface Options {
   staleTime?: number;
   cacheTime?: number;
   refetchOnWindowFocus?: boolean;
+  refetchOnMount?: boolean;
+  retry?: number;
   // 원하는 경우 기타 옵션 추가 가능
 }
 
