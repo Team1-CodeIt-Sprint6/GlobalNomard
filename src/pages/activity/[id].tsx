@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Skeleton from 'react-loading-skeleton';
 
 import CustomKebab from '@/components/activity/CustomKebab';
 import ImageGallery from '@/components/activity/ImageGallery';
@@ -8,6 +9,7 @@ import ReservationCard from '@/components/activity/ReservationCard';
 import { ReviewRating } from '@/components/activity/Review';
 import ReviewList from '@/components/activity/ReviewList';
 import Pagination from '@/components/common/Pagination';
+import ActivityPageSkeleton from '@/components/skeletons/ActivityPageSkeleton';
 import useFetchData from '@/hooks/useFetchData';
 import { usePagination } from '@/hooks/usePagination';
 import { getActivity, getActivityReview } from '@/lib/apis/getApis';
@@ -21,16 +23,21 @@ export default function ActivityPage() {
   const activityId = Number(router.query.id);
 
   // 체험 상세 데이터 가져오기
-  const { data: activityData } = useFetchData<ActivityResponse>(
-    ['activity', activityId],
-    () => getActivity(activityId),
-    {
-      enabled: !!activityId,
-    },
-  );
+  const { data: activityData, isLoading: isActivityLoading } =
+    useFetchData<ActivityResponse>(
+      ['activity', activityId],
+      () => getActivity(activityId),
+      {
+        enabled: !!activityId,
+      },
+    );
 
   // 유저 데이터 가져오기
-  const { data: userData, isLoading } = useFetchData(['user'], getUserData, {});
+  const { data: userData, isLoading: isUserLoading } = useFetchData(
+    ['user'],
+    getUserData,
+    {},
+  );
 
   // 후기 데이터 가져오기
   const {
@@ -45,7 +52,9 @@ export default function ActivityPage() {
     initialPage: 1,
   });
 
-  if (isLoading) return <div>로딩중</div>;
+  const isLoading = isActivityLoading || isUserLoading;
+
+  if (isLoading) return <ActivityPageSkeleton />;
   if (!activityData) return <div>존재하지 않는 체험입니다.</div>;
 
   return (
