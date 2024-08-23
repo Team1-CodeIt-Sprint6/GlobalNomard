@@ -8,6 +8,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { activityListOptions } from '@/state/activityListAtom';
 import { MainPageOptionTypes } from '@/types/get/activityTypes';
+
+import ActiveCategorySlide from './ActiveCategorySlide';
 const categories: MainPageOptionTypes = {
   all: '전체',
   culture: '문화 · 예술',
@@ -18,7 +20,7 @@ const categories: MainPageOptionTypes = {
   wellbeing: '웰빙',
 } as const;
 
-export default function ListNavTagList() {
+export default function ActivityCategory() {
   const [options, setOptions] = useAtom(activityListOptions);
 
   return (
@@ -44,13 +46,11 @@ export default function ListNavTagList() {
       </ul>
       <ul className="relative flex max-h-[454px] w-[80%] rounded-xl pc:hidden tablet:flex tablet:px-[10px] mobile:px-[24px]">
         <Swiper
-          spaceBetween={30}
-          effect={'fade'}
+          spaceBetween={20}
+          // effect={'fade'}
           slidesPerView={4}
-          modules={[EffectFade, Navigation, Pagination]}
-          pagination={{
-            clickable: true,
-          }}
+          // modules={[EffectFade, Navigation]}
+          modules={[Navigation]}
           navigation={{
             nextEl: '.category-swiper-button-next',
             prevEl: '.category-swiper-button-prev',

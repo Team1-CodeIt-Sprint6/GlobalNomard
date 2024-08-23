@@ -1,11 +1,11 @@
-import MainPageBody from './MainPageBody';
-import MainPageHeader from './MainPageHeader';
+import MainBannerSection from './MainBannerSection';
+import MainListSection from './MainListSection';
 
 export default function MainPageLayout() {
   return (
     <div className="flex flex-col items-center">
-      <MainPageHeader />
-      <MainPageBody />
+      <MainBannerSection />
+      <MainListSection />
     </div>
   );
 }

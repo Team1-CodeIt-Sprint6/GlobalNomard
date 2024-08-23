@@ -38,7 +38,7 @@ export default function BestExperienceCard({ data }: { data: MyActivity }) {
             </span>
             {rating > 0 && reviewCount > 0 && (
               <h3 className="flex gap-1 text-white kv-text-md pc:kv-text-xl tablet:kv-text-xl">
-                {rating} ({reviewCount})
+                {rating.toFixed(1)} ({reviewCount})
               </h3>
             )}
             <h3 className="flex text-white kv-text-xl"></h3>

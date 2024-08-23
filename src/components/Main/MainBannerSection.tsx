@@ -7,9 +7,9 @@ import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import { activityListOptions } from '@/state/activityListAtom';
 
-import BestExperience from './BestExperience';
+import BestExperienceList from './BestExperienceList';
 
-export default function MainPageHeader() {
+export default function MainBannerSection() {
   const searchList = [
     '로컬투어',
     '힐링',
@@ -59,7 +59,9 @@ export default function MainPageHeader() {
           <span className="kv-text-bold text-kv-black kv-text-lg">
             # 이런 여행 테마로 검색해보세요!
           </span>
-          <ul className="flex flex-wrap gap-2">
+          <ul
+            className={`flex flex-wrap gap-2 ${options.keyword && 'justify-center'}`}
+          >
             {searchList.slice(0, !options.keyword ? 5 : 7).map((v) => (
               <li
                 key={v}
@@ -74,7 +76,7 @@ export default function MainPageHeader() {
           </ul>
         </div>
       </div>
-      {!options.keyword && <BestExperience />}
+      {!options.keyword && <BestExperienceList />}
     </div>
   );
 }

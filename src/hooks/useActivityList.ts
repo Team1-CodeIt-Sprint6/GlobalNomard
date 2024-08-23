@@ -2,13 +2,11 @@ import { useMutation } from '@tanstack/react-query';
 
 import { getActivityList } from '@/lib/apis/getApis';
 import {
-  getActivityListParams,
   getActivityListResponse,
   MainPageOptionTypes,
-  MyActivityList,
 } from '@/types/get/activityTypes';
 
-// NOTE: 로그인 성공시 쿠키에 토큰 저장, 실패시 에러 출력하는 훅
+// NOTE: 체험 리스트에 대한 데이터를 불러오는 뮤테이션
 const useActivityList = () => {
   return useMutation<
     { data: getActivityListResponse },

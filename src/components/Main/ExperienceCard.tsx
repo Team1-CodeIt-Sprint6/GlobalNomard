@@ -29,7 +29,7 @@ export default function ExperienceCard({ data }: { data: ActivityListItem }) {
         </span>
         <span className="flex items-center gap-x-1">
           <RatingStar />
-          <h3 className="font-kv-bold">{rating}</h3>
+          <h3 className="font-kv-bold">{rating > 0 ? rating.toFixed(1) : 0}</h3>
           <h3 className="font-kv-bold">({reviewCount})</h3>
         </span>
         <span className="font-kv-bold kv-text-lg">{title}</span>

@@ -3,14 +3,14 @@ import { useAtom, useAtomValue } from 'jotai';
 import SortDropDown from '@/components/common/Dropdown/SortDropdown';
 import { activityListOptions, listTotalCount } from '@/state/activityListAtom';
 
-import ListNavTagList from './ListNavTagList';
+import ListNavTagList from './ActivityCategory';
 
 const sortObjects: { [key: string]: 'price_asc' | 'price_desc' } = {
   '낮은 순': 'price_asc',
   '높은 순': 'price_desc',
 };
 
-export default function ListNavBar() {
+export default function ExperienceListNavBar() {
   const [options, setOptions] = useAtom(activityListOptions);
   const totalCount = useAtomValue(listTotalCount);
 
