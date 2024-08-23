@@ -109,8 +109,10 @@ export default function ActivityPage() {
             )}
           </div>
         </div>
-        <div className="mt-10">
-          <ReservationCard />
+        <div className="relative mt-10">
+          <div className="sticky top-24 z-10 tablet:min-w-[251px]">
+            <ReservationCard />
+          </div>
         </div>
       </div>
     </>
