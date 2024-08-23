@@ -13,11 +13,9 @@ import { MAX_IMG_LENGTH } from '@/constants/myActivityPage';
 import useDropdown from '@/hooks/useDropdown';
 import useImageManager from '@/hooks/useImageManager';
 import { postActivity, postActivityImage } from '@/lib/apis/postApis';
+import { activityFormSchema } from '@/lib/utils/activityFormSchema';
 import { convertYYMMDDtoYMD } from '@/lib/utils/formatDate';
-import {
-  activityFormSchema,
-  checkDuplication,
-} from '@/lib/utils/myActivityPage';
+import { checkDuplication } from '@/lib/utils/myActivityPage';
 import { CATEGORIES, Schedule } from '@/types/activityTypes';
 import { IMAGE_TYPES } from '@/types/page/myActivityPageTypes';
 

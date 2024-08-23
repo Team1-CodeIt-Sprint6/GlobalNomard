@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 
 import ValueDropdown from '@/components/common/Dropdown/ValueDropdown';
 import ErrorText from '@/components/common/ErrorText';
@@ -15,14 +14,12 @@ import useDropdown from '@/hooks/useDropdown';
 import useImageManager from '@/hooks/useImageManager';
 import { updateActivity } from '@/lib/apis/patchApis';
 import { postActivityImage } from '@/lib/apis/postApis';
+import { activityFormSchema } from '@/lib/utils/activityFormSchema';
 import {
   convertAPItoSelected,
   convertYYMMDDtoYMD,
 } from '@/lib/utils/formatDate';
-import {
-  activityFormSchema,
-  checkDuplication,
-} from '@/lib/utils/myActivityPage';
+import { checkDuplication } from '@/lib/utils/myActivityPage';
 import { CATEGORIES, Schedule } from '@/types/activityTypes';
 import { ActivityDetailResponse } from '@/types/page/myActivityEditPageTypes';
 import { IMAGE_TYPES } from '@/types/page/myActivityPageTypes';
