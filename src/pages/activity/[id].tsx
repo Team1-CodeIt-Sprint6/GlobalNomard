@@ -4,9 +4,9 @@ import CustomKebab from '@/components/activity/CustomKebab';
 import ImageGallery from '@/components/activity/ImageGallery';
 import KakaoMap from '@/components/activity/KakaoMap';
 import Location from '@/components/activity/Location';
+import ReservationCard from '@/components/activity/ReservationCard';
 import { ReviewRating } from '@/components/activity/Review';
 import ReviewList from '@/components/activity/ReviewList';
-import ReservationCard from '@/components/ActivityPage/ReservationCard';
 import Pagination from '@/components/common/Pagination';
 import useFetchData from '@/hooks/useFetchData';
 import { usePagination } from '@/hooks/usePagination';
@@ -56,7 +56,7 @@ export default function ActivityPage() {
           <h2 className="mb-4 mt-2 text-kv-3xl font-kv-bold mobile:text-kv-2xl">
             {activityData.title}
           </h2>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <ReviewRating
               reviewCount={activityData.reviewCount}
               rating={activityData.rating}
