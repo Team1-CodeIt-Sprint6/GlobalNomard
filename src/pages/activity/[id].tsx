@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Skeleton from 'react-loading-skeleton';
 
 import CustomKebab from '@/components/activity/CustomKebab';
 import ImageGallery from '@/components/activity/ImageGallery';
@@ -8,6 +8,7 @@ import Location from '@/components/activity/Location';
 import ReservationCard from '@/components/activity/ReservationCard';
 import { ReviewRating } from '@/components/activity/Review';
 import ReviewList from '@/components/activity/ReviewList';
+import EmptyState from '@/components/common/EmptyState';
 import Pagination from '@/components/common/Pagination';
 import ActivityPageSkeleton from '@/components/skeletons/ActivityPageSkeleton';
 import useFetchData from '@/hooks/useFetchData';
@@ -29,6 +30,7 @@ export default function ActivityPage() {
       () => getActivity(activityId),
       {
         enabled: !!activityId,
+        refetchOnWindowFocus: false,
       },
     );
 
@@ -55,7 +57,19 @@ export default function ActivityPage() {
   const isLoading = isActivityLoading || isUserLoading;
 
   if (isLoading) return <ActivityPageSkeleton />;
-  if (!activityData) return <div>존재하지 않는 체험입니다.</div>;
+
+  if (!activityData)
+    return (
+      <div>
+        <EmptyState message="존재하지 않는 체험입니다." />
+        <Link
+          href="/"
+          className="m-auto mt-6 w-40 rounded-lg bg-kv-primary-blue py-3 font-kv-medium text-white align-center hover:bg-kv-primary-blue-hover"
+        >
+          메인으로
+        </Link>
+      </div>
+    );
 
   return (
     <>

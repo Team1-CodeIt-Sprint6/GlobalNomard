@@ -5,6 +5,7 @@ interface Options {
   enabled?: boolean;
   staleTime?: number;
   cacheTime?: number;
+  refetchOnWindowFocus?: boolean;
   // 원하는 경우 기타 옵션 추가 가능
 }
 
