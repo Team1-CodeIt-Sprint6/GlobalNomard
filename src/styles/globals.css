@@ -262,7 +262,7 @@
   }
 
   .container-counter-participant-default {
-    @apply mt-3 flex w-[327px] flex-col gap-6 pc:gap-[5px] tablet:gap-[5px];
+    @apply mt-3 flex h-full w-[327px] flex-col gap-6 pc:gap-[5px] tablet:gap-[5px];
   }
 
   .title-counter-participant-default {
