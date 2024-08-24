@@ -49,7 +49,7 @@ export default function MainBannerSection() {
             className="h-[56px] w-[336px] rounded-3xl border-[1px] border-kv-primary-blue px-[20px] py-[14px] outline-none"
             placeholder="원하는 여행 상품을 찾아보세요"
           />
-          <Button className="kv-text-bold flex h-[56px] w-[140px] items-center justify-center gap-x-2 rounded-3xl bg-kv-primary-blue text-white kv-text-lg">
+          <Button className="flex h-[56px] w-[140px] items-center justify-center gap-x-2 rounded-3xl bg-kv-primary-blue font-kv-bold text-white kv-text-lg">
             <SearchButton />
             검색하기
           </Button>
