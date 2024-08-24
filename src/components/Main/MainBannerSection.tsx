@@ -19,7 +19,6 @@ export default function MainBannerSection() {
     '이색체험',
     '시장',
   ];
-  ['%89', '%8C', '8F'];
 
   const [options, setOptions] = useAtom(activityListOptions);
 
