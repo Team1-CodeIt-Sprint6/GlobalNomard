@@ -56,7 +56,7 @@ export default function MainBannerSection() {
         <div
           className={`flex-col gap-y-2 ${!options.keyword ? 'hidden pc:flex' : 'hidden items-center pc:flex tablet:flex'}`}
         >
-          <span className="kv-text-bold text-kv-black kv-text-lg">
+          <span className="font-kv-bold text-kv-black kv-text-lg">
             # 이런 여행 테마로 검색해보세요!
           </span>
           <ul

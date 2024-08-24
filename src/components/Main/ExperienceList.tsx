@@ -2,6 +2,7 @@ import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useMediaQuery, useWindowSize } from 'usehooks-ts';
 
+import NoList from '@/assets/icons/icon_no_list.svg';
 import { PC_SIZE, TABLET_SIZE } from '@/constants/windowSize';
 import useActivityList from '@/hooks/useActivityList';
 import {
@@ -69,14 +70,23 @@ export default function ExperienceList() {
         <KVentureSymbol />
         <h2 className="font-kv-bold kv-text-2xl">모든 체험</h2>
       </div>
-      <ul
-        className={`tablet:grid-row-3 grid-max-rows-2 pc:grid-max-rows-2 grid grid-cols-2 gap-4 pc:grid-cols-4 tablet:grid-cols-3`}
-      >
-        {activityList.map((v) => {
-          return <ExperienceCard key={v.id} data={v} />;
-        })}
-      </ul>
-      {options.page && (
+      {activityList.length === 0 ? (
+        <div className="flex flex-col items-center justify-center">
+          <NoList />
+          <h3 className="text-kv-xl font-kv-bold pc:kv-text-3xl tablet:kv-text-3xl">
+            체험 리스트가 존재하지 않습니다
+          </h3>
+        </div>
+      ) : (
+        <ul
+          className={`tablet:grid-row-3 grid-max-rows-2 pc:grid-max-rows-2 grid grid-cols-2 gap-4 pc:grid-cols-4 tablet:grid-cols-3`}
+        >
+          {activityList.map((v) => {
+            return <ExperienceCard key={v.id} data={v} />;
+          })}
+        </ul>
+      )}
+      {activityList.length > 0 && options.page && (
         <MainPagination
           totalCount={totalCount}
           currentPage={options.page}
