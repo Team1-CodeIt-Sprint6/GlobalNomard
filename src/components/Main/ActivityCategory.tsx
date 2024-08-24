@@ -3,9 +3,12 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 
 import { useAtom } from 'jotai';
+import { useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useMediaQuery } from 'usehooks-ts';
 
+import { TABLET_SIZE } from '@/constants/windowSize';
 import { activityListOptions } from '@/state/activityListAtom';
 import { MainPageOptionTypes } from '@/types/get/activityTypes';
 
@@ -21,6 +24,9 @@ const categories: MainPageOptionTypes = {
 
 export default function ActivityCategory() {
   const [options, setOptions] = useAtom(activityListOptions);
+  const [isPrev, setIsPrev] = useState(false);
+  const [isNext, setIsNext] = useState(true);
+  const isTablet = useMediaQuery(TABLET_SIZE);
 
   return (
     <>
@@ -43,23 +49,38 @@ export default function ActivityCategory() {
           );
         })}
       </ul>
-      <ul className="relative flex max-h-[454px] w-[80%] rounded-xl pc:hidden tablet:flex tablet:px-[10px] mobile:px-[24px]">
+      <ul className="relative flex max-h-[454px] w-[80%] rounded-xl pr-[24px] pc:hidden tablet:flex tablet:px-[10px]">
+        <div
+          className={`category-swiper-button-prev absolute left-0 top-[10px] z-10 flex hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-solid bg-white text-kv-primary-blue pc:flex tablet:${isPrev ? 'flex' : 'hidden'}`}
+        >
+          &lt;
+        </div>
         <Swiper
-          spaceBetween={20}
+          spaceBetween={isTablet ? 5 : 10}
           // effect={'fade'}
-          slidesPerView={4}
+          slidesPerView={isTablet ? 4 : 3}
           // modules={[EffectFade, Navigation]}
           modules={[Navigation]}
           navigation={{
             nextEl: '.category-swiper-button-next',
             prevEl: '.category-swiper-button-prev',
           }}
+          onActiveIndexChange={(swiper) => {
+            if (swiper.realIndex === 0) {
+              setIsPrev(false);
+            } else if (swiper.realIndex === swiper.slides.length - 4) {
+              setIsNext(false);
+            } else {
+              setIsPrev(true);
+              setIsNext(true);
+            }
+          }}
         >
           {Object.keys(categories).map((v) => {
             return (
               <SwiperSlide key={v}>
                 <li
-                  className={`flex w-[127px] cursor-pointer items-center justify-center rounded-xl border-[1px] border-kv-primary-blue-light py-3 kv-text-lg ${categories[v] === options.category ? 'bg-kv-blue text-white' : 'bg-white text-kv-black'}`}
+                  className={`relative flex h-[41px] w-[80px] cursor-pointer items-center justify-center gap-x-8 overflow-hidden rounded-xl border-[1px] border-kv-primary-blue-light py-3 pc:h-[57px] pc:w-[127px] pc:kv-text-lg tablet:h-[57px] tablet:w-[127px] tablet:gap-x-14 ${categories[v] === options.category ? 'bg-kv-blue text-white' : 'bg-white text-kv-black'}`}
                   onClick={() => {
                     setOptions({
                       ...options,
@@ -73,13 +94,10 @@ export default function ActivityCategory() {
             );
           })}
         </Swiper>
-        <div className="absolute z-10 hidden gap-x-2 px-2 pc:bottom-[-10px] pc:right-[20px] pc:flex tablet:bottom-[-10px] tablet:right-[40%] tablet:flex">
-          <span className="category-swiper-button-prev flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white text-kv-primary-blue">
-            &lt;
-          </span>
-          <span className="category-swiper-button-next flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white text-kv-primary-blue">
-            &gt;
-          </span>
+        <div
+          className={`category-swiper-button-next absolute right-0 top-[10px] z-10 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-solid bg-white text-kv-primary-blue pc:flex tablet:${isNext ? 'flex' : 'hidden'}`}
+        >
+          &gt;
         </div>
       </ul>
     </>

@@ -28,7 +28,7 @@ export default function MainBannerSection() {
 
   const { register, handleSubmit, getValues, setValue } = useForm();
   return (
-    <div className="flex w-[100%] flex-col gap-x-3 bg-kv-primary-blue-light px-[20px] py-[20px] pc:flex-row pc:items-center pc:justify-center pc:px-[360px] pc:py-[79px] tablet:flex-col tablet:items-center tablet:justify-center tablet:gap-y-3 tablet:px-[24px] tablet:pb-[60px] tablet:pt-[80px]">
+    <div className="flex w-[100%] flex-col items-center gap-x-3 bg-kv-primary-blue-light px-[20px] py-[20px] pc:flex-row pc:items-center pc:justify-center pc:px-[360px] pc:py-[79px] tablet:flex-col tablet:items-center tablet:justify-center tablet:gap-y-3 tablet:px-[24px] tablet:pb-[60px] tablet:pt-[80px]">
       <div className="flex max-w-[535px] flex-col items-center justify-center pc:gap-y-[15px]">
         <span className="flex w-[190px] break-all text-center text-kv-2xl pc:w-[476px] pc:text-left pc:text-[56px] pc:leading-[64px] tablet:flex tablet:w-[476px] tablet:justify-center tablet:text-center tablet:text-[56px] tablet:leading-[64px]">
           요즘 뜨는 국내 여행 취향에 맞게 즐겨요

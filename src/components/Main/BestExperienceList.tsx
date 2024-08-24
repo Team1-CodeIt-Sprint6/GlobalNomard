@@ -37,7 +37,7 @@ export default function BestExperienceList() {
   }, []);
 
   return (
-    <ul className="relative flex max-h-[454px] max-w-[696px] justify-center rounded-xl">
+    <ul className="relative flex max-h-[454px] w-[335px] max-w-[696px] justify-center rounded-xl pc:w-[696px] tablet:w-[696px]">
       <Swiper
         loop={true}
         spaceBetween={50}

@@ -2,6 +2,7 @@ import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useMediaQuery, useWindowSize } from 'usehooks-ts';
 
+import { PC_SIZE, TABLET_SIZE } from '@/constants/windowSize';
 import useActivityList from '@/hooks/useActivityList';
 import {
   activityListAtom,
@@ -15,10 +16,8 @@ import ExperienceCard from './ExperienceCard';
 import MainPagination from './MainPagination';
 
 export default function ExperienceList() {
-  const isPC = useMediaQuery('only screen and (min-width : 1200px)');
-  const isTablet = useMediaQuery(
-    'only screen and (min-width : 768px) and (max-width : 1199px)',
-  );
+  const isPC = useMediaQuery(PC_SIZE);
+  const isTablet = useMediaQuery(TABLET_SIZE);
   const [options, setOptions] =
     useAtom<MainPageOptionTypes>(activityListOptions);
   const [totalCount, setTotalCount] = useAtom(listTotalCount);
@@ -65,7 +64,7 @@ export default function ExperienceList() {
   }, [size, windowsSize]);
 
   return (
-    <div className="flex flex-col gap-y-1">
+    <div className="flex w-[100%] flex-col gap-y-1">
       <div className={`flex gap-x-2 pb-6 ${options.keyword && 'hidden'}`}>
         <KVentureSymbol />
         <h2 className="font-kv-bold kv-text-2xl">모든 체험</h2>
