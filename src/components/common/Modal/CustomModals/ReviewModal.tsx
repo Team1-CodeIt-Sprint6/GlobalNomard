@@ -100,7 +100,9 @@ export default function ReviewModal({
     <div className="review-modal-container">
       <div className="mt-0 h-full w-full p-4 pc:h-[616px] pc:w-[432px] pc:p-0 tablet:h-[616px] tablet:w-[432px] tablet:p-0">
         <div className="flex h-10 w-full items-center justify-between pc:mt-[35px] tablet:mt-[35px]">
-          <h2 className="font-kv-bold kv-text-2xl">후기 작성</h2>
+          <h2 className="text-kv-2xl font-kv-bold mobile:text-[28px]">
+            후기 작성
+          </h2>
           <div className="h-7 w-7 cursor-pointer" onClick={() => onClose()}>
             <CloseIcon />
           </div>
