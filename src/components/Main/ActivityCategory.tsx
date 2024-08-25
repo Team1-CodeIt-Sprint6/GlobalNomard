@@ -84,7 +84,8 @@ export default function ActivityCategory() {
                   onClick={() => {
                     setOptions({
                       ...options,
-                      category: categories[v],
+                      category: categories[v] === '전체' ? '' : categories[v],
+                      page: 1,
                     });
                   }}
                 >

@@ -60,7 +60,7 @@ export default function MainBannerSection() {
             # 이런 여행 테마로 검색해보세요!
           </span>
           <ul
-            className={`flex flex-wrap gap-2 ${options.keyword && 'justify-center'}`}
+            className={`w-[flex flex-wrap gap-2 ${options.keyword && 'justify-center'}`}
           >
             {searchList.slice(0, !options.keyword ? 5 : 7).map((v) => (
               <li
