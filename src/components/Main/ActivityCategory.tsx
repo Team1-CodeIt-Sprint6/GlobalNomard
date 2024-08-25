@@ -51,7 +51,7 @@ export default function ActivityCategory() {
       </ul>
       <ul className="relative flex max-h-[454px] w-[80%] min-w-[260px] rounded-xl pr-[16px] pc:hidden tablet:flex tablet:px-[10px]">
         <div
-          className={`category-swiper-button-prev absolute left-[-3px] top-[12px] z-10 flex hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-solid bg-white text-kv-primary-blue pc:flex tablet:${isPrev ? 'flex' : 'hidden'}`}
+          className={`category-swiper-button-prev absolute left-[-3px] top-[12px] z-10 flex hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-solid bg-white font-kv-bold text-kv-primary-blue pc:flex tablet:${isPrev ? 'flex' : 'hidden'}`}
         >
           &lt;
         </div>
@@ -96,7 +96,7 @@ export default function ActivityCategory() {
           })}
         </Swiper>
         <div
-          className={`category-swiper-button-next absolute right-[3px] top-[12px] z-10 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-solid bg-white text-kv-primary-blue pc:flex tablet:${isNext ? 'flex' : 'hidden'}`}
+          className={`category-swiper-button-next absolute right-[3px] top-[12px] z-10 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-solid bg-white font-kv-bold text-kv-primary-blue pc:flex tablet:${isNext ? 'flex' : 'hidden'}`}
         >
           &gt;
         </div>
