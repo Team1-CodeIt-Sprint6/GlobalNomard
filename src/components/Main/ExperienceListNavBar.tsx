@@ -16,7 +16,7 @@ export default function ExperienceListNavBar() {
   const totalCount = useAtomValue(listTotalCount);
 
   return (
-    <div className="flex w-[100%] justify-between py-[16px] tablet:py-[20px]">
+    <div className="flex w-[100%] justify-between py-[14px] pc:min-h-[100px] tablet:min-h-[100px] tablet:py-[20px]">
       {!options.keyword ? (
         <>
           <ActivityCategory />

@@ -58,7 +58,7 @@ export default function BestExperienceList() {
               );
             })}
           </Swiper>
-          <div className="absolute z-10 hidden gap-x-2 px-2 pc:bottom-[-10px] pc:right-[20px] pc:flex tablet:bottom-[-10px] tablet:right-[40%] tablet:flex">
+          <div className="absolute z-10 hidden gap-x-2 px-2 pc:bottom-[-10px] pc:right-[10%] pc:flex tablet:bottom-[-10px] tablet:right-[40%] tablet:flex">
             <span className="review-swiper-button-prev flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white text-kv-primary-blue">
               &lt;
             </span>
