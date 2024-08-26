@@ -270,7 +270,7 @@
   }
 
   .counter-participant-default {
-    @apply flex h-10 w-[120px] items-center justify-between gap-2 rounded-[6px] border-2;
+    @apply flex h-10 w-[120px] items-center justify-between gap-2 rounded-[6px] border-2 pc:ml-[40px];
   }
 
   .button-counter-participant-default {
