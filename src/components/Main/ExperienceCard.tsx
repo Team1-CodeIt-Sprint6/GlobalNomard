@@ -23,10 +23,14 @@ export default function ExperienceCard({ data }: { data: ActivityListItem }) {
             className="absolute rounded-lg"
           />
         </span>
-        <span className="flex items-center gap-x-1">
+        <span className="flex items-center gap-x-1 py-[5px]">
           <RatingStar />
-          <h3 className="font-kv-bold">{rating > 0 ? rating.toFixed(1) : 0}</h3>
-          <h3 className="font-kv-bold">({reviewCount})</h3>
+          {rating > 0 && (
+            <>
+              <h3 className="font-kv-bold">{rating.toFixed(1)}</h3>
+              <h3 className="font-kv-bold">({reviewCount})</h3>
+            </>
+          )}
         </span>
         <span className="inline-block w-[170px] overflow-hidden text-ellipsis text-nowrap font-kv-bold kv-text-lg pc:w-[280px] tablet:w-[210px]">
           {title}
