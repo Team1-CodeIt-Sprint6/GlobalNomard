@@ -274,11 +274,11 @@
   }
 
   .button-counter-participant-default {
-    @apply flex size-10 align-center hover:cursor-pointer;
+    @apply flex size-10 align-center hover:cursor-pointer hover:bg-kv-gray-200;
   }
 
   .icon-button-counter-participant-default {
-    @apply size-5 text-kv-gray-4b hover:font-kv-bold;
+    @apply size-5 text-kv-gray-4b;
   }
 
   .text-button-counter-participant-default {
