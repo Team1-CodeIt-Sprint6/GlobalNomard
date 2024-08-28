@@ -4,7 +4,7 @@ import 'swiper/css/navigation';
 
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
-import { EffectFade, Navigation } from 'swiper/modules';
+import { Autoplay, EffectFade, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import NoList from '@/assets/icons/icon_no_list.svg';
@@ -44,7 +44,11 @@ export default function BestExperienceList() {
             spaceBetween={50}
             effect={'fade'}
             slidesPerView={1}
-            modules={[EffectFade, Navigation]}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay, EffectFade, Navigation]}
             navigation={{
               nextEl: '.review-swiper-button-next',
               prevEl: '.review-swiper-button-prev',
