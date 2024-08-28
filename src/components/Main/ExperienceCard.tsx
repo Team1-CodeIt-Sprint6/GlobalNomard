@@ -14,13 +14,13 @@ export default function ExperienceCard({ data }: { data: ActivityListItem }) {
   return (
     <li key={id} className="flex flex-col">
       <Link href={`/activity/${id}`}>
-        <span className="relative flex h-[168px] w-[168px] items-center rounded-[24px] pc:h-[283px] pc:w-[283px] tablet:h-[221px] tablet:w-[221px]">
+        <span className="relative flex h-[168px] w-[168px] items-center rounded-[24px] shadow-[0px_20px_20px_10px_#00000024] pc:h-[283px] pc:w-[283px] tablet:h-[221px] tablet:w-[221px]">
           <Image
             fill
             objectFit="cover"
             src={imageError ? DEFAULT_ACTIVITY_IMAGE : bannerImageUrl}
             alt={title}
-            className="absolute rounded-lg"
+            className="absolute rounded-[24px]"
           />
         </span>
         <span className="flex items-center gap-x-1 py-[10px]">
