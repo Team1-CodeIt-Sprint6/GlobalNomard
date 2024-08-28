@@ -28,7 +28,7 @@ export default function ExperienceCard({ data }: { data: ActivityListItem }) {
           {rating > 0 && <h3 className="font-kv-bold">{rating.toFixed(1)}</h3>}
           {reviewCount > 0 && <h3 className="font-kv-bold">({reviewCount})</h3>}
         </span>
-        <span className="flex w-[170px] overflow-hidden text-ellipsis text-nowrap font-kv-bold kv-text-lg pc:w-[280px] tablet:w-[210px]">
+        <span className="text-overflow-oneline flex max-w-[165px] font-kv-bold kv-text-lg pc:w-[280px] pc:max-w-[280px] tablet:w-[210px] tablet:max-w-[280px]">
           {title}
         </span>
         <span className="flex gap-x-1 kv-text-lg">
